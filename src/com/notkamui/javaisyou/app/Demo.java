@@ -1,4 +1,4 @@
-package fr.notkamui.javaisyou.app;
+package com.notkamui.javaisyou.app;
 
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
