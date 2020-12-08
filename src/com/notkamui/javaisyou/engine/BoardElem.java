@@ -44,7 +44,7 @@ public class BoardElem {
         noun.removeFlag(flag);
     }
 
-    boolean applyProperties(BoardElem other, Movement move) {
+    private boolean applyProperties(BoardElem other, Movement move) {
         for (var prop : this.noun.properties()) {
             if (!prop.apply(this, other, move))
                 return false;
