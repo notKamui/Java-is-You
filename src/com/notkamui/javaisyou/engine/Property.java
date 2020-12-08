@@ -10,7 +10,6 @@ public sealed interface Property {
         }
     }
 
-
     record Melting() implements Property {
         @Override
         public boolean apply(BoardElem trigger, BoardElem receiver, Movement move) {
@@ -18,7 +17,6 @@ public sealed interface Property {
                     (trigger.hasFlag(Flag.HOT) && receiver.hasFlag(Flag.MELT))) {
                 trigger.setAlive(false);
                 receiver.setAlive(false);
-                return false;
             }
             return true;
         }
@@ -27,11 +25,29 @@ public sealed interface Property {
     record Defeat() implements Property {
         @Override
         public boolean apply(BoardElem trigger, BoardElem receiver, Movement move) {
-            if (trigger.hasFlag(Flag.YOU) && receiver.hasFlag(Flag.DEFEAT)) {
+            if (trigger.hasFlag(Flag.YOU)) {
                 trigger.setAlive(false);
-                return false;
+            } else {
+                receiver.setAlive(false);
             }
+            return true;
+        }
+    }
+
+    record Sink() implements Property {
+        @Override
+        public boolean apply(BoardElem trigger, BoardElem receiver, Movement move) {
+            trigger.setAlive(false);
+            receiver.setAlive(false);
+            return true;
+        }
+    }
+
+    record Stop() implements Property {
+        @Override
+        public boolean apply(BoardElem trigger, BoardElem receiver, Movement move) {
             return false;
         }
     }
+
 }

@@ -8,7 +8,8 @@ import java.util.stream.Collectors;
 public class Board {
     private final int width;
     private final int height;
-    private List<BoardElem> elems = new ArrayList<>();
+    private final List<BoardElem> elems = new ArrayList<>();
+    private final List<Noun> nouns = new ArrayList<>();
 
     public Board(int width, int height) {
         if (width <= 0 || height <= 0) throw new IllegalArgumentException("width and height must be positive");
