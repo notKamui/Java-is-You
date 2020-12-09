@@ -1,6 +1,8 @@
 package com.notkamui.javaisyou.engine;
 
 import com.notkamui.javaisyou.engine.boardelement.Entity;
+import com.notkamui.javaisyou.engine.boardelement.Sprites;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +17,11 @@ public class Board {
 
     public Board(String levelPath) {
         Objects.requireNonNull(levelPath);
-        // TODO create required entities and types
+        // TODO parse .txt and create required entities and types
 
         width = 10;
         height = 10;
+
     }
 
     public List<Entity> get(int x, int y) {
@@ -33,6 +36,16 @@ public class Board {
 
     public int height() {
         return height;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "\nwidth=" + width +
+                "\nheight=" + height +
+                "\nentities=" + entities +
+                '}';
     }
 }
 

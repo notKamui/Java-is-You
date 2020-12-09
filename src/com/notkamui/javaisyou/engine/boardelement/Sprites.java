@@ -7,6 +7,11 @@ import java.util.Map;
 public final class Sprites {
     public static final String WALL = "/assets/nouns/WALL/WALL_0.gif";
     public static final String WALL_NOUN = "/assets/nouns/WALL/Text_WALL_0.gif";
+    public static final String WATER = "/assets/nouns/WATER/WATER_0.gif";
+    public static final String WATER_NOUN = "/assets/nouns/WATER/Text_WATER_0.gif";
+    public static final String BABA = "/assets/nouns/BABA/BABA_0.gif";
+    public static final String BABA_NOUN = "/assets/nouns/BABA/Text_BABA_0.gif";
+
     public static final Map<OpOrProp, String> OP_PROPS = Map.of(
             OpOrProp.IS_OPERATOR, "/assets/operators/IS/Op_IS.gif",
             OpOrProp.YOU_PROPERTY, "/assets/properties/YOU/Prop_YOU.gif",

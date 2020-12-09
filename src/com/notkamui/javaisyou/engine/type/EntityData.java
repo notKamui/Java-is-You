@@ -9,16 +9,16 @@ import java.util.Objects;
 import java.util.Set;
 
 final class EntityData {
-    private final String elementImg;
-    private final String nounImg;
+    private final String elementPict;
+    private final String nounPict;
     private final Set<Property> props = new HashSet<>();
     private final Set<Flag> flags = new HashSet<>();
 
-    EntityData(String elementImg, String nounImg) {
-        Objects.requireNonNull(elementImg);
-        Objects.requireNonNull(nounImg);
-        this.elementImg = elementImg;
-        this.nounImg = nounImg;
+    EntityData(String elementPict, String nounPict) {
+        Objects.requireNonNull(elementPict);
+        Objects.requireNonNull(nounPict);
+        this.elementPict = elementPict;
+        this.nounPict = nounPict;
     }
 
     public boolean hasFlag(Flag flag) {
@@ -53,10 +53,19 @@ final class EntityData {
     public String getPicture(EntityType type) {
         Objects.requireNonNull(type);
         return switch (type) {
-            case NOUN -> nounImg;
-            case ELEMENT -> elementImg;
+            case NOUN -> nounPict;
+            case ELEMENT -> elementPict;
         };
     }
 
+    @Override
+    public String toString() {
+        return "EntityWrapper{" +
+                "\nelementPict='" + elementPict + '\'' +
+                "\nnounPict='" + nounPict + '\'' +
+                "\nprops=" + props +
+                "\nflags=" + flags +
+                '}';
+    }
 }
 

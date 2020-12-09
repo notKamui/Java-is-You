@@ -13,9 +13,15 @@ public class Entity {
     private int x;
     private int y;
 
-    public Entity(Board board, int x, int y) {
+    public Entity(Board board, EntityWrapper entityWrapper, Direction dir, int x, int y) {
         Objects.requireNonNull(board);
+        Objects.requireNonNull(entityWrapper);
+        Objects.requireNonNull(dir);
         this.board = board;
+        this.entityWrapper = entityWrapper;
+        this.direction = dir;
+        this.x = x;
+        this.y = y;
     }
 
     public int x() {
@@ -50,9 +56,14 @@ public class Entity {
         entityWrapper.removeFlag(flag);
     }
 
-    private boolean applyProperties(Entity other, Movement move) {
-        for (var prop : this.entityWrapper.properties()) {
-            if (!prop.apply(this, other, move))
+
+    private static boolean applyProperties(Entity trigger, Entity receiver, Movement move) {
+        for (var trigProp : trigger.entityWrapper.properties()) {
+            if (!trigProp.apply(trigger, receiver, move))
+                return false;
+        }
+        for (var recProp : receiver.entityWrapper.properties()) {
+            if (!recProp.apply(trigger, receiver, move))
                 return false;
         }
         return true;
@@ -66,17 +77,25 @@ public class Entity {
 
         var others = board.get(destX, destY);
         if (!others.isEmpty()) {
-            var stop = false;
-            for (var be : others) {
-                if (!be.applyProperties(this, move))
-                    return false;
-                else if (!this.applyProperties(be, move))
+            for (var other : others) {
+                if (!applyProperties(this, other, move))
                     return false;
             }
-        } else {
-            x += move.vectX();
-            y += move.vectY();
         }
+        x += move.vectX();
+        y += move.vectY();
+
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "\ndirection=" + direction +
+                "\nisAlive=" + isAlive +
+                "\nx=" + x +
+                "\ny=" + y +
+                "\nentityWrapper=" + entityWrapper +
+                '}';
     }
 }

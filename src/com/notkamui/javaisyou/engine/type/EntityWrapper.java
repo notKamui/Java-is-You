@@ -9,7 +9,10 @@ import java.util.Set;
 public final class EntityWrapper {
     private EntityData data;
 
-    public EntityWrapper(String sprite) {
+    public EntityWrapper(String elementPict, String nounPict) {
+        Objects.requireNonNull(elementPict);
+        Objects.requireNonNull(nounPict);
+        data = new EntityData(elementPict, nounPict);
     }
 
 
@@ -54,5 +57,10 @@ public final class EntityWrapper {
     public String getPicture(com.notkamui.javaisyou.engine.EntityType type) {
         Objects.requireNonNull(type);
         return data.getPicture(type);
+    }
+
+    @Override
+    public String toString() {
+        return data.toString();
     }
 }
