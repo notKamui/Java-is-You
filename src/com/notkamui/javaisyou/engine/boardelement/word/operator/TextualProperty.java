@@ -1,9 +1,9 @@
 package com.notkamui.javaisyou.engine.boardelement.word.operator;
 
-import com.notkamui.javaisyou.engine.type.BabaWordType;
+import com.notkamui.javaisyou.engine.type.WordWrapper;
 
 public class TextualProperty {
 
-    private BabaWordType babaWordType;
+    private WordWrapper wordWrapper;
 
 }

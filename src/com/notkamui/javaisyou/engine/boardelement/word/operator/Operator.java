@@ -1,12 +1,12 @@
 package com.notkamui.javaisyou.engine.boardelement.word.operator;
 
 import com.notkamui.javaisyou.engine.Property;
-import com.notkamui.javaisyou.engine.type.BasicBabaType;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
 
 public sealed interface Operator permits IsOperator {
 
-    void apply(BasicBabaType leftType, BasicBabaType rightType);
+    void apply(EntityWrapper leftType, EntityWrapper rightType);
 
-    void apply(BasicBabaType type, Property property);
+    void apply(EntityWrapper type, Property property);
 
 }

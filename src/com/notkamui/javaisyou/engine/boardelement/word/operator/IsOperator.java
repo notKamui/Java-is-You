@@ -1,27 +1,27 @@
 package com.notkamui.javaisyou.engine.boardelement.word.operator;
 
 import com.notkamui.javaisyou.engine.Property;
-import com.notkamui.javaisyou.engine.type.BasicBabaType;
-import com.notkamui.javaisyou.engine.type.BabaWordType;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
+import com.notkamui.javaisyou.engine.type.WordWrapper;
 
 import java.util.Objects;
 
 public final class IsOperator implements Operator {
 
-    private BabaWordType babaWordType;
+    private WordWrapper wordWrapper;
 
-    public IsOperator(BabaWordType babaWordType) {
-        Objects.requireNonNull(babaWordType);
-        this.babaWordType = babaWordType;
+    public IsOperator(WordWrapper wordWrapper) {
+        Objects.requireNonNull(wordWrapper);
+        this.wordWrapper = wordWrapper;
     }
 
     @Override
-    public void apply(BasicBabaType leftType, BasicBabaType rightType) {
-        rightType.setData(leftType);
+    public void apply(EntityWrapper leftType, EntityWrapper rightType) {
+        rightType.setData(leftType.getData());
     }
 
     @Override
-    public void apply(BasicBabaType type, Property property) {
+    public void apply(EntityWrapper type, Property property) {
         type.addProperty(property);
     }
 }

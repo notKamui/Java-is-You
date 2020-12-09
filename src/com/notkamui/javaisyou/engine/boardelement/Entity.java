@@ -1,17 +1,20 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
 import com.notkamui.javaisyou.engine.*;
-import com.notkamui.javaisyou.engine.type.BasicBabaType;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
+
+import java.util.Objects;
 
 public class Entity {
-    private BasicBabaType basicBabaType;
+    private EntityWrapper entityWrapper;
     Direction direction;
     private final Board board;
     private boolean isAlive = true;
     private int x;
     private int y;
 
-    public Entity(Board board) {
+    public Entity(Board board, int x, int y) {
+        Objects.requireNonNull(board);
         this.board = board;
     }
 
@@ -23,8 +26,8 @@ public class Entity {
         return y;
     }
 
-    BasicBabaType noun() {
-        return basicBabaType;
+    EntityWrapper noun() {
+        return entityWrapper;
     }
 
     boolean isAlive() {
@@ -36,19 +39,19 @@ public class Entity {
     }
 
     public boolean hasFlag(Flag flag) {
-        return basicBabaType.hasFlag(flag);
+        return entityWrapper.hasFlag(flag);
     }
 
     void addFlag(Flag flag) {
-        basicBabaType.addFlag(flag);
+        entityWrapper.addFlag(flag);
     }
 
     void removeFlag(Flag flag) {
-        basicBabaType.removeFlag(flag);
+        entityWrapper.removeFlag(flag);
     }
 
     private boolean applyProperties(Entity other, Movement move) {
-        for (var prop : this.basicBabaType.properties()) {
+        for (var prop : this.entityWrapper.properties()) {
             if (!prop.apply(this, other, move))
                 return false;
         }
