@@ -1,58 +1,61 @@
-package com.notkamui.javaisyou.engine;
+package com.notkamui.javaisyou.engine.boardelement;
 
-public class BoardElem {
-    private Noun noun;
+import com.notkamui.javaisyou.engine.*;
+import com.notkamui.javaisyou.engine.type.BasicBabaType;
+
+public class Entity {
+    private BasicBabaType basicBabaType;
     Direction direction;
     private final Board board;
     private boolean isAlive = true;
     private int x;
     private int y;
 
-    public BoardElem(Board board) {
+    public Entity(Board board) {
         this.board = board;
     }
 
-    int x() {
+    public int x() {
         return x;
     }
 
-    int y() {
+    public int y() {
         return y;
     }
 
-    Noun noun() {
-        return noun;
+    BasicBabaType noun() {
+        return basicBabaType;
     }
 
     boolean isAlive() {
         return isAlive;
     }
 
-    void setAlive(boolean state) {
+    public void setAlive(boolean state) {
         isAlive = state;
     }
 
-    boolean hasFlag(Flag flag) {
-        return noun.hasFlag(flag);
+    public boolean hasFlag(Flag flag) {
+        return basicBabaType.hasFlag(flag);
     }
 
     void addFlag(Flag flag) {
-        noun.addFlag(flag);
+        basicBabaType.addFlag(flag);
     }
 
     void removeFlag(Flag flag) {
-        noun.removeFlag(flag);
+        basicBabaType.removeFlag(flag);
     }
 
-    private boolean applyProperties(BoardElem other, Movement move) {
-        for (var prop : this.noun.properties()) {
+    private boolean applyProperties(Entity other, Movement move) {
+        for (var prop : this.basicBabaType.properties()) {
             if (!prop.apply(this, other, move))
                 return false;
         }
         return true;
     }
 
-    boolean move(Movement move) {
+    public boolean move(Movement move) {
         var destX = x + move.vectX();
         var destY = y + move.vectY();
 
