@@ -8,9 +8,10 @@ import com.notkamui.javaisyou.engine.type.Wrapper;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public final class Entity implements GameObject {
-    private EntityWrapper entityWrapper;
+    private final EntityWrapper entityWrapper;
     private final GameObjectComponent component;
 
 
@@ -20,36 +21,6 @@ public final class Entity implements GameObject {
         Objects.requireNonNull(dir);
         this.entityWrapper = entityWrapper;
         this.component = new GameObjectComponent(board, this, dir, x, y);
-    }
-
-    @Override
-    public int x() {
-        return component.x();
-    }
-
-    @Override
-    public int y() {
-        return component.y();
-    }
-
-    @Override
-    public Wrapper wrapper() {
-        return (Wrapper) entityWrapper;
-    }
-
-    @Override
-    public Set<Property> properties() {
-        return entityWrapper.properties();
-    }
-
-    @Override
-    public boolean state() {
-        return component.state();
-    }
-
-    @Override
-    public void setState(boolean state) {
-       component.setState(state);
     }
 
     @Override
@@ -68,7 +39,52 @@ public final class Entity implements GameObject {
     }
 
     @Override
+    public Set<Property> properties() {
+        return entityWrapper.properties();
+    }
+
+    @Override
+    public Wrapper wrapper() {
+        return entityWrapper;
+    }
+
+    @Override
+    public int x() {
+        return component.x();
+    }
+
+    @Override
+    public int y() {
+        return component.y();
+    }
+
+    @Override
+    public boolean state() {
+        return component.state();
+    }
+
+    @Override
     public boolean move(Movement move) {
         return component.move(move);
     }
+
+    @Override
+    public void setState(boolean state) {
+        component.setState(state);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Entity that)) return false;
+        return entityWrapper.equals(that.wrapper()) &&
+                component.x() == that.x() &&
+                component.y() == that.y();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(component.x(), component.y());
+    }
+
 }

@@ -1,9 +1,9 @@
 package com.notkamui.javaisyou.engine;
 
-import com.notkamui.javaisyou.engine.boardelement.Applicable;
-import com.notkamui.javaisyou.engine.boardelement.GameObject;
-import com.notkamui.javaisyou.engine.boardelement.Noun;
-import com.notkamui.javaisyou.engine.boardelement.Operator;
+import com.notkamui.javaisyou.engine.boardelement.*;
+import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
+import com.notkamui.javaisyou.engine.type.WordWrapper;
 import com.notkamui.javaisyou.engine.type.Wrapper;
 
 import java.util.ArrayList;
@@ -25,6 +25,28 @@ public class Board {
         width = 10;
         height = 10;
 
+        // types
+        var wallWrapper = new EntityWrapper(Sprites.WALL, Sprites.WALL_NOUN);
+        var textWrapper = new WordWrapper();
+
+        // property
+        var pushProperty = new Property.Push();
+
+        // entities
+        gameObjects.add(new Entity(this, wallWrapper, Direction.NORTH, 5, 5));
+
+        // words
+        var textWall = new Noun(this, textWrapper, Direction.NORTH, 0, 0, wallWrapper);
+        gameObjects.add(textWall);
+        gameObjects.add(new IsOperator(this, textWrapper, Direction.NORTH, 1, 0));
+        gameObjects.add(new TextualProperty(this, textWrapper, Direction.NORTH, 2, 0, pushProperty));
+
+        System.out.println("Before updates: " + activeRules);
+        updateRules();
+        System.out.println("First update: " + activeRules);
+        textWall.move(new Movement(1, 0));
+        updateRules();
+        System.out.println("Second update: " + activeRules);
     }
 
     public List<GameObject> get(int x, int y) {

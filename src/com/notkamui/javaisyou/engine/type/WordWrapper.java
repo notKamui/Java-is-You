@@ -9,6 +9,10 @@ import java.util.Set;
 public final class WordWrapper implements Wrapper {
     private WordData data;
 
+    public WordWrapper() {
+        this.data = new WordData();
+    }
+
     public WordData getData() {
         return data;
     }
