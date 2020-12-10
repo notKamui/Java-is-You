@@ -6,7 +6,7 @@ import com.notkamui.javaisyou.engine.property.Property;
 import java.util.Objects;
 import java.util.Set;
 
-public final class EntityWrapper {
+public final class EntityWrapper implements Wrapper {
     private EntityData data;
 
     public EntityWrapper(String elementPict, String nounPict) {
@@ -15,45 +15,51 @@ public final class EntityWrapper {
         data = new EntityData(elementPict, nounPict);
     }
 
-
     public EntityData getData() {
         return data;
-    }
+     }
 
     public void setData(EntityData data) {
         Objects.requireNonNull(data);
         this.data = data;
     }
 
+    @Override
     public Set<Property> properties() {
         return data.properties();
     }
 
+    @Override
     public void addProperty(Property prop) {
         Objects.requireNonNull(prop);
         data.addProperty(prop);
     }
 
+    @Override
     public void removeProperty(Property prop) {
         Objects.requireNonNull(prop);
         data.removeProperty(prop);
     }
 
+    @Override
     public boolean hasFlag(PropertyFlag propertyFlag) {
         Objects.requireNonNull(propertyFlag);
         return data.hasFlag(propertyFlag);
     }
 
+    @Override
     public void addFlag(PropertyFlag propertyFlag) {
         Objects.requireNonNull(propertyFlag);
         data.addFlag(propertyFlag);
     }
 
+    @Override
     public void removeFlag(PropertyFlag propertyFlag) {
         Objects.requireNonNull(propertyFlag);
         data.removeFlag(propertyFlag);
     }
 
+    @Override
     public String getPicture(EntityAspect type) {
         Objects.requireNonNull(type);
         return data.getPicture(type);

@@ -1,55 +1,87 @@
 package com.notkamui.javaisyou.engine.property;
 
 import com.notkamui.javaisyou.engine.Movement;
-import com.notkamui.javaisyou.engine.boardelement.Entity;
+import com.notkamui.javaisyou.engine.boardelement.GameObject;
 
-public sealed interface Property {
-    boolean apply(Entity trigger, Entity receiver, Movement move);
+public sealed interface Property extends Comparable<Property> {
+    boolean apply(GameObject trigger, GameObject receiver, Movement move);
+
+    int priority();
+
+    @Override
+    default int compareTo(Property other) {
+        return this.priority() - other.priority();
+    }
 
     record Push() implements Property {
         @Override
-        public boolean apply(Entity trigger, Entity receiver, Movement move) {
+        public boolean apply(GameObject trigger, GameObject receiver, Movement move) {
             return receiver.move(move);
         }
+
+        @Override
+        public int priority() {
+            return 0;
+        }
     }
 
-    public record Melting() implements Property {
+    record Melting() implements Property {
         @Override
-        public boolean apply(Entity trigger, Entity receiver, Movement move) {
+        public boolean apply(GameObject trigger, GameObject receiver, Movement move) {
             if ((trigger.hasFlag(PropertyFlag.MELT) && receiver.hasFlag(PropertyFlag.HOT)) ||
                     (trigger.hasFlag(PropertyFlag.HOT) && receiver.hasFlag(PropertyFlag.MELT))) {
-                trigger.setAlive(false);
-                receiver.setAlive(false);
+                trigger.setState(false);
+                receiver.setState(false);
             }
             return true;
         }
+
+        @Override
+        public int priority() {
+            return 2;
+        }
     }
 
-   public record Defeat() implements Property {
+    record Defeat() implements Property {
         @Override
-        public boolean apply(Entity trigger, Entity receiver, Movement move) {
+        public boolean apply(GameObject trigger, GameObject receiver, Movement move) {
             if (trigger.hasFlag(PropertyFlag.YOU)) {
-                trigger.setAlive(false);
+                trigger.setState(false);
             } else {
-                receiver.setAlive(false);
+                receiver.setState(false);
             }
             return true;
         }
-    }
 
-    public record Sink() implements Property {
         @Override
-        public boolean apply(Entity trigger, Entity receiver, Movement move) {
-            trigger.setAlive(false);
-            receiver.setAlive(false);
-            return true;
+        public int priority() {
+            return 2;
         }
     }
 
-    public record Stop() implements Property {
+    record Sink() implements Property {
         @Override
-        public boolean apply(Entity trigger, Entity receiver, Movement move) {
+        public boolean apply(GameObject trigger, GameObject receiver, Movement move) {
+            trigger.setState(false);
+            receiver.setState(false);
+            return true;
+        }
+
+        @Override
+        public int priority() {
+            return 2;
+        }
+    }
+
+    record Stop() implements Property {
+        @Override
+        public boolean apply(GameObject trigger, GameObject receiver, Movement move) {
             return false;
+        }
+
+        @Override
+        public int priority() {
+            return 1;
         }
     }
 

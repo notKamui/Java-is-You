@@ -4,18 +4,12 @@ import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.boardelement.Sprites;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 final class WordData {
-    private final Set<Property> props = new HashSet<>();
+    private final SortedSet<Property> props = new TreeSet<>();
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
     private final Set<Property> defaultProps = Set.of(new Property.Push());
-
-    public WordData() {
-
-    }
 
     public boolean hasFlag(PropertyFlag propertyFlag) {
         Objects.requireNonNull(propertyFlag);
@@ -32,8 +26,8 @@ final class WordData {
         propertyFlags.remove(propertyFlag);
     }
 
-    public Set<Property> properties() {
-        var clone = new HashSet<>(props);
+    public SortedSet<Property> properties() {
+        var clone = new TreeSet<>(props);
         clone.addAll(defaultProps);
         return clone;
     }

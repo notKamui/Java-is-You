@@ -3,14 +3,12 @@ package com.notkamui.javaisyou.engine.type;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.property.Property;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 final class EntityData {
     private final String elementPict;
     private final String nounPict;
-    private final Set<Property> props = new HashSet<>();
+    private final SortedSet<Property> props = new TreeSet<>();
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
     EntityData(String elementPict, String nounPict) {
@@ -35,7 +33,7 @@ final class EntityData {
         propertyFlags.remove(propertyFlag);
     }
 
-    public Set<Property> properties() {
+    public SortedSet<Property> properties() {
         return props;
     }
 

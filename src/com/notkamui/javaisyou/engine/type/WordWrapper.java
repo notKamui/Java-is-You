@@ -6,7 +6,7 @@ import com.notkamui.javaisyou.engine.property.Property;
 import java.util.Objects;
 import java.util.Set;
 
-public final class WordWrapper {
+public final class WordWrapper implements Wrapper {
     private WordData data;
 
     public WordData getData() {
@@ -18,26 +18,32 @@ public final class WordWrapper {
         this.data = data;
     }
 
+    @Override
     public Set<Property> properties() {
         return data.properties();
     }
 
+    @Override
     public void addProperty(Property prop) {
         data.addProperty(prop);
     }
 
+    @Override
     public void removeProperty(Property prop) {
         data.removeProperty(prop);
     }
 
+    @Override
     public boolean hasFlag(PropertyFlag propertyFlag) {
         return data.hasFlag(propertyFlag);
     }
 
+    @Override
     public void addFlag(PropertyFlag propertyFlag) {
         data.addFlag(propertyFlag);
     }
 
+    @Override
     public void removeFlag(PropertyFlag propertyFlag) {
         data.removeFlag(propertyFlag);
     }

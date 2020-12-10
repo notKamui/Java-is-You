@@ -1,102 +1,74 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
 import com.notkamui.javaisyou.engine.*;
+import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
+import com.notkamui.javaisyou.engine.type.Wrapper;
 
+import java.util.List;
 import java.util.Objects;
 
-public class Entity {
+public final class Entity implements GameObject {
     private EntityWrapper entityWrapper;
-    Direction direction;
-    private final Board board;
-    private boolean isAlive = true;
-    private int x;
-    private int y;
+    private final GameObjectComponent component;
+
 
     public Entity(Board board, EntityWrapper entityWrapper, Direction dir, int x, int y) {
         Objects.requireNonNull(board);
         Objects.requireNonNull(entityWrapper);
         Objects.requireNonNull(dir);
-        this.board = board;
         this.entityWrapper = entityWrapper;
-        this.direction = dir;
-        this.x = x;
-        this.y = y;
+        this.component = new GameObjectComponent(board, this, dir, x, y);
     }
 
+    @Override
     public int x() {
-        return x;
+        return component.x();
     }
 
+    @Override
     public int y() {
-        return y;
+        return component.y();
     }
 
-    EntityWrapper noun() {
-        return entityWrapper;
+    @Override
+    public Wrapper wrapper() {
+        return (Wrapper) entityWrapper;
     }
 
-    boolean isAlive() {
-        return isAlive;
+    @Override
+    public Set<Property> properties() {
+        return entityWrapper.properties();
     }
 
-    public void setAlive(boolean state) {
-        isAlive = state;
+    @Override
+    public boolean state() {
+        return component.state();
     }
 
+    @Override
+    public void setState(boolean state) {
+       component.setState(state);
+    }
+
+    @Override
     public boolean hasFlag(PropertyFlag propertyFlag) {
         return entityWrapper.hasFlag(propertyFlag);
     }
 
-    void addFlag(PropertyFlag propertyFlag) {
+    @Override
+    public void addFlag(PropertyFlag propertyFlag) {
         entityWrapper.addFlag(propertyFlag);
     }
 
-    void removeFlag(PropertyFlag propertyFlag) {
+    @Override
+    public void removeFlag(PropertyFlag propertyFlag) {
         entityWrapper.removeFlag(propertyFlag);
     }
 
-
-    private static boolean applyProperties(Entity trigger, Entity receiver, Movement move) {
-        for (var trigProp : trigger.entityWrapper.properties()) {
-            if (!trigProp.apply(trigger, receiver, move))
-                return false;
-        }
-        for (var recProp : receiver.entityWrapper.properties()) {
-            if (!recProp.apply(trigger, receiver, move))
-                return false;
-        }
-        return true;
-    }
-
-    public boolean move(Movement move) {
-        var destX = x + move.vectX();
-        var destY = y + move.vectY();
-
-        if (destX < 0 || destX >= board.width() || destY < 0 || destY >= board.height()) return false;
-
-        var others = board.get(destX, destY);
-        if (!others.isEmpty()) {
-            for (var other : others) {
-                if (!applyProperties(this, other, move))
-                    return false;
-            }
-        }
-        x += move.vectX();
-        y += move.vectY();
-
-        return true;
-    }
-
     @Override
-    public String toString() {
-        return "Entity{" +
-                "\ndirection=" + direction +
-                "\nisAlive=" + isAlive +
-                "\nx=" + x +
-                "\ny=" + y +
-                "\nentityWrapper=" + entityWrapper +
-                '}';
+    public boolean move(Movement move) {
+        return component.move(move);
     }
 }
