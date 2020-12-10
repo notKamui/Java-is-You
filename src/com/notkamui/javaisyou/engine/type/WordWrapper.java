@@ -1,8 +1,7 @@
 package com.notkamui.javaisyou.engine.type;
 
-import com.notkamui.javaisyou.engine.Flag;
-import com.notkamui.javaisyou.engine.OpOrProp;
-import com.notkamui.javaisyou.engine.Property;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.Property;
 
 import java.util.Objects;
 import java.util.Set;
@@ -31,19 +30,19 @@ public final class WordWrapper {
         data.removeProperty(prop);
     }
 
-    public boolean hasFlag(Flag flag) {
-        return data.hasFlag(flag);
+    public boolean hasFlag(PropertyFlag propertyFlag) {
+        return data.hasFlag(propertyFlag);
     }
 
-    public void addFlag(Flag flag) {
-        data.addFlag(flag);
+    public void addFlag(PropertyFlag propertyFlag) {
+        data.addFlag(propertyFlag);
     }
 
-    public void removeFlag(Flag flag) {
-        data.removeFlag(flag);
+    public void removeFlag(PropertyFlag propertyFlag) {
+        data.removeFlag(propertyFlag);
     }
 
-    public String getPicture(OpOrProp type) {
+    public String getPicture(WordAspect type) {
         return data.getPicture(type);
     }
 

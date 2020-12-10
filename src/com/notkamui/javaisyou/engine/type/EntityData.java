@@ -1,8 +1,7 @@
 package com.notkamui.javaisyou.engine.type;
 
-import com.notkamui.javaisyou.engine.Flag;
-import com.notkamui.javaisyou.engine.Property;
-import com.notkamui.javaisyou.engine.EntityType;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.Property;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -12,7 +11,7 @@ final class EntityData {
     private final String elementPict;
     private final String nounPict;
     private final Set<Property> props = new HashSet<>();
-    private final Set<Flag> flags = new HashSet<>();
+    private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
     EntityData(String elementPict, String nounPict) {
         Objects.requireNonNull(elementPict);
@@ -21,19 +20,19 @@ final class EntityData {
         this.nounPict = nounPict;
     }
 
-    public boolean hasFlag(Flag flag) {
-        Objects.requireNonNull(flag);
-        return flags.contains(flag);
+    public boolean hasFlag(PropertyFlag propertyFlag) {
+        Objects.requireNonNull(propertyFlag);
+        return propertyFlags.contains(propertyFlag);
     }
 
-    public void addFlag(Flag flag) {
-        Objects.requireNonNull(flag);
-        flags.add(flag);
+    public void addFlag(PropertyFlag propertyFlag) {
+        Objects.requireNonNull(propertyFlag);
+        propertyFlags.add(propertyFlag);
     }
 
-    public void removeFlag(Flag flag) {
-        Objects.requireNonNull(flag);
-        flags.remove(flag);
+    public void removeFlag(PropertyFlag propertyFlag) {
+        Objects.requireNonNull(propertyFlag);
+        propertyFlags.remove(propertyFlag);
     }
 
     public Set<Property> properties() {
@@ -50,7 +49,7 @@ final class EntityData {
         props.remove(prop);
     }
 
-    public String getPicture(EntityType type) {
+    public String getPicture(EntityAspect type) {
         Objects.requireNonNull(type);
         return switch (type) {
             case NOUN -> nounPict;
@@ -64,7 +63,7 @@ final class EntityData {
                 "\nelementPict='" + elementPict + '\'' +
                 "\nnounPict='" + nounPict + '\'' +
                 "\nprops=" + props +
-                "\nflags=" + flags +
+                "\npropertyFlags=" + propertyFlags +
                 '}';
     }
 }

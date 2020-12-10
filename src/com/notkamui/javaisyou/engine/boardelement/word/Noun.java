@@ -1,5 +1,6 @@
 package com.notkamui.javaisyou.engine.boardelement.word;
 
+import com.notkamui.javaisyou.engine.type.EntityAspect;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
 
@@ -20,7 +21,7 @@ public class Noun {
 
 
     public void render() {
-        String pic = representedType.getPicture(com.notkamui.javaisyou.engine.EntityType.NOUN);
+        String pic = representedType.getPicture(EntityAspect.NOUN);
     }
 
 }

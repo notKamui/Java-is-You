@@ -1,8 +1,7 @@
 package com.notkamui.javaisyou.engine.type;
 
-import com.notkamui.javaisyou.engine.Flag;
-import com.notkamui.javaisyou.engine.OpOrProp;
-import com.notkamui.javaisyou.engine.Property;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.boardelement.Sprites;
 
 import java.util.HashSet;
@@ -11,26 +10,26 @@ import java.util.Set;
 
 final class WordData {
     private final Set<Property> props = new HashSet<>();
-    private final Set<Flag> flags = new HashSet<>();
+    private final Set<PropertyFlag> propertyFlags = new HashSet<>();
     private final Set<Property> defaultProps = Set.of(new Property.Push());
 
     public WordData() {
 
     }
 
-    public boolean hasFlag(Flag flag) {
-        Objects.requireNonNull(flag);
-        return flags.contains(flag);
+    public boolean hasFlag(PropertyFlag propertyFlag) {
+        Objects.requireNonNull(propertyFlag);
+        return propertyFlags.contains(propertyFlag);
     }
 
-    public void addFlag(Flag flag) {
-        Objects.requireNonNull(flag);
-        flags.add(flag);
+    public void addFlag(PropertyFlag propertyFlag) {
+        Objects.requireNonNull(propertyFlag);
+        propertyFlags.add(propertyFlag);
     }
 
-    public void removeFlag(Flag flag) {
-        Objects.requireNonNull(flag);
-        flags.remove(flag);
+    public void removeFlag(PropertyFlag propertyFlag) {
+        Objects.requireNonNull(propertyFlag);
+        propertyFlags.remove(propertyFlag);
     }
 
     public Set<Property> properties() {
@@ -49,7 +48,7 @@ final class WordData {
         props.remove(prop);
     }
 
-    public String getPicture(OpOrProp type) {
+    public String getPicture(WordAspect type) {
         Objects.requireNonNull(type);
         return Sprites.OP_PROPS.get(type);
     }

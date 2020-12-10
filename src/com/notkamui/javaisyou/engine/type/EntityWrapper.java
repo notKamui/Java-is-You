@@ -1,7 +1,7 @@
 package com.notkamui.javaisyou.engine.type;
 
-import com.notkamui.javaisyou.engine.Flag;
-import com.notkamui.javaisyou.engine.Property;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.Property;
 
 import java.util.Objects;
 import java.util.Set;
@@ -39,22 +39,22 @@ public final class EntityWrapper {
         data.removeProperty(prop);
     }
 
-    public boolean hasFlag(Flag flag) {
-        Objects.requireNonNull(flag);
-        return data.hasFlag(flag);
+    public boolean hasFlag(PropertyFlag propertyFlag) {
+        Objects.requireNonNull(propertyFlag);
+        return data.hasFlag(propertyFlag);
     }
 
-    public void addFlag(Flag flag) {
-        Objects.requireNonNull(flag);
-        data.addFlag(flag);
+    public void addFlag(PropertyFlag propertyFlag) {
+        Objects.requireNonNull(propertyFlag);
+        data.addFlag(propertyFlag);
     }
 
-    public void removeFlag(Flag flag) {
-        Objects.requireNonNull(flag);
-        data.removeFlag(flag);
+    public void removeFlag(PropertyFlag propertyFlag) {
+        Objects.requireNonNull(propertyFlag);
+        data.removeFlag(propertyFlag);
     }
 
-    public String getPicture(com.notkamui.javaisyou.engine.EntityType type) {
+    public String getPicture(EntityAspect type) {
         Objects.requireNonNull(type);
         return data.getPicture(type);
     }

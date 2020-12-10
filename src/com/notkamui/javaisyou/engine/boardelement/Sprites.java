@@ -1,6 +1,6 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
-import com.notkamui.javaisyou.engine.OpOrProp;
+import com.notkamui.javaisyou.engine.type.WordAspect;
 
 import java.util.Map;
 
@@ -12,15 +12,15 @@ public final class Sprites {
     public static final String BABA = "/assets/nouns/BABA/BABA_0.gif";
     public static final String BABA_NOUN = "/assets/nouns/BABA/Text_BABA_0.gif";
 
-    public static final Map<OpOrProp, String> OP_PROPS = Map.of(
-            OpOrProp.IS_OPERATOR, "/assets/operators/IS/Op_IS.gif",
-            OpOrProp.YOU_PROPERTY, "/assets/properties/YOU/Prop_YOU.gif",
-            OpOrProp.WIN_PROPERTY, "/assets/properties/WIN/Prop_WIN.gif",
-            OpOrProp.STOP_PROPERTY, "/assets/properties/STOP/Prop_STOP.gif",
-            OpOrProp.PUSH_PROPERTY, "/assets/properties/PUSH/Prop_PUSH.gif",
-            OpOrProp.MELT_PROPERTY, "/assets/properties/MELT/Prop_MELT.gif",
-            OpOrProp.HOT_PROPERTY, "/assets/properties/HOT/Prop_HOT.gif",
-            OpOrProp.DEFEAT_PROPERTY, "/assets/properties/DEFEAT/Prop_DEFEAT.gif",
-            OpOrProp.SINK_PROPERTY, "/assets/properties/SINK/Prop_SINK.gif"
+    public static final Map<WordAspect, String> OP_PROPS = Map.of(
+            WordAspect.IS_OPERATOR, "/assets/operators/IS/Op_IS.gif",
+            WordAspect.YOU_PROPERTY, "/assets/properties/YOU/Prop_YOU.gif",
+            WordAspect.WIN_PROPERTY, "/assets/properties/WIN/Prop_WIN.gif",
+            WordAspect.STOP_PROPERTY, "/assets/properties/STOP/Prop_STOP.gif",
+            WordAspect.PUSH_PROPERTY, "/assets/properties/PUSH/Prop_PUSH.gif",
+            WordAspect.MELT_PROPERTY, "/assets/properties/MELT/Prop_MELT.gif",
+            WordAspect.HOT_PROPERTY, "/assets/properties/HOT/Prop_HOT.gif",
+            WordAspect.DEFEAT_PROPERTY, "/assets/properties/DEFEAT/Prop_DEFEAT.gif",
+            WordAspect.SINK_PROPERTY, "/assets/properties/SINK/Prop_SINK.gif"
     );
 }

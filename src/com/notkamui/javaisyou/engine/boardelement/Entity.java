@@ -1,6 +1,7 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
 import com.notkamui.javaisyou.engine.*;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 
 import java.util.Objects;
@@ -44,16 +45,16 @@ public class Entity {
         isAlive = state;
     }
 
-    public boolean hasFlag(Flag flag) {
-        return entityWrapper.hasFlag(flag);
+    public boolean hasFlag(PropertyFlag propertyFlag) {
+        return entityWrapper.hasFlag(propertyFlag);
     }
 
-    void addFlag(Flag flag) {
-        entityWrapper.addFlag(flag);
+    void addFlag(PropertyFlag propertyFlag) {
+        entityWrapper.addFlag(propertyFlag);
     }
 
-    void removeFlag(Flag flag) {
-        entityWrapper.removeFlag(flag);
+    void removeFlag(PropertyFlag propertyFlag) {
+        entityWrapper.removeFlag(propertyFlag);
     }
 
 

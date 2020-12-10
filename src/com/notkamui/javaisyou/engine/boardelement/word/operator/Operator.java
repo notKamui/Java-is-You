@@ -1,6 +1,6 @@
 package com.notkamui.javaisyou.engine.boardelement.word.operator;
 
-import com.notkamui.javaisyou.engine.Property;
+import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 
 public sealed interface Operator permits IsOperator {
