@@ -1,13 +1,12 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
-import com.notkamui.javaisyou.engine.Board;
 import com.notkamui.javaisyou.engine.Direction;
 import com.notkamui.javaisyou.engine.Movement;
-import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.property.MovementProperty;
+import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
-import com.notkamui.javaisyou.engine.type.Wrapper;
 
 import java.util.Objects;
 import java.util.Set;
@@ -16,12 +15,11 @@ public final class IsOperator implements Operator {
     private final WordWrapper wordWrapper;
     private final GameObjectComponent component;
 
-    public IsOperator(Board board, WordWrapper wordWrapper, Direction dir, int x, int y) {
-        Objects.requireNonNull(board);
+    public IsOperator(WordWrapper wordWrapper, Direction dir, int x, int y) {
         Objects.requireNonNull(wordWrapper);
         Objects.requireNonNull(dir);
         this.wordWrapper = wordWrapper;
-        this.component = new GameObjectComponent(board, this, dir, x, y);
+        this.component = new GameObjectComponent(dir, x, y);
     }
 
     @Override
@@ -44,6 +42,10 @@ public final class IsOperator implements Operator {
     public void unapply(Noun noun, Applicable applicable) {
         if (applicable instanceof TextualProperty textProp) {
             noun.representedWrapper().removeProperty(textProp.representedProperty());
+        } else if (applicable instanceof Noun) {
+
+        } else {
+            throw new RuntimeException("Unknown type of Applicable");
         }
     }
 
@@ -53,23 +55,13 @@ public final class IsOperator implements Operator {
     }
 
     @Override
-    public void addFlag(PropertyFlag propertyFlag) {
-        wordWrapper.addFlag(propertyFlag);
+    public Set<MovementProperty> movementProperties() {
+        return wordWrapper.movementProperties();
     }
 
     @Override
-    public void removeFlag(PropertyFlag propertyFlag) {
-        wordWrapper.removeFlag(propertyFlag);
-    }
-
-    @Override
-    public Set<Property> properties() {
-        return wordWrapper.properties();
-    }
-
-    @Override
-    public Wrapper wrapper() {
-        return wordWrapper;
+    public Set<PassiveProperty> passiveProperties() {
+        return wordWrapper.passiveProperties();
     }
 
     @Override
@@ -88,8 +80,8 @@ public final class IsOperator implements Operator {
     }
 
     @Override
-    public boolean move(Movement move) {
-        return component.move(move);
+    public void move(Movement move) {
+        component.move(move);
     }
 
     @Override

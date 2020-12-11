@@ -2,6 +2,8 @@ package com.notkamui.javaisyou.engine.type;
 
 import com.notkamui.javaisyou.engine.boardelement.Entity;
 import com.notkamui.javaisyou.engine.boardelement.IsOperator;
+import com.notkamui.javaisyou.engine.property.MovementProperty;
+import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.property.Property;
 
@@ -27,8 +29,13 @@ public final class EntityWrapper implements Wrapper {
     }
 
     @Override
-    public Set<Property> properties() {
-        return data.properties();
+    public Set<PassiveProperty> passiveProperties() {
+        return data.passiveProperties();
+    }
+
+    @Override
+    public Set<MovementProperty> movementProperties() {
+        return data.movementProperties();
     }
 
     @Override

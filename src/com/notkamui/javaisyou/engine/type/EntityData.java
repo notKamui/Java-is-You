@@ -1,14 +1,17 @@
 package com.notkamui.javaisyou.engine.type;
 
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.MovementProperty;
+import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import java.util.*;
 
 final class EntityData {
     private final String elementPict;
     private final String nounPict;
-    private final SortedSet<Property> props = new TreeSet<>();
+    private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
+    private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
     EntityData(String elementPict, String nounPict) {
@@ -33,18 +36,30 @@ final class EntityData {
         propertyFlags.remove(propertyFlag);
     }
 
-    public SortedSet<Property> properties() {
-        return props;
+    public SortedSet<PassiveProperty> passiveProperties() {
+        return passiveProps;
+    }
+
+    public SortedSet<MovementProperty> movementProperties() {
+        return movementProps;
     }
 
     public void addProperty(Property prop) {
         Objects.requireNonNull(prop);
-        props.add(prop);
+        if (prop instanceof MovementProperty moveProp) {
+            movementProps.add(moveProp);
+        } else if (prop instanceof PassiveProperty passiveProp) {
+            passiveProps.add(passiveProp);
+        }
     }
 
     public void removeProperty(Property prop) {
         Objects.requireNonNull(prop);
-        props.remove(prop);
+        if (prop instanceof MovementProperty moveProp) {
+            movementProps.remove(moveProp);
+        } else if (prop instanceof PassiveProperty passiveProp) {
+            passiveProps.remove(passiveProp);
+        }
     }
 
     public String getPicture(EntityAspect type) {
@@ -60,7 +75,7 @@ final class EntityData {
         return "EntityWrapper{" +
                 "\nelementPict='" + elementPict + '\'' +
                 "\nnounPict='" + nounPict + '\'' +
-                "\nprops=" + props +
+                "\nprops=" + passiveProps +
                 "\npropertyFlags=" + propertyFlags +
                 '}';
     }
