@@ -1,10 +1,15 @@
-package com.notkamui.javaisyou.engine;
+package com.notkamui.javaisyou.engine.manager;
 
+import com.notkamui.javaisyou.engine.Movement;
+import com.notkamui.javaisyou.engine.MovementObserver;
+import com.notkamui.javaisyou.engine.Rule;
 import com.notkamui.javaisyou.engine.boardelement.Applicable;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.boardelement.Noun;
 import com.notkamui.javaisyou.engine.boardelement.Operator;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +28,8 @@ public class GameManager implements MovementObserver {
 
         width = 10;
         height = 10;
+
+        var wallType = new EntityWrapper("", "");
     }
 
     private List<BoardElement> get(int x, int y) {
