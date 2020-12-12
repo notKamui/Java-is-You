@@ -1,13 +1,15 @@
 10 10
 
-n nouns/BABA/BABA_0.gif nouns/BABA/Text_BABA_0.gif
-> e
-> > 3 3 0
-> t
-> > 0 0 0
+n resources/assets/nouns/BABA/BABA_0.gif resources/assets/nouns/BABA/Text_BABA_0.gif
+> e 3 3 0
+> e 6 6 0
+> t 0 2 0
 
 o IS
-> 0 1 0
+> 1 2 0
 
 p YOU
-> 0 2 0
+> 2 2 0
+
+p PUSH
+> 2 3 0

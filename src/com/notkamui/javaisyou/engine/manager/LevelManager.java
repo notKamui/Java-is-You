@@ -16,13 +16,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class GameManager implements MovementObserver {
+public class LevelManager implements MovementObserver {
     private final int width;
     private final int height;
     private final List<BoardElement> boardElements;
     private List<Rule> activeRules = new ArrayList<>();
+    private final Model model;
 
-    public GameManager(int width, int height, List<BoardElement> boardElements) {
+    public LevelManager(int width, int height, List<BoardElement> boardElements) {
         Objects.requireNonNull(boardElements);
         if (width < 0 || height < 0) {
             throw new IllegalArgumentException("width and height must be positives");
@@ -30,28 +31,7 @@ public class GameManager implements MovementObserver {
         this.width = width;
         this.height = height;
         this.boardElements = new ArrayList<>(boardElements);
-    }
-
-    private List<BoardElement> get(int x, int y) {
-        return boardElements.stream()
-                .filter(e -> e.x() == x && e.y() == y)
-                .collect(Collectors.toList());
-    }
-
-    private Optional<Noun> getNoun(int x, int y) {
-        return get(x, y)
-                .stream()
-                .filter(e -> e instanceof Noun)
-                .map(e -> (Noun) e)
-                .findFirst();
-    }
-
-    private Optional<Applicable> getApplicable(int x, int y) {
-        return get(x, y)
-                .stream()
-                .filter(e -> e instanceof Applicable)
-                .map(e -> (Applicable) e)
-                .findFirst();
+        this.model = new Model(boardElements);
     }
 
     private List<Rule> newRules() {
@@ -59,10 +39,10 @@ public class GameManager implements MovementObserver {
         boardElements.stream()
                 .filter(go -> go instanceof Operator)
                 .forEach(op -> {
-                    final var left = getNoun(op.x(), op.y()-1);
-                    final var right = getApplicable(op.x(), op.y()+1);
-                    final var up = getNoun(op.x()-1, op.y());
-                    final var down = getApplicable(op.x()+1, op.y());
+                    final var left = model.getNoun(op.x(), op.y()-1);
+                    final var right = model.getApplicable(op.x(), op.y()+1);
+                    final var up = model.getNoun(op.x()-1, op.y());
+                    final var down = model.getApplicable(op.x()+1, op.y());
 
                     if (left.isPresent() && right.isPresent()) {
                         newRules.add(new Rule(left.get(), (Operator)op, right.get()));
@@ -98,7 +78,7 @@ public class GameManager implements MovementObserver {
             return false;
         }
 
-        var others = get(destX, destY);
+        var others = model.get(destX, destY);
         if (!others.isEmpty()) {
             for (var other : others) {
                 if (!applyMoveProperties(movingObject, other, move))
@@ -119,11 +99,11 @@ public class GameManager implements MovementObserver {
 
     @Override
     public String toString() {
-        return "GameManager{" +
+        return "LevelManager{" +
                 "\nwidth=" + width +
                 "\nheight=" + height +
-                "\nentities=" + boardElements +
-                '}';
+                "\nentities-count=" + boardElements.size() +
+                "\n}";
     }
 }
 

@@ -48,6 +48,7 @@ final class EntityData implements HasFlag, HasProperty {
         } else {
             throw new RuntimeException("Unknown type of Property");
         }
+        propertyFlags.addAll(prop.flags());
     }
 
     public void removeProperty(Property prop) {
@@ -59,6 +60,7 @@ final class EntityData implements HasFlag, HasProperty {
         } else {
             throw new RuntimeException("Unknown type of Property");
         }
+        prop.flags().forEach(propertyFlags::remove);
     }
 
     public String getPicture(EntityAspect type) {

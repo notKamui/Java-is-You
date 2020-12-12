@@ -4,6 +4,8 @@ import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.MovementObserver;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 
+import java.util.Set;
+
 public sealed interface MovementProperty extends Property {
   boolean applyOnMove(BoardElement trigger, BoardElement receiver, Movement movement, MovementObserver observer);
 
@@ -11,6 +13,11 @@ public sealed interface MovementProperty extends Property {
     @Override
     public boolean applyOnMove(BoardElement trigger, BoardElement receiver, Movement movement, MovementObserver observer) {
       return observer.tryToMove(receiver, movement);
+    }
+
+    @Override
+    public Set<PropertyFlag> flags() {
+      return Set.of();
     }
 
     @Override
@@ -23,6 +30,11 @@ public sealed interface MovementProperty extends Property {
     @Override
     public boolean applyOnMove(BoardElement trigger, BoardElement receiver, Movement move, MovementObserver observer) {
       return false;
+    }
+
+    @Override
+    public Set<PropertyFlag> flags() {
+      return Set.of();
     }
 
     @Override

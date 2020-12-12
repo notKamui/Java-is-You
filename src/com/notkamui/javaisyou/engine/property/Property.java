@@ -1,6 +1,8 @@
 package com.notkamui.javaisyou.engine.property;
 
-public sealed interface Property extends Comparable<Property> permits MovementProperty, PassiveProperty, Property.You {
+import com.notkamui.javaisyou.engine.boardelement.HasFlag;
+
+public sealed interface Property extends Comparable<Property>, HasFlag permits MovementProperty, PassiveProperty {
     int priority();
 
     @Override
@@ -8,11 +10,4 @@ public sealed interface Property extends Comparable<Property> permits MovementPr
         return this.priority() - other.priority();
     }
 
-    record You() implements Property {
-
-        @Override
-        public int priority() {
-            return 0;
-        }
-    }
 }

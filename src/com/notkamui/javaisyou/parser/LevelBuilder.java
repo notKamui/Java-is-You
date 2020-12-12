@@ -1,61 +1,81 @@
 package com.notkamui.javaisyou.parser;
 
 import com.notkamui.javaisyou.engine.Direction;
-import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.boardelement.IsOperator;
-import com.notkamui.javaisyou.engine.boardelement.Operator;
-import com.notkamui.javaisyou.engine.boardelement.TextualProperty;
-import com.notkamui.javaisyou.engine.manager.GameManager;
-import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.boardelement.*;
+import com.notkamui.javaisyou.engine.manager.LevelManager;
+import com.notkamui.javaisyou.engine.property.MovementProperty;
+import com.notkamui.javaisyou.engine.property.PassiveProperty;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
-import com.notkamui.javaisyou.engine.type.Wrapper;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class LevelBuilder {
     private LevelBuilder() {}
 
-    public static GameManager buildLevelFromFile(String fname) {
+    public static LevelManager buildLevelFromFile(String fname) {
+        Objects.requireNonNull(fname);
         try {
             var lines = Files.readAllLines(
                     FileSystems.getDefault().getPath("resources", "levels", fname)
             );
-
             var size = lines.get(0).split(" ");
             var width = Integer.parseInt(size[0]);
             var height = Integer.parseInt(size[1]);
             var boardElements = parseBoardElements(lines);
-            return new GameManager(width, height, boardElements);
+            return new LevelManager(width, height, boardElements);
         } catch (IOException e) {
             System.out.println("Error while opening or reading file");
             return null;
         }
     }
 
-    public static List<BoardElement> parseBoardElements(List<String> lines) {
+    private static List<BoardElement> parseBoardElements(List<String> lines) {
+        Objects.requireNonNull(lines);
         var boardElements = new ArrayList<BoardElement>();
+        var wordWrapper = new WordWrapper();
         for (var i = 0; i < lines.size(); i++) {
             var line = lines.get(i);
-            switch (line.charAt(0)) {
-                case 'n' -> boardElements.addAll(parseNouns(lines, i));
-                case 'o', 'p' -> boardElements.addAll(parseOpProps(lines, i));
+            if (!line.isEmpty()) {
+                switch (line.charAt(0)) {
+                    case 'n' -> boardElements.addAll(parseNounsEntities(lines, i, wordWrapper));
+                    case 'o', 'p' -> boardElements.addAll(parseOpProps(lines, i, wordWrapper));
+                }
             }
         }
         return boardElements;
     }
 
-    public static List<BoardElement> parseNouns(List<String> lines, int index) {
-        return null;
+    private static List<BoardElement> parseNounsEntities(List<String> lines, int index, WordWrapper wrapper) {
+        Objects.requireNonNull(lines);
+        Objects.requireNonNull(wrapper);
+        var newElements = new ArrayList<BoardElement>();
+        var assets = lines.get(index).split(" ");
+        var entityWrapper = new EntityWrapper(assets[1], assets[2]);
+        for (var i = index+1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
+            var split = lines.get(i).split(" ");
+            var dir = Direction.values()[Integer.parseInt(split[4])];
+            var x = Integer.parseInt(split[2]);
+            var y = Integer.parseInt(split[3]);
+            if (split[1].equals("e")) {
+                newElements.add(new Entity(entityWrapper, dir, x, y));
+            } else if (split[1].equals("t")) {
+                newElements.add(new Noun(wrapper, dir, x, y, entityWrapper));
+            }
+        }
+        return newElements;
     }
 
-    public static List<BoardElement> parseOpProps(List<String> lines, int index) {
+    private static List<BoardElement> parseOpProps(List<String> lines, int index, WordWrapper wrapper) {
+        Objects.requireNonNull(lines);
+        Objects.requireNonNull(wrapper);
         var newElements = new ArrayList<BoardElement>();
-        var wrapper = new WordWrapper();
         for (var i = index+1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
             var split = lines.get(i).split(" ");
             var dir = Direction.values()[Integer.parseInt(split[3])];
@@ -63,7 +83,14 @@ public class LevelBuilder {
             var y = Integer.parseInt(split[2]);
             switch (lines.get(index).split(" ")[1]) {
                 case "IS" -> newElements.add(new IsOperator(wrapper, dir, x, y));
-                case "YOU" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new Property.You()));
+
+                case "YOU" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.You()));
+                case "DEFEAT" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Defeat()));
+                case "SINK" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Sink()));
+                case "HOT" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Hot()));
+                case "MELT" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Melt()));
+                case "PUSH" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new MovementProperty.Push()));
+                case "STOP" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new MovementProperty.Stop()));
             }
         }
         return newElements;

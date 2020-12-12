@@ -2,6 +2,7 @@ package com.notkamui.javaisyou.app;
 
 import com.notkamui.javaisyou.engine.boardelement.Sprites;
 import com.notkamui.javaisyou.engine.manager.DisplayManager;
+import com.notkamui.javaisyou.parser.LevelBuilder;
 import fr.umlv.zen5.Application;
 
 import javax.imageio.ImageIO;
@@ -19,7 +20,10 @@ public class App {
   private final static int boardCols = 10;
 
   public static void main(String[] args) {
-    try {
+    var game = LevelBuilder.buildLevelFromFile("default-level.txt");
+    System.out.println(game);
+
+    /*try {
       img = ImageIO.read(new FileInputStream(Sprites.WALL));
     } catch (IOException e) {
       e.printStackTrace();
@@ -41,7 +45,7 @@ public class App {
                 null));
 
       }
-    });
+    });*/
 
   }
 

@@ -2,19 +2,37 @@ package com.notkamui.javaisyou.engine.property;
 
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 
+import java.util.Set;
+
 public sealed interface PassiveProperty extends Property {
   void applyPassive(BoardElement trigger, BoardElement receiver);
 
-  record Melting() implements PassiveProperty {
+  record Melt() implements PassiveProperty {
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
-      var trigFlags = trigger.flags();
-      var recFlags = receiver.flags();
-      if ((trigFlags.contains(PropertyFlag.MELT) && recFlags.contains(PropertyFlag.HOT)) ||
-              (trigFlags.contains(PropertyFlag.HOT) && recFlags.contains(PropertyFlag.MELT))) {
-        trigger.setState(false);
-        receiver.setState(false);
-      }
+      Properties.melting(trigger, receiver);
+    }
+
+    @Override
+    public Set<PropertyFlag> flags() {
+      return Set.of(PropertyFlag.MELT);
+    }
+
+    @Override
+    public int priority() {
+      return 2;
+    }
+  }
+
+  record Hot() implements PassiveProperty {
+    @Override
+    public void applyPassive(BoardElement trigger, BoardElement receiver) {
+      Properties.melting(trigger, receiver);
+    }
+
+    @Override
+    public Set<PropertyFlag> flags() {
+      return Set.of(PropertyFlag.HOT);
     }
 
     @Override
@@ -37,6 +55,11 @@ public sealed interface PassiveProperty extends Property {
     public int priority() {
       return 2;
     }
+
+    @Override
+    public Set<PropertyFlag> flags() {
+      return Set.of();
+    }
   }
 
   record Sink() implements PassiveProperty {
@@ -49,6 +72,27 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public int priority() {
       return 2;
+    }
+
+    @Override
+    public Set<PropertyFlag> flags() {
+      return Set.of();
+    }
+  }
+
+  record You() implements PassiveProperty {
+    @Override
+    public void applyPassive(BoardElement trigger, BoardElement receiver) {
+    }
+
+    @Override
+    public int priority() {
+      return 2;
+    }
+
+    @Override
+    public Set<PropertyFlag> flags() {
+      return Set.of(PropertyFlag.YOU);
     }
   }
 

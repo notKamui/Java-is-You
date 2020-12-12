@@ -39,6 +39,7 @@ final class WordData implements HasProperty, HasFlag {
         } else {
             throw new RuntimeException("Unknown type of Property");
         }
+        propertyFlags.addAll(prop.flags());
     }
 
     public void removeProperty(Property prop) {
@@ -48,6 +49,7 @@ final class WordData implements HasProperty, HasFlag {
         } else if (prop instanceof PassiveProperty passiveProp) {
             passiveProps.remove(passiveProp);
         }
+        prop.flags().forEach(propertyFlags::remove);
     }
 
     public String getPicture(WordAspect type) {
