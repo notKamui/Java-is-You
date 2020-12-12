@@ -27,4 +27,9 @@ public record Rule(Noun noun, Operator operator, Applicable applicable) {
     public int hashCode() {
         return Objects.hash(noun, operator, applicable);
     }
+
+    @Override
+    public String toString() {
+        return "Rule= " + noun + operator + applicable;
+    }
 }

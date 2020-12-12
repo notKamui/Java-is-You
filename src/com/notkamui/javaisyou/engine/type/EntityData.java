@@ -1,14 +1,17 @@
 package com.notkamui.javaisyou.engine.type;
 
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.MovementProperty;
+import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import java.util.*;
 
 final class EntityData {
     private final String elementPict;
     private final String nounPict;
-    private final SortedSet<Property> props = new TreeSet<>();
+    private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
+    private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
     EntityData(String elementPict, String nounPict) {
@@ -33,18 +36,34 @@ final class EntityData {
         propertyFlags.remove(propertyFlag);
     }
 
-    public SortedSet<Property> properties() {
-        return props;
+    public Set<PassiveProperty> passiveProperties() {
+        return Set.copyOf(passiveProps);
+    }
+
+    public Set<MovementProperty> movementProperties() {
+        return Set.copyOf(movementProps);
     }
 
     public void addProperty(Property prop) {
         Objects.requireNonNull(prop);
-        props.add(prop);
+        if (prop instanceof MovementProperty moveProp) {
+            movementProps.add(moveProp);
+        } else if (prop instanceof PassiveProperty passiveProp) {
+            passiveProps.add(passiveProp);
+        } else {
+            throw new RuntimeException("Unknown type of Property");
+        }
     }
 
     public void removeProperty(Property prop) {
         Objects.requireNonNull(prop);
-        props.remove(prop);
+        if (prop instanceof MovementProperty moveProp) {
+            movementProps.remove(moveProp);
+        } else if (prop instanceof PassiveProperty passiveProp) {
+            passiveProps.remove(passiveProp);
+        } else {
+            throw new RuntimeException("Unknown type of Property");
+        }
     }
 
     public String getPicture(EntityAspect type) {
@@ -60,7 +79,7 @@ final class EntityData {
         return "EntityWrapper{" +
                 "\nelementPict='" + elementPict + '\'' +
                 "\nnounPict='" + nounPict + '\'' +
-                "\nprops=" + props +
+                "\nprops=" + passiveProps +
                 "\npropertyFlags=" + propertyFlags +
                 '}';
     }
