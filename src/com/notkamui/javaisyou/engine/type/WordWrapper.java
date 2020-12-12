@@ -45,18 +45,8 @@ public final class WordWrapper implements Wrapper {
     }
 
     @Override
-    public boolean hasFlag(PropertyFlag propertyFlag) {
-        return data.hasFlag(propertyFlag);
-    }
-
-    @Override
-    public void addFlag(PropertyFlag propertyFlag) {
-        data.addFlag(propertyFlag);
-    }
-
-    @Override
-    public void removeFlag(PropertyFlag propertyFlag) {
-        data.removeFlag(propertyFlag);
+    public Set<PropertyFlag> flags() {
+        return data.flags();
     }
 
     public String getPicture(WordAspect type) {

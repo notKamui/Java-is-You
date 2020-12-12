@@ -12,19 +12,19 @@ import java.util.Set;
 
 public final class Entity implements BoardElement {
     private final EntityWrapper entityWrapper;
-    private final GameObjectComponent component;
+    private final BoardElementComponent component;
 
 
     public Entity(EntityWrapper entityWrapper, Direction dir, int x, int y) {
         Objects.requireNonNull(entityWrapper);
         Objects.requireNonNull(dir);
         this.entityWrapper = entityWrapper;
-        this.component = new GameObjectComponent(dir, x, y);
+        this.component = new BoardElementComponent(dir, x, y);
     }
 
     @Override
-    public boolean hasFlag(PropertyFlag propertyFlag) {
-        return entityWrapper.hasFlag(propertyFlag);
+    public Set<PropertyFlag> flags() {
+        return entityWrapper.flags();
     }
 
     @Override

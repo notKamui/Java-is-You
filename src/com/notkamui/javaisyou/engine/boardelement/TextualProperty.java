@@ -13,7 +13,7 @@ import java.util.Set;
 
 public final class TextualProperty implements BoardElement, Applicable {
     private final WordWrapper wordWrapper;
-    private final GameObjectComponent component;
+    private final BoardElementComponent component;
     private final Property property;
 
     public TextualProperty(WordWrapper wordWrapper, Direction dir, int x, int y, Property property) {
@@ -21,7 +21,7 @@ public final class TextualProperty implements BoardElement, Applicable {
         Objects.requireNonNull(dir);
         this.wordWrapper = wordWrapper;
         this.property = property;
-        this.component = new GameObjectComponent(dir, x, y);
+        this.component = new BoardElementComponent(dir, x, y);
     }
 
     public Property representedProperty() {
@@ -29,8 +29,8 @@ public final class TextualProperty implements BoardElement, Applicable {
     }
 
     @Override
-    public boolean hasFlag(PropertyFlag propertyFlag) {
-        return wordWrapper.hasFlag(propertyFlag);
+    public Set<PropertyFlag> flags() {
+        return wordWrapper.flags();
     }
 
     @Override

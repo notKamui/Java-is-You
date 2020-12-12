@@ -1,5 +1,7 @@
 package com.notkamui.javaisyou.engine.type;
 
+import com.notkamui.javaisyou.engine.boardelement.HasFlag;
+import com.notkamui.javaisyou.engine.boardelement.HasProperty;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
@@ -8,25 +10,14 @@ import com.notkamui.javaisyou.engine.boardelement.Sprites;
 
 import java.util.*;
 
-final class WordData {
+final class WordData implements HasProperty, HasFlag {
     private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
     private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
     private final Set<MovementProperty> defaultMoveProp = Set.of(new MovementProperty.Push());
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
-    public boolean hasFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        return propertyFlags.contains(propertyFlag);
-    }
-
-    public void addFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        propertyFlags.add(propertyFlag);
-    }
-
-    public void removeFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        propertyFlags.remove(propertyFlag);
+    public Set<PropertyFlag> flags() {
+        return Set.copyOf(propertyFlags);
     }
 
     public Set<PassiveProperty> passiveProperties() {
