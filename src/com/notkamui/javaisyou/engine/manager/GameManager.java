@@ -19,17 +19,17 @@ import java.util.stream.Collectors;
 public class GameManager implements MovementObserver {
     private final int width;
     private final int height;
-    private final List<BoardElement> boardElements = new ArrayList<>();
+    private final List<BoardElement> boardElements;
     private List<Rule> activeRules = new ArrayList<>();
 
-    public GameManager(String levelPath) {
-        Objects.requireNonNull(levelPath);
-        // TODO parse .txt and create required entities and types
-
-        width = 10;
-        height = 10;
-
-        var wallType = new EntityWrapper("", "");
+    public GameManager(int width, int height, List<BoardElement> boardElements) {
+        Objects.requireNonNull(boardElements);
+        if (width < 0 || height < 0) {
+            throw new IllegalArgumentException("width and height must be positives");
+        }
+        this.width = width;
+        this.height = height;
+        this.boardElements = new ArrayList<>(boardElements);
     }
 
     private List<BoardElement> get(int x, int y) {
