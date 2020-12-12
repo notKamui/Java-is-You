@@ -1,19 +1,16 @@
 package com.notkamui.javaisyou.app;
 
-import com.notkamui.javaisyou.engine.boardelement.Sprites;
-import com.notkamui.javaisyou.engine.manager.DisplayManager;
 import com.notkamui.javaisyou.parser.LevelBuilder;
 import fr.umlv.zen5.Application;
 
-import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 public class App {
 
-  private static BufferedImage img;
+  private static ImageIcon img;
   private static int squareSize;
 
   private final static int boardLines = 7;
@@ -23,11 +20,7 @@ public class App {
     var game = LevelBuilder.buildLevelFromFile("default-level.txt");
     System.out.println(game);
 
-    /*try {
-      img = ImageIO.read(new FileInputStream(Sprites.WALL));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    img = new ImageIcon("resources/assets/operators/IS/Op_IS.gif");
 
     Application.run(Color.BLACK, context -> {
       var screenInfo = context.getScreenInfo();
@@ -41,11 +34,15 @@ public class App {
           context.exit(0);
           return;
         }
-        context.renderFrame(g -> g.drawImage(img, 1, 1, squareSize - 1, squareSize - 1,
+        context.renderFrame(g -> {
+          g.setColor(Color.BLACK);
+          g.fill(new Rectangle2D.Float(0, 0, width, height));
+        });
+        context.renderFrame(g -> g.drawImage(img.getImage(), 1, 1, 100, 100,
                 null));
 
       }
-    });*/
+    });
 
   }
 

@@ -1,19 +1,18 @@
 package com.notkamui.javaisyou.engine.type;
 
-import com.notkamui.javaisyou.engine.boardelement.Entity;
-import com.notkamui.javaisyou.engine.boardelement.IsOperator;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.property.Property;
 
+import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
 
 public final class EntityWrapper implements Wrapper {
     private EntityData data;
 
-    public EntityWrapper(String elementPict, String nounPict) {
+    public EntityWrapper(ImageIcon elementPict , ImageIcon nounPict) {
         Objects.requireNonNull(elementPict);
         Objects.requireNonNull(nounPict);
         data = new EntityData(elementPict, nounPict);
@@ -55,7 +54,7 @@ public final class EntityWrapper implements Wrapper {
         return data.flags();
     }
 
-    public String getPicture(EntityAspect type) {
+    public ImageIcon getPicture(EntityAspect type) {
         Objects.requireNonNull(type);
         return data.getPicture(type);
     }

@@ -7,16 +7,17 @@ import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
+import javax.swing.*;
 import java.util.*;
 
 final class EntityData implements HasFlag, HasProperty {
-    private final String elementPict;
-    private final String nounPict;
+    private final ImageIcon elementPict;
+    private final ImageIcon nounPict;
     private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
     private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
-    EntityData(String elementPict, String nounPict) {
+    EntityData(ImageIcon elementPict, ImageIcon nounPict) {
         Objects.requireNonNull(elementPict);
         Objects.requireNonNull(nounPict);
         this.elementPict = elementPict;
@@ -63,7 +64,7 @@ final class EntityData implements HasFlag, HasProperty {
         prop.flags().forEach(propertyFlags::remove);
     }
 
-    public String getPicture(EntityAspect type) {
+    public ImageIcon getPicture(EntityAspect type) {
         Objects.requireNonNull(type);
         return switch (type) {
             case NOUN -> nounPict;

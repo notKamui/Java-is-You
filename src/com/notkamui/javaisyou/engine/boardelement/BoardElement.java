@@ -1,6 +1,8 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
-public sealed interface BoardElement extends Moveable, Stateable, HasFlag, HasProperty
+import java.awt.image.BufferedImage;
+
+public sealed interface BoardElement extends Moveable, Stateable, HasFlag, HasProperty, HasImage
         permits Entity, Noun, Operator, TextualProperty {
 
 }

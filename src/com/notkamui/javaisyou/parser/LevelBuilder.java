@@ -8,6 +8,7 @@ import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -57,7 +58,7 @@ public class LevelBuilder {
         Objects.requireNonNull(wrapper);
         var newElements = new ArrayList<BoardElement>();
         var assets = lines.get(index).split(" ");
-        var entityWrapper = new EntityWrapper(assets[1], assets[2]);
+        var entityWrapper = new EntityWrapper(new ImageIcon(assets[1]), new ImageIcon(assets[2]));
         for (var i = index+1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
             var split = lines.get(i).split(" ");
             var dir = Direction.values()[Integer.parseInt(split[4])];
