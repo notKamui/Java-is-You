@@ -1,11 +1,11 @@
 package com.notkamui.javaisyou.parser;
 
 import com.notkamui.javaisyou.engine.Direction;
-import com.notkamui.javaisyou.engine.GameManager;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.boardelement.IsOperator;
 import com.notkamui.javaisyou.engine.boardelement.Operator;
 import com.notkamui.javaisyou.engine.boardelement.TextualProperty;
+import com.notkamui.javaisyou.engine.manager.GameManager;
 import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
 import com.notkamui.javaisyou.engine.type.Wrapper;
