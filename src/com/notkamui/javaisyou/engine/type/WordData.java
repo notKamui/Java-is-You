@@ -30,7 +30,7 @@ final class WordData {
     }
 
     public Set<PassiveProperty> passiveProperties() {
-       return passiveProps;
+       return Set.copyOf(passiveProps);
     }
 
     public Set<MovementProperty> movementProperties() {

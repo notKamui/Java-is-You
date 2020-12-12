@@ -4,6 +4,7 @@ import com.notkamui.javaisyou.engine.Direction;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
+import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
@@ -33,8 +34,10 @@ public final class IsOperator implements Operator {
             } else {
                 ((EntityWrapper) leftWrapper).setData(((EntityWrapper) rightWrapper).getData());
             }
-        } else { // is Property
-            noun.representedWrapper().addProperty(((TextualProperty) applicable).representedProperty());
+        } else if (applicable instanceof TextualProperty textProp){
+            noun.representedWrapper().addProperty(textProp.representedProperty());
+        } else {
+            throw new RuntimeException("Unknown type of Applicable");
         }
     }
 

@@ -36,12 +36,12 @@ final class EntityData {
         propertyFlags.remove(propertyFlag);
     }
 
-    public SortedSet<PassiveProperty> passiveProperties() {
-        return passiveProps;
+    public Set<PassiveProperty> passiveProperties() {
+        return Set.copyOf(passiveProps);
     }
 
-    public SortedSet<MovementProperty> movementProperties() {
-        return movementProps;
+    public Set<MovementProperty> movementProperties() {
+        return Set.copyOf(movementProps);
     }
 
     public void addProperty(Property prop) {
@@ -50,6 +50,8 @@ final class EntityData {
             movementProps.add(moveProp);
         } else if (prop instanceof PassiveProperty passiveProp) {
             passiveProps.add(passiveProp);
+        } else {
+            throw new RuntimeException("Unknown type of Property");
         }
     }
 
@@ -59,6 +61,8 @@ final class EntityData {
             movementProps.remove(moveProp);
         } else if (prop instanceof PassiveProperty passiveProp) {
             passiveProps.remove(passiveProp);
+        } else {
+            throw new RuntimeException("Unknown type of Property");
         }
     }
 
