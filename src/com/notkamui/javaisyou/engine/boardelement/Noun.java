@@ -14,7 +14,7 @@ import java.util.Set;
 public final class Noun implements BoardElement, Applicable {
     private final WordWrapper wordWrapper;
     private final Wrapper representedWrapper;
-    private final GameObjectComponent component;
+    private final BoardElementComponent component;
 
     public Noun (WordWrapper wordWrapper, Direction dir, int x, int y, Wrapper representedWrapper) {
         Objects.requireNonNull(wordWrapper);
@@ -22,7 +22,7 @@ public final class Noun implements BoardElement, Applicable {
         Objects.requireNonNull(representedWrapper);
         this.wordWrapper = wordWrapper;
         this.representedWrapper = representedWrapper;
-        this.component = new GameObjectComponent(dir, x, y);
+        this.component = new BoardElementComponent(dir, x, y);
     }
 
     public Wrapper representedWrapper() {
@@ -30,8 +30,8 @@ public final class Noun implements BoardElement, Applicable {
     }
 
     @Override
-    public boolean hasFlag(PropertyFlag propertyFlag) {
-        return wordWrapper.hasFlag(propertyFlag);
+    public Set<PropertyFlag> flags() {
+        return wordWrapper.flags();
     }
 
     @Override

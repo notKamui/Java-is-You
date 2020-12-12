@@ -16,8 +16,4 @@ public sealed interface Wrapper extends HasFlag, HasProperty
 
     void removeProperty(Property prop);
 
-    void addFlag(PropertyFlag propertyFlag);
-
-    void removeFlag(PropertyFlag propertyFlag);
-
 }

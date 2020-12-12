@@ -4,7 +4,6 @@ import com.notkamui.javaisyou.engine.Direction;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
@@ -14,13 +13,13 @@ import java.util.Set;
 
 public final class IsOperator implements Operator {
     private final WordWrapper wordWrapper;
-    private final GameObjectComponent component;
+    private final BoardElementComponent component;
 
     public IsOperator(WordWrapper wordWrapper, Direction dir, int x, int y) {
         Objects.requireNonNull(wordWrapper);
         Objects.requireNonNull(dir);
         this.wordWrapper = wordWrapper;
-        this.component = new GameObjectComponent(dir, x, y);
+        this.component = new BoardElementComponent(dir, x, y);
     }
 
     @Override
@@ -53,8 +52,8 @@ public final class IsOperator implements Operator {
     }
 
     @Override
-    public boolean hasFlag(PropertyFlag propertyFlag) {
-        return wordWrapper.hasFlag(propertyFlag);
+    public Set<PropertyFlag> flags() {
+        return wordWrapper.flags();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.notkamui.javaisyou.engine.type;
 
+import com.notkamui.javaisyou.engine.boardelement.HasFlag;
+import com.notkamui.javaisyou.engine.boardelement.HasProperty;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.Property;
@@ -7,7 +9,7 @@ import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import java.util.*;
 
-final class EntityData {
+final class EntityData implements HasFlag, HasProperty {
     private final String elementPict;
     private final String nounPict;
     private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
@@ -21,25 +23,18 @@ final class EntityData {
         this.nounPict = nounPict;
     }
 
-    public boolean hasFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        return propertyFlags.contains(propertyFlag);
+
+    @Override
+    public Set<PropertyFlag> flags() {
+        return Set.copyOf(propertyFlags);
     }
 
-    public void addFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        propertyFlags.add(propertyFlag);
-    }
-
-    public void removeFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        propertyFlags.remove(propertyFlag);
-    }
-
+    @Override
     public Set<PassiveProperty> passiveProperties() {
         return Set.copyOf(passiveProps);
     }
 
+    @Override
     public Set<MovementProperty> movementProperties() {
         return Set.copyOf(movementProps);
     }

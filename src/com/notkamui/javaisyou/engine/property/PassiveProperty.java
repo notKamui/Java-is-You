@@ -8,8 +8,10 @@ public sealed interface PassiveProperty extends Property {
   record Melting() implements PassiveProperty {
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
-      if ((trigger.hasFlag(PropertyFlag.MELT) && receiver.hasFlag(PropertyFlag.HOT)) ||
-              (trigger.hasFlag(PropertyFlag.HOT) && receiver.hasFlag(PropertyFlag.MELT))) {
+      var trigFlags = trigger.flags();
+      var recFlags = receiver.flags();
+      if ((trigFlags.contains(PropertyFlag.MELT) && recFlags.contains(PropertyFlag.HOT)) ||
+              (trigFlags.contains(PropertyFlag.HOT) && recFlags.contains(PropertyFlag.MELT))) {
         trigger.setState(false);
         receiver.setState(false);
       }
@@ -24,7 +26,7 @@ public sealed interface PassiveProperty extends Property {
   record Defeat() implements PassiveProperty {
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
-      if (trigger.hasFlag(PropertyFlag.YOU)) {
+      if (trigger.flags().contains(PropertyFlag.YOU)) {
         trigger.setState(false);
       } else {
         receiver.setState(false);

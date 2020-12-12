@@ -51,23 +51,9 @@ public final class EntityWrapper implements Wrapper {
     }
 
     @Override
-    public boolean hasFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        return data.hasFlag(propertyFlag);
+    public Set<PropertyFlag> flags() {
+        return data.flags();
     }
-
-    @Override
-    public void addFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        data.addFlag(propertyFlag);
-    }
-
-    @Override
-    public void removeFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        data.removeFlag(propertyFlag);
-    }
-
 
     public String getPicture(EntityAspect type) {
         Objects.requireNonNull(type);

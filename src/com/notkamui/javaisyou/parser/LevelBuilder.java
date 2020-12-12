@@ -50,7 +50,7 @@ public class LevelBuilder {
     }
 
     public static List<BoardElement> parseNouns(List<String> lines, int index) {
-
+        return null;
     }
 
     public static List<BoardElement> parseOpProps(List<String> lines, int index) {
