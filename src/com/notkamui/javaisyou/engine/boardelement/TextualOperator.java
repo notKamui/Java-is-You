@@ -1,54 +1,32 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
-import com.notkamui.javaisyou.engine.Direction;
 import com.notkamui.javaisyou.engine.Movement;
+import com.notkamui.javaisyou.engine.babaoperator.BabaOperator;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
-import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
 
+import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
 
-public final class IsOperator implements Operator {
+public final class TextualOperator implements BoardElement {
     private final WordWrapper wordWrapper;
     private final BoardElementComponent component;
+    private final BabaOperator babaOperator;
 
-    public IsOperator(WordWrapper wordWrapper, Direction dir, int x, int y) {
+    public TextualOperator(WordWrapper wordWrapper, Direction dir, int x, int y, BabaOperator babaOperator) {
         Objects.requireNonNull(wordWrapper);
         Objects.requireNonNull(dir);
+        Objects.requireNonNull(babaOperator);
         this.wordWrapper = wordWrapper;
         this.component = new BoardElementComponent(dir, x, y);
+        this.babaOperator = babaOperator;
     }
 
-    @Override
-    public void apply(Noun noun, Applicable applicable) {
-        if (applicable instanceof Noun otherNoun) {
-            var leftWrapper = noun.representedWrapper();
-            var rightWrapper = otherNoun.representedWrapper();
-            if (leftWrapper instanceof WordWrapper || rightWrapper instanceof WordWrapper) {
-                // TODO to implement
-                System.out.println("operation currently not implemented");
-            } else {
-                ((EntityWrapper) leftWrapper).setData(((EntityWrapper) rightWrapper).getData());
-            }
-        } else if (applicable instanceof TextualProperty textProp){
-            noun.representedWrapper().addProperty(textProp.representedProperty());
-        } else {
-            throw new RuntimeException("Unknown type of Applicable");
-        }
-    }
-
-    @Override
-    public void unapply(Noun noun, Applicable applicable) {
-        if (applicable instanceof TextualProperty textProp) {
-            noun.representedWrapper().removeProperty(textProp.representedProperty());
-        } else if (applicable instanceof Noun) {
-
-        } else {
-            throw new RuntimeException("Unknown type of Applicable");
-        }
+    public BabaOperator operator() {
+        return babaOperator;
     }
 
     @Override
@@ -94,12 +72,17 @@ public final class IsOperator implements Operator {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof IsOperator that)) return false;
+        if (!(o instanceof TextualOperator that)) return false;
         return  component.x() == that.x() && component.y() == that.y();
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(component.x(), component.y());
+    }
+
+    @Override
+    public ImageIcon image() {
+        return babaOperator.image();
     }
 }

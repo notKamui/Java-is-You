@@ -1,18 +1,19 @@
 package com.notkamui.javaisyou.engine;
 
-import com.notkamui.javaisyou.engine.boardelement.Applicable;
-import com.notkamui.javaisyou.engine.boardelement.Noun;
-import com.notkamui.javaisyou.engine.boardelement.Operator;
+import com.notkamui.javaisyou.engine.operation.LeftOperand;
+import com.notkamui.javaisyou.engine.operation.Operator;
+import com.notkamui.javaisyou.engine.operation.RightOperand;
 
 import java.util.Objects;
 
-public record Rule(Noun noun, Operator operator, Applicable applicable) {
+public record Rule(LeftOperand leftOperand, Operator Operator, RightOperand rightOperand) {
+
     public void apply() {
-        operator.apply(noun, applicable);
+        Operator.apply(leftOperand, rightOperand);
     }
 
     public void unapply() {
-        operator.unapply(noun, applicable);
+        Operator.unapply(leftOperand, rightOperand);
     }
 
     @Override
@@ -20,16 +21,18 @@ public record Rule(Noun noun, Operator operator, Applicable applicable) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rule rule = (Rule) o;
-        return noun.equals(rule.noun) && operator.equals(rule.operator) && applicable.equals(rule.applicable);
+        return leftOperand.equals(rule.leftOperand) &&
+                Operator.equals(rule.Operator) &&
+                rightOperand.equals(rule.rightOperand);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(noun, operator, applicable);
+        return Objects.hash(leftOperand, Operator, rightOperand);
     }
 
     @Override
     public String toString() {
-        return "Rule= " + noun + operator + applicable;
+        return "Rule= " + leftOperand + Operator + rightOperand;
     }
 }

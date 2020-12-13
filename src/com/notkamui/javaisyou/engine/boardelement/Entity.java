@@ -1,12 +1,12 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
-import com.notkamui.javaisyou.engine.Direction;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 
+import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
 
@@ -76,4 +76,8 @@ public final class Entity implements BoardElement {
         return Objects.hash(component.x(), component.y());
     }
 
+    @Override
+    public ImageIcon image() {
+        return null;
+    }
 }

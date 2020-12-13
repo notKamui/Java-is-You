@@ -1,9 +1,9 @@
 package com.notkamui.javaisyou.engine.manager;
 
-import com.notkamui.javaisyou.engine.Rule;
-import com.notkamui.javaisyou.engine.boardelement.Applicable;
+import com.notkamui.javaisyou.engine.operation.RightOperand;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.boardelement.Noun;
+import com.notkamui.javaisyou.engine.Rule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,22 +40,6 @@ public class Model {
     return boardElements.stream()
             .filter(e -> e.x() == x && e.y() == y)
             .collect(Collectors.toList());
-  }
-
-  Optional<Noun> getNoun(int x, int y) {
-    return get(x, y)
-            .stream()
-            .filter(e -> e instanceof Noun)
-            .map(e -> (Noun) e)
-            .findFirst();
-  }
-
-  Optional<Applicable> getApplicable(int x, int y) {
-    return get(x, y)
-            .stream()
-            .filter(e -> e instanceof Applicable)
-            .map(e -> (Applicable) e)
-            .findFirst();
   }
 
 

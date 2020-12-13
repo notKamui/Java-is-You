@@ -1,6 +1,5 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
-import com.notkamui.javaisyou.engine.Direction;
 import com.notkamui.javaisyou.engine.Movement;
 
 import java.util.Objects;
@@ -40,6 +39,13 @@ public class BoardElementComponent implements Moveable, Stateable {
 
     @Override
     public void move(Movement move) {
+        // TODO update direction on move
+        /*direction = switch (move) {
+            case move.vectX() > 0 -> Direction.EAST;
+            case move.vectX() < 0 -> Direction.WEST;
+            case move.vectY() > 0 -> Direction.SOUTH;
+            case move.vectY() < 0 -> Direction.NORTH;
+        }*/
         x += move.vectX();
         y += move.vectY();
     }
