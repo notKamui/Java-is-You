@@ -1,20 +1,22 @@
 package com.notkamui.javaisyou.engine.manager;
 
-import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.Rule;
+import com.notkamui.javaisyou.engine.boardelement.Direction;
+import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.operation.Operator;
-import com.notkamui.javaisyou.engine.operation.Result;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.utils.GameStatus;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class LevelManager implements MovementObserver {
     private final int width;
     private final int height;
-    //private final List<BoardElement> boardElements;
     private final DisplayManager displayManager;
     private List<Rule> activeRules = new ArrayList<>();
     private final Model model;
@@ -26,7 +28,6 @@ public class LevelManager implements MovementObserver {
         }
         this.width = width;
         this.height = height;
-        //this.boardElements = new ArrayList<>(boardElements);
         this.model = new Model(boardElements);
         this.displayManager = new DisplayManager(this.model, width, height);
     }
@@ -56,7 +57,7 @@ public class LevelManager implements MovementObserver {
         if (!leftList.isEmpty() && !rightList.isEmpty()) {
             foundRules.addAll(buildRules(leftList, operator, rightList));
         }
-        if (!upList.isEmpty() &&  !downList.isEmpty()) {
+        if (!upList.isEmpty() && !downList.isEmpty()) {
             foundRules.addAll(buildRules(upList, operator, downList));
         }
         return foundRules;
@@ -83,11 +84,14 @@ public class LevelManager implements MovementObserver {
             var rule = it.next(); // applying the rule
             var res = rule.apply();
             switch (res) {
-                case INEFFECTIVE: it.remove(); // removing ineffective rules
+                case INEFFECTIVE:
+                    it.remove(); // removing ineffective rules
                     break;
-                case TEXT_TO_ENTITY: textToEntity(rule); // conversion
+                case TEXT_TO_ENTITY:
+                    textToEntity(rule); // conversion
                     break;
-                case ENTITY_TO_TEXT: entityToText(rule); // conversion
+                case ENTITY_TO_TEXT:
+                    entityToText(rule); // conversion
                     break;
                 default:
                     break;
@@ -112,7 +116,7 @@ public class LevelManager implements MovementObserver {
     private void textToEntity(Rule rule) {
     }
 
-    private void entityToText(Rule rule ) {
+    private void entityToText(Rule rule) {
     }
 
     @Override
@@ -138,6 +142,16 @@ public class LevelManager implements MovementObserver {
         return true;
     }
 
+    public void moveYou(Direction direction) { // TODO prioritization by direction
+        var move = switch (direction) {
+            case NORTH -> new Movement(0, -1);
+            case SOUTH -> new Movement(0, 1);
+            case WEST -> new Movement(-1, 0);
+            case EAST -> new Movement(1, 0);
+        };
+        getWithFlag(PropertyFlag.YOU).forEach(you -> tryToMove(you, move));
+    }
+
     private boolean applyMoveProperties(BoardElement movingObject, BoardElement receiver, Movement move) {
         for (var trigProp : movingObject.movementProperties()) {
             if (!trigProp.applyOnMove(movingObject, receiver, move, this))
@@ -146,13 +160,28 @@ public class LevelManager implements MovementObserver {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "LevelManager{" +
-                "\nwidth=" + width +
-                "\nheight=" + height +
-                "\nentities-count=" + model.elements().size() +
-                "\n}";
+    public GameStatus checkGameStatus() {
+        var yous = getWithFlag(PropertyFlag.YOU);
+        if (yous.isEmpty()) {
+            return GameStatus.LOSE;
+        } else {
+            var wins = getWithFlag(PropertyFlag.WIN);
+            for (var you : yous) {
+                for (var win : wins) {
+                    if (you.x() == win.x() && you.y() == win.y()) {
+                        return GameStatus.WIN;
+                    }
+                }
+            }
+            return GameStatus.ONGOING;
+        }
+    }
+
+    private List<BoardElement> getWithFlag(PropertyFlag flag) {
+        return model.elements()
+                .stream()
+                .filter(e -> e.flags().contains(flag))
+                .collect(Collectors.toList());
     }
 }
 

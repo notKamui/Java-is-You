@@ -2,8 +2,7 @@ package com.notkamui.javaisyou.engine.manager;
 
 import com.notkamui.javaisyou.engine.Displayable;
 import com.notkamui.javaisyou.engine.Rule;
-import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.boardelement.HasImage;
+import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +43,4 @@ public class Model {
             .filter(e -> e.x() == x && e.y() == y)
             .collect(Collectors.toList());
   }
-
-
 }

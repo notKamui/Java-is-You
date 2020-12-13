@@ -1,6 +1,9 @@
-package com.notkamui.javaisyou.engine.boardelement;
+package com.notkamui.javaisyou.engine.boardelement.element;
 
 import com.notkamui.javaisyou.engine.Movement;
+import com.notkamui.javaisyou.engine.boardelement.Direction;
+import com.notkamui.javaisyou.engine.boardelement.Moveable;
+import com.notkamui.javaisyou.engine.boardelement.Stateable;
 
 import java.util.Objects;
 

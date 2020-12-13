@@ -1,46 +1,42 @@
-package com.notkamui.javaisyou.engine.boardelement;
+package com.notkamui.javaisyou.engine.boardelement.element;
 
 import com.notkamui.javaisyou.engine.Movement;
+import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
-import com.notkamui.javaisyou.engine.type.WordWrapper;
+import com.notkamui.javaisyou.engine.type.EntityAspect;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
 
 import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
 
-public final class TextualProperty implements BoardElement {
-    private final WordWrapper wordWrapper;
+public final class Entity implements BoardElement {
+    private final EntityWrapper entityWrapper;
     private final BoardElementComponent component;
-    private final Property property;
 
-    public TextualProperty(WordWrapper wordWrapper, Direction dir, int x, int y, Property property) {
-        Objects.requireNonNull(wordWrapper);
+
+    public Entity(EntityWrapper entityWrapper, Direction dir, int x, int y) {
+        Objects.requireNonNull(entityWrapper);
         Objects.requireNonNull(dir);
-        this.wordWrapper = wordWrapper;
-        this.property = property;
+        this.entityWrapper = entityWrapper;
         this.component = new BoardElementComponent(dir, x, y);
-    }
-
-    public Property property() {
-        return property;
     }
 
     @Override
     public Set<PropertyFlag> flags() {
-        return wordWrapper.flags();
+        return entityWrapper.flags();
     }
 
     @Override
     public Set<MovementProperty> movementProperties() {
-        return wordWrapper.movementProperties();
+        return entityWrapper.movementProperties();
     }
 
     @Override
     public Set<PassiveProperty> passiveProperties() {
-        return wordWrapper.passiveProperties();
+        return entityWrapper.passiveProperties();
     }
 
     @Override
@@ -71,8 +67,10 @@ public final class TextualProperty implements BoardElement {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TextualProperty that)) return false;
-        return component.x() == that.x() && component.y() == that.y();
+        if (!(o instanceof Entity that)) return false;
+        return entityWrapper.equals(that.entityWrapper) &&
+                component.x() == that.x() &&
+                component.y() == that.y();
     }
 
     @Override
@@ -82,6 +80,6 @@ public final class TextualProperty implements BoardElement {
 
     @Override
     public ImageIcon image() {
-        return property.image();
+        return entityWrapper.entityIcon(EntityAspect.ELEMENT);
     }
 }

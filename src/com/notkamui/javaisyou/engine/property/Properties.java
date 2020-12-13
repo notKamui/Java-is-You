@@ -1,6 +1,6 @@
 package com.notkamui.javaisyou.engine.property;
 
-import com.notkamui.javaisyou.engine.boardelement.BoardElement;
+import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 
 class Properties {
 

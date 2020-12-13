@@ -1,9 +1,9 @@
 package com.notkamui.javaisyou.engine.property;
 
-import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.Movement;
-import com.notkamui.javaisyou.engine.boardelement.BoardElement;
+import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
+import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.operation.Result;
 
 import javax.swing.*;

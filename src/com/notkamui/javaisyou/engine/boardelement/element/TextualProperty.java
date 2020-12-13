@@ -1,9 +1,10 @@
-package com.notkamui.javaisyou.engine.boardelement;
+package com.notkamui.javaisyou.engine.boardelement.element;
 
 import com.notkamui.javaisyou.engine.Movement;
-import com.notkamui.javaisyou.engine.babaoperator.BabaOperator;
+import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
+import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
 
@@ -11,22 +12,21 @@ import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
 
-public final class TextualOperator implements BoardElement {
+public final class TextualProperty implements BoardElement {
     private final WordWrapper wordWrapper;
     private final BoardElementComponent component;
-    private final BabaOperator babaOperator;
+    private final Property property;
 
-    public TextualOperator(WordWrapper wordWrapper, Direction dir, int x, int y, BabaOperator babaOperator) {
+    public TextualProperty(WordWrapper wordWrapper, Direction dir, int x, int y, Property property) {
         Objects.requireNonNull(wordWrapper);
         Objects.requireNonNull(dir);
-        Objects.requireNonNull(babaOperator);
         this.wordWrapper = wordWrapper;
+        this.property = property;
         this.component = new BoardElementComponent(dir, x, y);
-        this.babaOperator = babaOperator;
     }
 
-    public BabaOperator operator() {
-        return babaOperator;
+    public Property property() {
+        return property;
     }
 
     @Override
@@ -72,8 +72,8 @@ public final class TextualOperator implements BoardElement {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TextualOperator that)) return false;
-        return  component.x() == that.x() && component.y() == that.y();
+        if (!(o instanceof TextualProperty that)) return false;
+        return component.x() == that.x() && component.y() == that.y();
     }
 
     @Override
@@ -83,6 +83,6 @@ public final class TextualOperator implements BoardElement {
 
     @Override
     public ImageIcon image() {
-        return babaOperator.image();
+        return property.image();
     }
 }

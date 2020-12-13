@@ -1,7 +1,7 @@
 package com.notkamui.javaisyou.engine.property;
 
+import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.operation.LeftOperand;
-import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.operation.Result;
 
 import javax.swing.*;
@@ -175,6 +175,41 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public Set<PropertyFlag> flags() {
       return Set.of(PropertyFlag.YOU);
+    }
+
+    @Override
+    public ImageIcon image() {
+      return icon;
+    }
+
+    @Override
+    public Result applyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
+
+    @Override
+    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
+  }
+
+  record Win() implements PassiveProperty {
+    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/WIN/Prop_WIN.gif");
+
+    @Override
+    public void applyPassive(BoardElement trigger, BoardElement receiver) {
+    }
+
+    @Override
+    public int priority() {
+      return 3;
+    }
+
+    @Override
+    public Set<PropertyFlag> flags() {
+      return Set.of(PropertyFlag.WIN);
     }
 
     @Override
