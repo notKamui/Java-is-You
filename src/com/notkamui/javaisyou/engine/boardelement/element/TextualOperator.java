@@ -3,6 +3,7 @@ package com.notkamui.javaisyou.engine.boardelement.element;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.babaoperator.BabaOperator;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
+import com.notkamui.javaisyou.engine.operation.Operator;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
@@ -85,5 +86,10 @@ public final class TextualOperator implements BoardElement {
     @Override
     public ImageIcon image() {
         return babaOperator.image();
+    }
+
+    @Override
+    public Operator getAsOperator() {
+        return babaOperator;
     }
 }

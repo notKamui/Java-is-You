@@ -17,13 +17,9 @@ public sealed interface MovementProperty extends Property {
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/PUSH/Prop_PUSH.gif");
 
     @Override
-    public boolean applyOnMove(BoardElement trigger, BoardElement receiver, Movement movement,
-                               MovementObserver observer) {
-      Objects.requireNonNull(trigger);
-      Objects.requireNonNull(receiver);
-      Objects.requireNonNull(movement);
-      Objects.requireNonNull(observer);
-      return observer.tryToMove(receiver, movement);
+    public boolean applyOnMoveTrigger(BoardElement trigger, BoardElement receiver, Movement movement,
+                                      MovementObserver observer) {
+      return true;
     }
 
     @Override
@@ -58,13 +54,9 @@ public sealed interface MovementProperty extends Property {
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/STOP/Prop_STOP.gif");
 
     @Override
-    public boolean applyOnMove(BoardElement trigger, BoardElement receiver, Movement movement,
-                               MovementObserver observer) {
-      Objects.requireNonNull(trigger);
-      Objects.requireNonNull(receiver);
-      Objects.requireNonNull(movement);
-      Objects.requireNonNull(observer);
-      return false;
+    public boolean applyOnMoveTrigger(BoardElement trigger, BoardElement receiver, Movement movement,
+                                      MovementObserver observer) {
+      return true;
     }
 
     @Override

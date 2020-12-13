@@ -2,6 +2,7 @@ package com.notkamui.javaisyou.engine.boardelement.element;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
+import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
@@ -81,5 +82,10 @@ public final class Entity implements BoardElement {
     @Override
     public ImageIcon image() {
         return entityWrapper.entityIcon(EntityAspect.ELEMENT);
+    }
+
+    @Override
+    public LeftOperand getAsLeft() {
+        return entityWrapper;
     }
 }

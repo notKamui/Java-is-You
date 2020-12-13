@@ -3,6 +3,7 @@ package com.notkamui.javaisyou.engine.manager;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.Rule;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
+import com.notkamui.javaisyou.engine.boardelement.LocatedObject;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.operation.Operator;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
@@ -78,7 +79,7 @@ public class LevelManager implements MovementObserver {
         return newRules;
     }
 
-    private List<Rule> applyNewRules(List<Rule> newRules) {
+    private void applyNewRules(List<Rule> newRules) {
         var it = newRules.iterator();
         while (it.hasNext()) {
             var rule = it.next(); // applying the rule
@@ -97,7 +98,6 @@ public class LevelManager implements MovementObserver {
                     break;
             }
         }
-        return newRules;
     }
 
     private void setNewRules(List<Rule> newRules) {
@@ -109,7 +109,7 @@ public class LevelManager implements MovementObserver {
 
     public void updateRules() {
         var newRules = newRules();
-        applyNewRules(newRules); // apply new rules and remove ineffective rules
+        applyNewRules(newRules);// apply new rules and remove ineffective rules
         setNewRules(newRules);
     }
 
@@ -142,19 +142,24 @@ public class LevelManager implements MovementObserver {
         return true;
     }
 
-    public void moveYou(Direction direction) { // TODO prioritization by direction
+    public void moveYou(Direction direction) {
         var move = switch (direction) {
             case NORTH -> new Movement(0, -1);
             case SOUTH -> new Movement(0, 1);
             case WEST -> new Movement(-1, 0);
             case EAST -> new Movement(1, 0);
         };
-        getWithFlag(PropertyFlag.YOU).forEach(you -> tryToMove(you, move));
+        var yous = sortByDirection(getWithFlag(PropertyFlag.YOU), direction);
+        yous.forEach(you -> tryToMove(you, move));
     }
 
     private boolean applyMoveProperties(BoardElement movingObject, BoardElement receiver, Movement move) {
+        for (var recProp : receiver.movementProperties()) {
+            if (!recProp.applyOnMoveReceiver(movingObject, receiver, move, this))
+                return false;
+        }
         for (var trigProp : movingObject.movementProperties()) {
-            if (!trigProp.applyOnMove(movingObject, receiver, move, this))
+            if (!trigProp.applyOnMoveTrigger(movingObject, receiver, move, this))
                 return false;
         }
         return true;

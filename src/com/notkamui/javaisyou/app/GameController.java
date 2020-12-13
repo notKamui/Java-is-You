@@ -5,6 +5,7 @@ import com.notkamui.javaisyou.engine.manager.LevelManager;
 import com.notkamui.javaisyou.utils.GameStatus;
 import fr.umlv.zen5.Application;
 import fr.umlv.zen5.ApplicationContext;
+import fr.umlv.zen5.Event;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -27,10 +28,9 @@ public final class GameController {
             var screenInfo = context.getScreenInfo();
             var width = (int) screenInfo.getWidth();
             var height = (int) screenInfo.getHeight();
-            GameStatus status;
             do {
                 var event = context.pollOrWaitEvent(100);
-                if (event != null) {
+                if (event != null && event.getKey() != null && event.getAction() == Event.Action.KEY_PRESSED) {
                     switch (event.getKey()) {
                         case UP -> level.moveYou(Direction.NORTH);
                         case DOWN -> level.moveYou(Direction.SOUTH);
@@ -41,9 +41,8 @@ public final class GameController {
                 }
                 level.updateRules();
                 render(context, level, width, height);
-                status = level.checkGameStatus();
-                System.out.println(status);
-            } while (status != GameStatus.ONGOING);
+            } while (level.checkGameStatus() == GameStatus.ONGOING);
+            System.exit(0);
         }));
     }
 

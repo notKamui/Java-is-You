@@ -191,7 +191,7 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public Result unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
-      return leftOperand.applyIsAsLeft(this);
+      return leftOperand.unapplyIsAsLeft(this);
     }
   }
 

@@ -93,6 +93,7 @@ public class LevelBuilder {
                 case "SINK" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Sink()));
                 case "HOT" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Hot()));
                 case "MELT" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Melt()));
+                case "WIN" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Win()));
                 case "PUSH" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new MovementProperty.Push()));
                 case "STOP" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new MovementProperty.Stop()));
             }

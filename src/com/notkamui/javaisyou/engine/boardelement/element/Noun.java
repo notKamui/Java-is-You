@@ -2,6 +2,8 @@ package com.notkamui.javaisyou.engine.boardelement.element;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
+import com.notkamui.javaisyou.engine.operation.LeftOperand;
+import com.notkamui.javaisyou.engine.operation.RightOperand;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
@@ -87,5 +89,15 @@ public final class Noun implements BoardElement {
     @Override
     public ImageIcon image() {
         return representedWrapper.entityIcon(EntityAspect.NOUN);
+    }
+
+    @Override
+    public LeftOperand getAsLeft() {
+        return representedWrapper;
+    }
+
+    @Override
+    public RightOperand getAsRight() {
+        return representedWrapper;
     }
 }
