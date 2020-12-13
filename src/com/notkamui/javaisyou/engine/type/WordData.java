@@ -27,7 +27,7 @@ final class WordData implements HasProperty, HasFlag, HasEntityImage {
     }
 
     public SortedSet<PassiveProperty> passiveProperties() {
-       return SortedSet.copyOf(passiveProps);
+       return new TreeSet<>(passiveProps);
     }
 
     public SortedSet<MovementProperty> movementProperties() {
