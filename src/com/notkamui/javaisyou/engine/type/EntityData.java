@@ -10,18 +10,18 @@ import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import javax.swing.*;
 import java.util.*;
 
-final class EntityData implements HasFlag, HasProperty {
-    private final ImageIcon elementPict;
-    private final ImageIcon nounPict;
+final class EntityData implements HasFlag, HasProperty, HasEntityImage {
+    private final ImageIcon elementIcon;
+    private final ImageIcon nounIcon;
     private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
     private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
-    EntityData(ImageIcon elementPict, ImageIcon nounPict) {
-        Objects.requireNonNull(elementPict);
-        Objects.requireNonNull(nounPict);
-        this.elementPict = elementPict;
-        this.nounPict = nounPict;
+    EntityData(ImageIcon elementIcon, ImageIcon nounIcon) {
+        Objects.requireNonNull(elementIcon);
+        Objects.requireNonNull(nounIcon);
+        this.elementIcon = elementIcon;
+        this.nounIcon = nounIcon;
     }
 
 
@@ -64,22 +64,24 @@ final class EntityData implements HasFlag, HasProperty {
         prop.flags().forEach(propertyFlags::remove);
     }
 
-    public ImageIcon getPicture(EntityAspect type) {
-        Objects.requireNonNull(type);
-        return switch (type) {
-            case NOUN -> nounPict;
-            case ELEMENT -> elementPict;
-        };
-    }
-
     @Override
     public String toString() {
         return "EntityWrapper{" +
-                "\nelementPict='" + elementPict + '\'' +
-                "\nnounPict='" + nounPict + '\'' +
+                "\nelementPict='" + elementIcon + '\'' +
+                "\nnounPict='" + nounIcon + '\'' +
                 "\nprops=" + passiveProps +
                 "\npropertyFlags=" + propertyFlags +
                 '}';
+    }
+
+    @Override
+    public ImageIcon entityIcon(EntityAspect aspect) {
+        Objects.requireNonNull(aspect);
+        return switch (aspect) {
+            case NOUN -> nounIcon;
+            case ELEMENT -> elementIcon;
+            default -> throw new IllegalArgumentException("Unknown aspect");
+        };
     }
 }
 

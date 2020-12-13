@@ -1,13 +1,19 @@
 package com.notkamui.javaisyou.engine.property;
 
+import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
+import com.notkamui.javaisyou.engine.operation.Result;
 
+import javax.swing.*;
+import java.util.Objects;
 import java.util.Set;
 
 public sealed interface PassiveProperty extends Property {
   void applyPassive(BoardElement trigger, BoardElement receiver);
 
   record Melt() implements PassiveProperty {
+    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/MELT/Prop_MELT.gif");
+
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
       Properties.melting(trigger, receiver);
@@ -22,9 +28,28 @@ public sealed interface PassiveProperty extends Property {
     public int priority() {
       return 2;
     }
+
+    @Override
+    public ImageIcon image() {
+      return icon;
+    }
+
+    @Override
+    public Result applyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
+
+    @Override
+    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
   }
 
   record Hot() implements PassiveProperty {
+    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/HOT/Prop_HOT.gif");
+
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
       Properties.melting(trigger, receiver);
@@ -39,9 +64,28 @@ public sealed interface PassiveProperty extends Property {
     public int priority() {
       return 2;
     }
+
+    @Override
+    public ImageIcon image() {
+      return icon;
+    }
+
+    @Override
+    public Result applyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
+
+    @Override
+    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
   }
 
   record Defeat() implements PassiveProperty {
+    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/PUSH/Prop_DEFEAT.gif");
+
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
       if (trigger.flags().contains(PropertyFlag.YOU)) {
@@ -60,9 +104,28 @@ public sealed interface PassiveProperty extends Property {
     public Set<PropertyFlag> flags() {
       return Set.of();
     }
+
+    @Override
+    public ImageIcon image() {
+      return icon;
+    }
+
+    @Override
+    public Result applyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
+
+    @Override
+    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
   }
 
   record Sink() implements PassiveProperty {
+    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/SINK/Prop_SINK.gif");
+
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
       trigger.setState(false);
@@ -78,9 +141,28 @@ public sealed interface PassiveProperty extends Property {
     public Set<PropertyFlag> flags() {
       return Set.of();
     }
+
+    @Override
+    public ImageIcon image() {
+      return icon;
+    }
+
+    @Override
+    public Result applyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
+
+    @Override
+    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
   }
 
   record You() implements PassiveProperty {
+    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/YOU/Prop_YOU.gif");
+
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
     }
@@ -93,6 +175,23 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public Set<PropertyFlag> flags() {
       return Set.of(PropertyFlag.YOU);
+    }
+
+    @Override
+    public ImageIcon image() {
+      return icon;
+    }
+
+    @Override
+    public Result applyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
+    }
+
+    @Override
+    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+      Objects.requireNonNull(leftOperand);
+      return leftOperand.applyIsAsLeft(this);
     }
   }
 

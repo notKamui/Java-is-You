@@ -1,6 +1,5 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
-import com.notkamui.javaisyou.engine.Direction;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
@@ -8,10 +7,11 @@ import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
 
+import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
 
-public final class TextualProperty implements BoardElement, Applicable {
+public final class TextualProperty implements BoardElement {
     private final WordWrapper wordWrapper;
     private final BoardElementComponent component;
     private final Property property;
@@ -24,7 +24,7 @@ public final class TextualProperty implements BoardElement, Applicable {
         this.component = new BoardElementComponent(dir, x, y);
     }
 
-    public Property representedProperty() {
+    public Property property() {
         return property;
     }
 
@@ -78,5 +78,10 @@ public final class TextualProperty implements BoardElement, Applicable {
     @Override
     public int hashCode() {
         return Objects.hash(component.x(), component.y());
+    }
+
+    @Override
+    public ImageIcon image() {
+        return property.image();
     }
 }

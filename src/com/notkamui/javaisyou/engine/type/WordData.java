@@ -6,15 +6,21 @@ import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.property.Property;
-import com.notkamui.javaisyou.engine.boardelement.Sprites;
 
+import javax.swing.*;
 import java.util.*;
 
-final class WordData implements HasProperty, HasFlag {
+final class WordData implements HasProperty, HasFlag, HasEntityImage {
+    private final ImageIcon nounIcon;
     private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
     private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
     private final Set<MovementProperty> defaultMoveProp = Set.of(new MovementProperty.Push());
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
+
+    WordData(ImageIcon nounIcon) {
+        Objects.requireNonNull(nounIcon);
+        this.nounIcon = nounIcon;
+    }
 
     public Set<PropertyFlag> flags() {
         return Set.copyOf(propertyFlags);
@@ -52,8 +58,15 @@ final class WordData implements HasProperty, HasFlag {
         prop.flags().forEach(propertyFlags::remove);
     }
 
-    public String getPicture(WordAspect type) {
-        Objects.requireNonNull(type);
-        return Sprites.OP_PROPS.get(type);
+    @Override
+    public ImageIcon entityIcon(EntityAspect aspect) {
+        Objects.requireNonNull(aspect);
+        return switch (aspect) {
+            case NOUN -> nounIcon;
+            case ELEMENT -> throw new IllegalArgumentException(
+                    "Unsupported aspect: wordWrapper only has Noun representation");
+            default -> throw new IllegalArgumentException("Unknown aspect");
+        };
     }
+
 }

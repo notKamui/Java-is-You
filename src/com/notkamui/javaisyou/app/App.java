@@ -26,7 +26,7 @@ public class App {
       var screenInfo = context.getScreenInfo();
       var width = (int) screenInfo.getWidth();
       var height = (int) screenInfo.getHeight();
-      squareSize = 10;
+
 
       while (true) {
         var event = context.pollOrWaitEvent(100);
@@ -34,12 +34,10 @@ public class App {
           context.exit(0);
           return;
         }
-        context.renderFrame(g -> {
-          g.setColor(Color.BLACK);
-          g.fill(new Rectangle2D.Float(0, 0, width, height));
+        context.renderFrame(graphics -> {
+          assert game != null;
+          game.displayGame(graphics, 0, 0, width, height);
         });
-        context.renderFrame(g -> g.drawImage(img.getImage(), 1, 1, 100, 100,
-                null));
 
       }
     });

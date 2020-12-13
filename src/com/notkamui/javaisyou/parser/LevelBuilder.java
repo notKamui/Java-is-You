@@ -1,8 +1,9 @@
 package com.notkamui.javaisyou.parser;
 
-import com.notkamui.javaisyou.engine.Direction;
+import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.boardelement.*;
 import com.notkamui.javaisyou.engine.manager.LevelManager;
+import com.notkamui.javaisyou.engine.babaoperator.BabaOperator;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
@@ -40,7 +41,9 @@ public class LevelBuilder {
     private static List<BoardElement> parseBoardElements(List<String> lines) {
         Objects.requireNonNull(lines);
         var boardElements = new ArrayList<BoardElement>();
-        var wordWrapper = new WordWrapper();
+        var textIcon = new ImageIcon("");
+        Objects.requireNonNull(textIcon);
+        var wordWrapper = new WordWrapper(textIcon);
         for (var i = 0; i < lines.size(); i++) {
             var line = lines.get(i);
             if (!line.isEmpty()) {
@@ -83,7 +86,7 @@ public class LevelBuilder {
             var x = Integer.parseInt(split[1]);
             var y = Integer.parseInt(split[2]);
             switch (lines.get(index).split(" ")[1]) {
-                case "IS" -> newElements.add(new IsOperator(wrapper, dir, x, y));
+                case "IS" -> newElements.add(new TextualOperator(wrapper, dir, x, y, new BabaOperator.Is()));
 
                 case "YOU" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.You()));
                 case "DEFEAT" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Defeat()));
