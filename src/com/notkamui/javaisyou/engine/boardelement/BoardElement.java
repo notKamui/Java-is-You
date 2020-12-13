@@ -1,10 +1,11 @@
 package com.notkamui.javaisyou.engine.boardelement;
 
+import com.notkamui.javaisyou.engine.Displayable;
 import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.operation.Operator;
 import com.notkamui.javaisyou.engine.operation.RightOperand;
 
-public sealed interface BoardElement extends Moveable, Stateable, HasFlag, HasProperty, HasImage
+public sealed interface BoardElement extends Moveable, Stateable, HasFlag, HasProperty, Displayable
         permits Entity, Noun, TextualProperty, TextualOperator {
 
   default LeftOperand getAsLeft() {

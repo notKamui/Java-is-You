@@ -4,7 +4,9 @@ import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.Rule;
 import com.notkamui.javaisyou.engine.operation.Operator;
+import com.notkamui.javaisyou.engine.operation.Result;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +15,7 @@ public class LevelManager implements MovementObserver {
     private final int width;
     private final int height;
     //private final List<BoardElement> boardElements;
+    private final DisplayManager displayManager;
     private List<Rule> activeRules = new ArrayList<>();
     private final Model model;
 
@@ -25,6 +28,11 @@ public class LevelManager implements MovementObserver {
         this.height = height;
         //this.boardElements = new ArrayList<>(boardElements);
         this.model = new Model(boardElements);
+        this.displayManager = new DisplayManager(this.model, width, height);
+    }
+
+    public void displayGame(Graphics2D graphics, int x, int y, int windowWidth, int windowHeight) {
+        displayManager.display(graphics, x, y, windowWidth, windowHeight);
     }
 
 
@@ -69,16 +77,42 @@ public class LevelManager implements MovementObserver {
         return newRules;
     }
 
-    public void updateRules() {
-        var newRules = newRules();
-        newRules.forEach(r -> {
-            if (!activeRules.contains(r))
-                r.apply();
-        });
+    private List<Rule> applyNewRules(List<Rule> newRules) {
+        var it = newRules.iterator();
+        while (it.hasNext()) {
+            var rule = it.next(); // applying the rule
+            var res = rule.apply();
+            switch (res) {
+                case INEFFECTIVE: it.remove(); // removing ineffective rules
+                    break;
+                case TEXT_TO_ENTITY: textToEntity(rule); // conversion
+                    break;
+                case ENTITY_TO_TEXT: entityToText(rule); // conversion
+                    break;
+                default:
+                    break;
+            }
+        }
+        return newRules;
+    }
+
+    private void setNewRules(List<Rule> newRules) {
         activeRules.stream()
                 .filter(r -> !newRules.contains(r))
                 .forEach(Rule::unapply);
         activeRules = newRules;
+    }
+
+    public void updateRules() {
+        var newRules = newRules();
+        applyNewRules(newRules); // apply new rules and remove ineffective rules
+        setNewRules(newRules);
+    }
+
+    private void textToEntity(Rule rule) {
+    }
+
+    private void entityToText(Rule rule ) {
     }
 
     @Override
@@ -117,7 +151,7 @@ public class LevelManager implements MovementObserver {
         return "LevelManager{" +
                 "\nwidth=" + width +
                 "\nheight=" + height +
-                //"\nentities-count=" + boardElements.size() +
+                "\nentities-count=" + model.elements().size() +
                 "\n}";
     }
 }

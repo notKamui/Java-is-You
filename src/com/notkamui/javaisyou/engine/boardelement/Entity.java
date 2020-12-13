@@ -4,6 +4,7 @@ import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.type.EntityAspect;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 
 import javax.swing.*;
@@ -78,6 +79,6 @@ public final class Entity implements BoardElement {
 
     @Override
     public ImageIcon image() {
-        return null;
+        return entityWrapper.entityIcon(EntityAspect.ELEMENT);
     }
 }

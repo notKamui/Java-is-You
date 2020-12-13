@@ -2,18 +2,24 @@ package com.notkamui.javaisyou.engine;
 
 import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.operation.Operator;
+import com.notkamui.javaisyou.engine.operation.Result;
 import com.notkamui.javaisyou.engine.operation.RightOperand;
 
 import java.util.Objects;
 
 public record Rule(LeftOperand leftOperand, Operator Operator, RightOperand rightOperand) {
-
-    public void apply() {
-        Operator.apply(leftOperand, rightOperand);
+    public Rule {
+        Objects.requireNonNull(leftOperand);
+        Objects.requireNonNull(Operator);
+        Objects.requireNonNull(rightOperand);
     }
 
-    public void unapply() {
-        Operator.unapply(leftOperand, rightOperand);
+    public Result apply() {
+        return Operator.apply(leftOperand, rightOperand);
+    }
+
+    public Result unapply() {
+        return Operator.unapply(leftOperand, rightOperand);
     }
 
     @Override

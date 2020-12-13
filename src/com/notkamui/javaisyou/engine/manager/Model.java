@@ -1,14 +1,13 @@
 package com.notkamui.javaisyou.engine.manager;
 
-import com.notkamui.javaisyou.engine.operation.RightOperand;
-import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.boardelement.Noun;
+import com.notkamui.javaisyou.engine.Displayable;
 import com.notkamui.javaisyou.engine.Rule;
+import com.notkamui.javaisyou.engine.boardelement.BoardElement;
+import com.notkamui.javaisyou.engine.boardelement.HasImage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Model {
@@ -32,6 +31,10 @@ public class Model {
   }
 
   List<BoardElement> elements() {
+    return new ArrayList<>(boardElements);
+  }
+
+  List<Displayable> displayableElements() {
     return new ArrayList<>(boardElements);
   }
 
