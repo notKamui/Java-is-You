@@ -11,6 +11,7 @@ import com.notkamui.javaisyou.utils.GameStatus;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -151,6 +152,19 @@ public class LevelManager implements MovementObserver {
         };
         var yous = sortByDirection(getWithFlag(PropertyFlag.YOU), direction);
         yous.forEach(you -> tryToMove(you, move));
+    }
+
+    private List<BoardElement> sortByDirection(List<BoardElement> youList, Direction direction) {
+        Comparator<BoardElement> comp;
+        if (direction == Direction.NORTH || direction == Direction.SOUTH) {
+            comp = Comparator.comparingInt(LocatedObject::y);
+        } else {
+            comp = Comparator.comparingInt(LocatedObject::x);
+        }
+        if (direction == Direction.SOUTH || direction == Direction.EAST) {
+            comp = comp.reversed();
+        }
+        return youList.stream().sorted(comp).collect(Collectors.toList());
     }
 
     private boolean applyMoveProperties(BoardElement movingObject, BoardElement receiver, Movement move) {

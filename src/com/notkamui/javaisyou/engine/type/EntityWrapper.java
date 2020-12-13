@@ -84,12 +84,14 @@ public final class EntityWrapper implements Wrapper {
     @Override
     public Result applyIsAsLeft(EntityWrapper rightOperand) {
         Objects.requireNonNull(rightOperand);
+        this.data = rightOperand.data;
         return Result.NORMAL;
     }
 
     @Override
     public Result applyIsAsLeft(Property rightOperand) {
         Objects.requireNonNull(rightOperand);
+        this.data.addProperty(rightOperand);
         return Result.NORMAL;
     }
 

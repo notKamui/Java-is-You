@@ -11,7 +11,10 @@ import java.util.Objects;
 import java.util.Set;
 
 public sealed interface MovementProperty extends Property {
-  boolean applyOnMove(BoardElement trigger, BoardElement receiver, Movement movement, MovementObserver observer);
+  boolean applyOnMoveTrigger(BoardElement trigger, BoardElement receiver, Movement movement, MovementObserver observer);
+
+  boolean applyOnMoveReceiver(BoardElement trigger, BoardElement receiver, Movement movement,
+                              MovementObserver observer);
 
   record Push() implements MovementProperty {
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/PUSH/Prop_PUSH.gif");
@@ -20,6 +23,16 @@ public sealed interface MovementProperty extends Property {
     public boolean applyOnMoveTrigger(BoardElement trigger, BoardElement receiver, Movement movement,
                                       MovementObserver observer) {
       return true;
+    }
+
+    @Override
+    public boolean applyOnMoveReceiver(BoardElement trigger, BoardElement receiver, Movement movement,
+                                       MovementObserver observer) {
+      Objects.requireNonNull(trigger);
+      Objects.requireNonNull(receiver);
+      Objects.requireNonNull(movement);
+      Objects.requireNonNull(observer);
+      return observer.tryToMove(receiver, movement);
     }
 
     @Override
@@ -57,6 +70,12 @@ public sealed interface MovementProperty extends Property {
     public boolean applyOnMoveTrigger(BoardElement trigger, BoardElement receiver, Movement movement,
                                       MovementObserver observer) {
       return true;
+    }
+
+    @Override
+    public boolean applyOnMoveReceiver(BoardElement trigger, BoardElement receiver, Movement movement,
+                                       MovementObserver observer) {
+      return false;
     }
 
     @Override

@@ -29,10 +29,6 @@ public final class Noun implements BoardElement {
         this.component = new BoardElementComponent(dir, x, y);
     }
 
-    public Wrapper representedWrapper() {
-        return representedWrapper;
-    }
-
     @Override
     public Set<PropertyFlag> flags() {
         return wordWrapper.flags();

@@ -48,7 +48,7 @@ public class BoardElementComponent implements Moveable, Stateable {
             case move.vectX() < 0 -> Direction.WEST;
             case move.vectY() > 0 -> Direction.SOUTH;
             case move.vectY() < 0 -> Direction.NORTH;
-        }*/
+        };*/
         x += move.vectX();
         y += move.vectY();
     }
