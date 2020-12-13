@@ -39,8 +39,7 @@ public final class GameController {
                         case P -> System.exit(0);
                     }
                 }
-                level.updateRules();
-                // TODO remove all !isAlive
+                level.update();
                 render(context, level, width, height);
             } while (level.checkGameStatus() == GameStatus.ONGOING);
             System.exit(0);

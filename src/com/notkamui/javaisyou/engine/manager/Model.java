@@ -29,6 +29,10 @@ public class Model {
     activeRules.remove(rule);
   }
 
+  void removeAllDead() {
+    boardElements.removeIf(e -> !e.state());
+  }
+
   List<BoardElement> elements() {
     return new ArrayList<>(boardElements);
   }

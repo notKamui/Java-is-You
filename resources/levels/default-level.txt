@@ -12,9 +12,12 @@ n resources/assets/nouns/BABA/BABA_0.gif resources/assets/nouns/BABA/Text_BABA_0
 
 o IS
 > 1 2 0
-> 2 1 0
+> 3 0 0
 > 0 3 0
 > 8 1 0
+
+p DEFEAT
+> 4 0 0
 
 p YOU
 > 2 2 0

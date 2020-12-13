@@ -84,13 +84,15 @@ public sealed interface PassiveProperty extends Property {
   }
 
   record Defeat() implements PassiveProperty {
-    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/PUSH/Prop_DEFEAT.gif");
+    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/DEFEAT/Prop_DEFEAT.gif");
 
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
       if (trigger.flags().contains(PropertyFlag.YOU)) {
+        System.out.println("a");
         trigger.setState(false);
       } else {
+        System.out.println("b");
         receiver.setState(false);
       }
     }
