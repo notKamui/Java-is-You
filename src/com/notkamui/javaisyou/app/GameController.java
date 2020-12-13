@@ -40,6 +40,7 @@ public final class GameController {
                     }
                 }
                 level.updateRules();
+                // TODO remove all !isAlive
                 render(context, level, width, height);
             } while (level.checkGameStatus() == GameStatus.ONGOING);
             System.exit(0);

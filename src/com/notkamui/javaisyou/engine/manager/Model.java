@@ -37,7 +37,6 @@ public class Model {
     return new ArrayList<>(boardElements);
   }
 
-
   List<BoardElement> get(int x, int y) {
     return boardElements.stream()
             .filter(e -> e.x() == x && e.y() == y)
