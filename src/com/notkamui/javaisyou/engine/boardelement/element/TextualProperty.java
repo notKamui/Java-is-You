@@ -12,6 +12,7 @@ import com.notkamui.javaisyou.engine.type.WordWrapper;
 import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedSet;
 
 public final class TextualProperty implements BoardElement {
     private final WordWrapper wordWrapper;
@@ -36,12 +37,12 @@ public final class TextualProperty implements BoardElement {
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
+    public SortedSet<MovementProperty> movementProperties() {
         return wordWrapper.movementProperties();
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
+    public SortedSet<PassiveProperty> passiveProperties() {
         return wordWrapper.passiveProperties();
     }
 

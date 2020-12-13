@@ -10,6 +10,7 @@ import com.notkamui.javaisyou.engine.property.Property;
 import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedSet;
 
 public final class EntityWrapper implements Wrapper {
     private EntityData data;
@@ -26,12 +27,12 @@ public final class EntityWrapper implements Wrapper {
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
+    public SortedSet<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
+    public SortedSet<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 

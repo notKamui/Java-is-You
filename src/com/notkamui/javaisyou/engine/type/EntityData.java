@@ -31,13 +31,13 @@ final class EntityData implements HasFlag, HasProperty, HasEntityImage {
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
-        return Set.copyOf(passiveProps);
+    public SortedSet<PassiveProperty> passiveProperties() {
+        return SortedSet.copyOf(passiveProps);
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
-        return Set.copyOf(movementProps);
+    public SortedSet<MovementProperty> movementProperties() {
+        return SortedSet.copyOf(movementProps);
     }
 
     public void addProperty(Property prop) {

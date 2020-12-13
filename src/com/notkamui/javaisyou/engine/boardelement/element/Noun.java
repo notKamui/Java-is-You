@@ -14,6 +14,7 @@ import com.notkamui.javaisyou.engine.type.Wrapper;
 import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedSet;
 
 public final class Noun implements BoardElement {
     private final WordWrapper wordWrapper;
@@ -35,12 +36,12 @@ public final class Noun implements BoardElement {
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
+    public SortedSet<MovementProperty> movementProperties() {
         return wordWrapper.movementProperties();
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
+    public SortedSet<PassiveProperty> passiveProperties() {
         return wordWrapper.passiveProperties();
     }
 

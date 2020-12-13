@@ -12,6 +12,7 @@ import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedSet;
 
 public final class Entity implements BoardElement {
     private final EntityWrapper entityWrapper;
@@ -31,12 +32,12 @@ public final class Entity implements BoardElement {
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
+    public SortedSet<MovementProperty> movementProperties() {
         return entityWrapper.movementProperties();
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
+    public SortedSet<PassiveProperty> passiveProperties() {
         return entityWrapper.passiveProperties();
     }
 

@@ -10,6 +10,7 @@ import com.notkamui.javaisyou.engine.property.Property;
 import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedSet;
 
 public final class WordWrapper implements Wrapper, LeftOperand {
     private WordData data;
@@ -25,12 +26,12 @@ public final class WordWrapper implements Wrapper, LeftOperand {
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
+    public SortedSet<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
+    public SortedSet<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 

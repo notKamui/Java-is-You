@@ -26,11 +26,11 @@ final class WordData implements HasProperty, HasFlag, HasEntityImage {
         return Set.copyOf(propertyFlags);
     }
 
-    public Set<PassiveProperty> passiveProperties() {
-       return Set.copyOf(passiveProps);
+    public SortedSet<PassiveProperty> passiveProperties() {
+       return SortedSet.copyOf(passiveProps);
     }
 
-    public Set<MovementProperty> movementProperties() {
+    public SortedSet<MovementProperty> movementProperties() {
         var clone = new TreeSet<>(movementProps);
         clone.addAll(defaultMoveProp);
         return clone;

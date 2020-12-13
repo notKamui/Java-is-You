@@ -28,6 +28,7 @@ public final class GameController {
             var screenInfo = context.getScreenInfo();
             var width = (int) screenInfo.getWidth();
             var height = (int) screenInfo.getHeight();
+            level.update();
             do {
                 var event = context.pollOrWaitEvent(100);
                 if (event != null && event.getKey() != null && event.getAction() == Event.Action.KEY_PRESSED) {
@@ -38,8 +39,8 @@ public final class GameController {
                         case RIGHT -> level.moveYou(Direction.EAST);
                         case P -> System.exit(0);
                     }
+                    level.update();
                 }
-                level.update();
                 render(context, level, width, height);
             } while (level.checkGameStatus() == GameStatus.ONGOING);
             System.exit(0);

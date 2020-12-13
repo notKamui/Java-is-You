@@ -89,10 +89,8 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
       if (trigger.flags().contains(PropertyFlag.YOU)) {
-        System.out.println("a");
         trigger.setState(false);
-      } else {
-        System.out.println("b");
+      } else if (receiver.flags().contains(PropertyFlag.YOU)) {
         receiver.setState(false);
       }
     }
