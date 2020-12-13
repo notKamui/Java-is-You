@@ -12,11 +12,12 @@ import java.util.Objects;
 import java.util.Set;
 
 public final class WordWrapper implements Wrapper, LeftOperand {
-    private WordData data;
+    private final WrapperData initialData;
+    private WrapperData data;
 
     public WordWrapper(ImageIcon nounIcon) {
         Objects.requireNonNull(nounIcon);
-        this.data = new WordData(nounIcon);
+        this.data = this.initialData = new WordData(nounIcon);
     }
 
     public void setWrapper(WordWrapper wrapper) {
@@ -36,6 +37,7 @@ public final class WordWrapper implements Wrapper, LeftOperand {
 
     @Override
     public void addProperty(Property prop) {
+        Objects.requireNonNull(prop);
         data.addProperty(prop);
     }
 

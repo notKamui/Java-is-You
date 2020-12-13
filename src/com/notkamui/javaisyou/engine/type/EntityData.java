@@ -10,7 +10,7 @@ import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import javax.swing.*;
 import java.util.*;
 
-final class EntityData implements HasFlag, HasProperty, HasEntityImage {
+final class EntityData implements WrapperData {
     private final ImageIcon elementIcon;
     private final ImageIcon nounIcon;
     private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
@@ -62,16 +62,6 @@ final class EntityData implements HasFlag, HasProperty, HasEntityImage {
             throw new RuntimeException("Unknown type of Property");
         }
         prop.flags().forEach(propertyFlags::remove);
-    }
-
-    @Override
-    public String toString() {
-        return "EntityWrapper{" +
-                "\nelementPict='" + elementIcon + '\'' +
-                "\nnounPict='" + nounIcon + '\'' +
-                "\nprops=" + passiveProps +
-                "\npropertyFlags=" + propertyFlags +
-                '}';
     }
 
     @Override

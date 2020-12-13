@@ -10,7 +10,7 @@ import com.notkamui.javaisyou.engine.property.Property;
 import javax.swing.*;
 import java.util.*;
 
-final class WordData implements HasProperty, HasFlag, HasEntityImage {
+final class WordData implements WrapperData {
     private final ImageIcon nounIcon;
     private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
     private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
