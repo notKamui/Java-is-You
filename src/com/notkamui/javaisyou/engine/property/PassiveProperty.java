@@ -169,7 +169,7 @@ public sealed interface PassiveProperty extends Property {
 
     @Override
     public int priority() {
-      return 2;
+      return 0;
     }
 
     @Override

@@ -75,7 +75,7 @@ public final class EntityWrapper implements TransferWrapper {
 
     @Override
     public Result applyIsAsLeft(WordWrapper rightOperand) {
-        rightOperand.transferElementsTo(this);
+        Objects.requireNonNull(rightOperand);
         rightOperand.receiveEntities(entities);
         entities.clear();
         return Result.NORMAL;
@@ -127,13 +127,6 @@ public final class EntityWrapper implements TransferWrapper {
             entity.setData(data);
             entities.add(entity);
         });
-    }
-
-    @Override
-    public void transferElementsTo(ElementsReceiver receiver) {
-        Objects.requireNonNull(receiver);
-        receiver.receiveEntities(entities);
-        entities.clear();
     }
 
     public void addEntity(Entity entity) {

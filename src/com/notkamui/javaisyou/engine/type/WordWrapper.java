@@ -126,13 +126,6 @@ public final class WordWrapper implements TransferWrapper {
         words.forEach(this::addWord);
     }
 
-    @Override
-    public void transferElementsTo(ElementsReceiver receiver) {
-        Objects.requireNonNull(receiver);
-        receiver.receiveWords(words);
-        words.clear();
-    }
-
     public void addWord(Word word) {
         Objects.requireNonNull(word);
         word.setData(data);
