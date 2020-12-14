@@ -19,7 +19,6 @@ public record Rule(LeftOperand leftOperand, Operator Operator, RightOperand righ
     }
 
     public OperationResult unapply() {
-        System.out.println("unapplied");
         return Operator.unapply(leftOperand, rightOperand);
     }
 

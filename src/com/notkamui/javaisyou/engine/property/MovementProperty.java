@@ -70,7 +70,6 @@ public sealed interface MovementProperty extends Property {
     @Override
     public boolean applyOnMoveReceiver(BoardElement trigger, BoardElement receiver, Movement movement,
                                        MovementObserver observer) {
-      System.out.println("Stopped");
       return false;
     }
 

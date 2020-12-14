@@ -83,7 +83,6 @@ public final class EntityWrapper implements TransferWrapper {
     @Override
     public OperationResult applyIsAsLeft(PassiveProperty rightOperand) {
         Objects.requireNonNull(rightOperand);
-        System.out.println("p+");
         data.addProperty(rightOperand);
         return OperationResult.NORMAL;
     }
@@ -91,7 +90,6 @@ public final class EntityWrapper implements TransferWrapper {
     @Override
     public OperationResult applyIsAsLeft(MovementProperty rightOperand) {
         Objects.requireNonNull(rightOperand);
-        System.out.println("m+");
         data.addProperty(rightOperand);
         return OperationResult.NORMAL;
     }
@@ -99,7 +97,6 @@ public final class EntityWrapper implements TransferWrapper {
     @Override
     public OperationResult unapplyIsAsLeft(PassiveProperty rightOperand) {
         Objects.requireNonNull(rightOperand);
-        System.out.println("p-");
         data.removeProperty(rightOperand);
         return OperationResult.NORMAL;
     }
@@ -107,7 +104,6 @@ public final class EntityWrapper implements TransferWrapper {
     @Override
     public OperationResult unapplyIsAsLeft(MovementProperty rightOperand) {
         Objects.requireNonNull(rightOperand);
-        System.out.println("m-");
         data.removeProperty(rightOperand);
         return OperationResult.NORMAL;
     }
