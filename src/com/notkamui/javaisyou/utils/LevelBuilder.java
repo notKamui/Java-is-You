@@ -24,7 +24,7 @@ public class LevelBuilder {
         Objects.requireNonNull(fname);
         try {
             var lines = Files.readAllLines(
-                    FileSystems.getDefault().getPath("resources", "levels", fname)
+                    FileSystems.getDefault().getPath("resources/levels", fname)
             );
             var size = lines.get(0).split(" ");
             var width = Integer.parseInt(size[0]);
