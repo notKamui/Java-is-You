@@ -1,66 +1,133 @@
 package com.notkamui.javaisyou.engine.type;
 
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
-import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.boardelement.element.Entity;
+import com.notkamui.javaisyou.engine.boardelement.element.Word;
+import com.notkamui.javaisyou.engine.data.EntityData;
+import com.notkamui.javaisyou.engine.operation.LeftOperand;
+import com.notkamui.javaisyou.engine.operation.OperationResult;
+import com.notkamui.javaisyou.engine.property.MovementProperty;
+import com.notkamui.javaisyou.engine.property.PassiveProperty;
+import com.notkamui.javaisyou.engine.property.PropertyType;
 
-import java.util.Objects;
-import java.util.Set;
+import javax.swing.*;
+import java.util.*;
 
-public final class EntityWrapper {
-    private EntityData data;
+public final class EntityWrapper implements TransferWrapper {
+    private final EntityData data;
+    private final ImageIcon nounIcon;
+    private final Set<Entity> entities = new HashSet<>();
 
-    public EntityWrapper(String elementPict, String nounPict) {
-        Objects.requireNonNull(elementPict);
-        Objects.requireNonNull(nounPict);
-        data = new EntityData(elementPict, nounPict);
+    public EntityWrapper(ImageIcon elemIcon, ImageIcon nounIcon) {
+        Objects.requireNonNull(nounIcon);
+        Objects.requireNonNull(elemIcon);
+        this.nounIcon = nounIcon;
+        this.data = new EntityData(elemIcon);
     }
 
-
-    public EntityData getData() {
-        return data;
+    // TODO to encapsulate
+    public Set<Entity> entities() {
+        return new HashSet<>(entities);
+    }
+    // TODO to encapsulate
+    public void removeAllDead() {
+        entities.removeIf(e -> !e.state());
     }
 
-    public void setData(EntityData data) {
-        Objects.requireNonNull(data);
-        this.data = data;
+    @Override
+    public Set<PassiveProperty> passiveProperties() {
+        return data.passiveProperties();
     }
 
-    public Set<Property> properties() {
-        return data.properties();
+    @Override
+    public Set<MovementProperty> movementProperties() {
+        return data.movementProperties();
     }
 
-    public void addProperty(Property prop) {
-        Objects.requireNonNull(prop);
-        data.addProperty(prop);
-    }
-
-    public void removeProperty(Property prop) {
-        Objects.requireNonNull(prop);
-        data.removeProperty(prop);
-    }
-
-    public boolean hasFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        return data.hasFlag(propertyFlag);
-    }
-
-    public void addFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        data.addFlag(propertyFlag);
-    }
-
-    public void removeFlag(PropertyFlag propertyFlag) {
-        Objects.requireNonNull(propertyFlag);
-        data.removeFlag(propertyFlag);
-    }
-
-    public String getPicture(EntityAspect type) {
-        Objects.requireNonNull(type);
-        return data.getPicture(type);
+    @Override
+    public Set<PropertyType> flags() {
+        return data.flags();
     }
 
     @Override
     public String toString() {
         return data.toString();
+    }
+
+    @Override
+    public ImageIcon image() {
+        return nounIcon;
+    }
+
+    @Override
+    public OperationResult applyIsAsRight(LeftOperand leftOperand) {
+        Objects.requireNonNull(leftOperand);
+        return leftOperand.applyIsAsLeft(this);
+    }
+
+    @Override
+    public OperationResult applyIsAsLeft(WordWrapper rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        rightOperand.receiveEntities(entities);
+        entities.clear();
+        return OperationResult.NORMAL;
+    }
+
+    @Override
+    public OperationResult applyIsAsLeft(EntityWrapper rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        rightOperand.receiveEntities(entities);
+        entities.clear();
+        return OperationResult.NORMAL;
+    }
+
+    @Override
+    public OperationResult applyIsAsLeft(PassiveProperty rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        data.addProperty(rightOperand);
+        return OperationResult.NORMAL;
+    }
+
+    @Override
+    public OperationResult applyIsAsLeft(MovementProperty rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        data.addProperty(rightOperand);
+        return OperationResult.NORMAL;
+    }
+
+    @Override
+    public OperationResult unapplyIsAsLeft(PassiveProperty rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        System.out.println("p-");
+        data.removeProperty(rightOperand);
+        return OperationResult.NORMAL;
+    }
+
+    @Override
+    public OperationResult unapplyIsAsLeft(MovementProperty rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        data.removeProperty(rightOperand);
+        return OperationResult.NORMAL;
+    }
+
+    @Override
+    public void receiveEntities(Set<Entity> entities) {
+        Objects.requireNonNull(entities);
+        entities.forEach(this::addEntity);
+    }
+
+    @Override
+    public void receiveWords(Set<Word> words) {
+        Objects.requireNonNull(words);
+        words.forEach(word -> {
+            var entity = new Entity(word.direction(), word.x(), word.y());
+            entity.setData(data);
+            entities.add(entity);
+        });
+    }
+
+    public void addEntity(Entity entity) {
+        Objects.requireNonNull(entity);
+        entity.setData(data);
+        entities.add(entity);
     }
 }
