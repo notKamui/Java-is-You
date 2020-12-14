@@ -19,9 +19,8 @@ import java.util.Objects;
 
 
 public class LevelBuilder {
-    private LevelBuilder() {}
 
-    public static LevelManager buildLevelFromFile(String fname) {
+    /*public static LevelManager buildLevelFromFile(String fname) {
         Objects.requireNonNull(fname);
         try {
             var lines = Files.readAllLines(
@@ -99,6 +98,6 @@ public class LevelBuilder {
             }
         }
         return newElements;
-    }
+    }*/
 
 }

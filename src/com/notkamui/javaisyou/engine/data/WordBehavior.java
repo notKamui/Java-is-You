@@ -1,41 +1,38 @@
-package com.notkamui.javaisyou.engine.type;
+package com.notkamui.javaisyou.engine.data;
 
-import com.notkamui.javaisyou.engine.boardelement.HasFlag;
-import com.notkamui.javaisyou.engine.boardelement.HasProperty;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import javax.swing.*;
 import java.util.*;
 
-final class WordData implements HasProperty, HasFlag, HasEntityImage {
-    private final ImageIcon nounIcon;
+public final class WordBehavior implements EditableData {
+
     private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
     private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
     private final Set<MovementProperty> defaultMoveProp = Set.of(new MovementProperty.Push());
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
-    WordData(ImageIcon nounIcon) {
-        Objects.requireNonNull(nounIcon);
-        this.nounIcon = nounIcon;
-    }
-
+    @Override
     public Set<PropertyFlag> flags() {
         return Set.copyOf(propertyFlags);
     }
 
-    public SortedSet<PassiveProperty> passiveProperties() {
-       return new TreeSet<>(passiveProps);
-    }
-
+    @Override
     public SortedSet<MovementProperty> movementProperties() {
         var clone = new TreeSet<>(movementProps);
         clone.addAll(defaultMoveProp);
         return clone;
     }
 
+    @Override
+    public SortedSet<PassiveProperty> passiveProperties() {
+       return new TreeSet<>(passiveProps);
+    }
+
+    @Override
     public void addProperty(Property prop) {
         Objects.requireNonNull(prop);
         if (prop instanceof MovementProperty moveProp) {
@@ -48,6 +45,7 @@ final class WordData implements HasProperty, HasFlag, HasEntityImage {
         propertyFlags.addAll(prop.flags());
     }
 
+    @Override
     public void removeProperty(Property prop) {
         Objects.requireNonNull(prop);
         if (prop instanceof MovementProperty moveProp) {
@@ -59,14 +57,7 @@ final class WordData implements HasProperty, HasFlag, HasEntityImage {
     }
 
     @Override
-    public ImageIcon entityIcon(EntityAspect aspect) {
-        Objects.requireNonNull(aspect);
-        return switch (aspect) {
-            case NOUN -> nounIcon;
-            case ELEMENT -> throw new IllegalArgumentException(
-                    "Unsupported aspect: wordWrapper only has Noun representation");
-            default -> throw new IllegalArgumentException("Unknown aspect");
-        };
+    public ImageIcon image() {
+        throw new IllegalStateException("wordbehavior hasn't image");
     }
-
 }

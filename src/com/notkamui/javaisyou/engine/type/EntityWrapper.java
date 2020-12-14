@@ -1,29 +1,28 @@
 package com.notkamui.javaisyou.engine.type;
 
+import com.notkamui.javaisyou.engine.boardelement.element.Entity;
+import com.notkamui.javaisyou.engine.boardelement.element.Word;
+import com.notkamui.javaisyou.engine.data.EntityBehavior;
 import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.operation.Result;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import javax.swing.*;
-import java.util.Objects;
-import java.util.Set;
-import java.util.SortedSet;
+import java.util.*;
 
-public final class EntityWrapper implements Wrapper {
-    private EntityData data;
+public final class EntityWrapper implements TransferWrapper {
+    private final EntityBehavior data;
+    private final ImageIcon nounIcon;
+    private final Set<Entity> entities = new HashSet<>();
 
-    public EntityWrapper(ImageIcon elemImg , ImageIcon nounImg) {
-        Objects.requireNonNull(elemImg);
-        Objects.requireNonNull(nounImg);
-        data = new EntityData(elemImg, nounImg);
-    }
-
-    public void setWrapper(EntityWrapper wrapper) {
-        Objects.requireNonNull(wrapper);
-        this.data = wrapper.data;
+    public EntityWrapper(ImageIcon nounIcon, ImageIcon elemIcon) {
+        Objects.requireNonNull(nounIcon);
+        Objects.requireNonNull(elemIcon);
+        this.nounIcon = nounIcon;
+        this.data = new EntityBehavior(elemIcon);
     }
 
     @Override
@@ -37,21 +36,10 @@ public final class EntityWrapper implements Wrapper {
     }
 
     @Override
-    public void addProperty(Property prop) {
-        Objects.requireNonNull(prop);
-        data.addProperty(prop);
-    }
-
-    @Override
-    public void removeProperty(Property prop) {
-        Objects.requireNonNull(prop);
-        data.removeProperty(prop);
-    }
-
-    @Override
     public Set<PropertyFlag> flags() {
         return data.flags();
     }
+
 
     @Override
     public String toString() {
@@ -59,9 +47,8 @@ public final class EntityWrapper implements Wrapper {
     }
 
     @Override
-    public ImageIcon entityIcon(EntityAspect aspect) {
-        Objects.requireNonNull(aspect);
-        return data.entityIcon(aspect);
+    public ImageIcon image() {
+        return nounIcon;
     }
 
     @Override
@@ -85,7 +72,6 @@ public final class EntityWrapper implements Wrapper {
     @Override
     public Result applyIsAsLeft(EntityWrapper rightOperand) {
         Objects.requireNonNull(rightOperand);
-        this.data = rightOperand.data;
         return Result.NORMAL;
     }
 
@@ -111,5 +97,34 @@ public final class EntityWrapper implements Wrapper {
         Objects.requireNonNull(rightOperand);
         data.removeProperty(rightOperand);
         return Result.NORMAL;
+    }
+
+    @Override
+    public void receiveEntities(Set<Entity> entities) {
+        Objects.requireNonNull(entities);
+        entities.forEach(this::addEntity);
+    }
+
+    @Override
+    public void receiveWords(Set<Word> words) {
+        Objects.requireNonNull(words);
+        words.forEach(word -> {
+            var entity = new Entity(word.direction(), word.x(), word.y());
+            entity.setData(data);
+            entities.add(entity);
+        });
+    }
+
+    @Override
+    public void transferElementsTo(ElementsReceiver receiver) {
+        Objects.requireNonNull(receiver);
+        receiver.receiveEntities(entities);
+        entities.clear();
+    }
+
+    public void addEntity(Entity entity) {
+        Objects.requireNonNull(entity);
+        entity.setData(data);
+        entities.add(entity);
     }
 }

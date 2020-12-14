@@ -2,12 +2,13 @@ package com.notkamui.javaisyou.engine.boardelement.element;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
+import com.notkamui.javaisyou.engine.boardelement.HasDirection;
 import com.notkamui.javaisyou.engine.boardelement.Moveable;
 import com.notkamui.javaisyou.engine.boardelement.Stateable;
 
 import java.util.Objects;
 
-public class BoardElementComponent implements Moveable, Stateable {
+public class BoardElementComponent implements Moveable, Stateable, HasDirection {
     Direction direction;
     private boolean isAlive = true;
     private int x;
@@ -53,4 +54,8 @@ public class BoardElementComponent implements Moveable, Stateable {
         y += move.vectY();
     }
 
+    @Override
+    public Direction direction() {
+        return direction;
+    }
 }

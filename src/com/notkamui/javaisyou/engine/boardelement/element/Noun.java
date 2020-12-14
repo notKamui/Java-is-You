@@ -2,13 +2,12 @@ package com.notkamui.javaisyou.engine.boardelement.element;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
+import com.notkamui.javaisyou.engine.data.BehaviorData;
 import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.operation.RightOperand;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
-import com.notkamui.javaisyou.engine.type.EntityAspect;
-import com.notkamui.javaisyou.engine.type.WordWrapper;
 import com.notkamui.javaisyou.engine.type.Wrapper;
 
 import javax.swing.*;
@@ -16,33 +15,31 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 
-public final class Noun implements BoardElement {
-    private final WordWrapper wordWrapper;
+public final class Noun implements Word {
+    private BehaviorData data = BehaviorData.emptyData();
     private final Wrapper representedWrapper;
     private final BoardElementComponent component;
 
-    public Noun (WordWrapper wordWrapper, Direction dir, int x, int y, Wrapper representedWrapper) {
-        Objects.requireNonNull(wordWrapper);
+    public Noun (Direction dir, int x, int y, Wrapper representedWrapper) {
         Objects.requireNonNull(dir);
         Objects.requireNonNull(representedWrapper);
-        this.wordWrapper = wordWrapper;
         this.representedWrapper = representedWrapper;
         this.component = new BoardElementComponent(dir, x, y);
     }
 
     @Override
     public Set<PropertyFlag> flags() {
-        return wordWrapper.flags();
+        return data.flags();
     }
 
     @Override
     public SortedSet<MovementProperty> movementProperties() {
-        return wordWrapper.movementProperties();
+        return data.movementProperties();
     }
 
     @Override
     public SortedSet<PassiveProperty> passiveProperties() {
-        return wordWrapper.passiveProperties();
+        return data.passiveProperties();
     }
 
     @Override
@@ -82,10 +79,9 @@ public final class Noun implements BoardElement {
         return Objects.hash(component.x(), component.y());
     }
 
-
     @Override
     public ImageIcon image() {
-        return representedWrapper.entityIcon(EntityAspect.NOUN);
+        return representedWrapper.image();
     }
 
     @Override
@@ -96,5 +92,16 @@ public final class Noun implements BoardElement {
     @Override
     public RightOperand getAsRight() {
         return representedWrapper;
+    }
+
+    @Override
+    public Direction direction() {
+        return component.direction();
+    }
+
+    @Override
+    public void setData(BehaviorData data) {
+        Objects.requireNonNull(data);
+        this.data = data;
     }
 }
