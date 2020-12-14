@@ -10,8 +10,8 @@ import java.util.*;
 
 public final class WordBehavior implements EditableData {
 
-    private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
-    private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
+    private final Set<PassiveProperty> passiveProps = new TreeSet<>();
+    private final Set<MovementProperty> movementProps = new TreeSet<>();
     private final Set<MovementProperty> defaultMoveProp = Set.of(new MovementProperty.Push());
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
@@ -21,15 +21,15 @@ public final class WordBehavior implements EditableData {
     }
 
     @Override
-    public SortedSet<MovementProperty> movementProperties() {
-        var clone = new TreeSet<>(movementProps);
+    public Set<MovementProperty> movementProperties() {
+        var clone = new HashSet<>(movementProps);
         clone.addAll(defaultMoveProp);
         return clone;
     }
 
     @Override
-    public SortedSet<PassiveProperty> passiveProperties() {
-       return new TreeSet<>(passiveProps);
+    public Set<PassiveProperty> passiveProperties() {
+       return Set.copyOf(passiveProps);
     }
 
     @Override

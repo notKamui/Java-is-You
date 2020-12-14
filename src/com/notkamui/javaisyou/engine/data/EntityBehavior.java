@@ -10,8 +10,8 @@ import java.util.*;
 
 public final class EntityBehavior implements EditableData {
     private final ImageIcon icon;
-    private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
-    private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
+    private final Set<PassiveProperty> passiveProps = new TreeSet<>();
+    private final Set<MovementProperty> movementProps = new TreeSet<>();
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
     public EntityBehavior(ImageIcon icon) {
@@ -25,13 +25,13 @@ public final class EntityBehavior implements EditableData {
     }
 
     @Override
-    public SortedSet<PassiveProperty> passiveProperties() {
-        return new TreeSet<>(passiveProps);
+    public Set<PassiveProperty> passiveProperties() {
+        return Set.copyOf(passiveProps);
     }
 
     @Override
-    public SortedSet<MovementProperty> movementProperties() {
-        return new TreeSet<>(movementProps);
+    public Set<MovementProperty> movementProperties() {
+        return Set.copyOf(movementProps);
     }
 
     @Override

@@ -3,10 +3,10 @@ package com.notkamui.javaisyou.engine.boardelement;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 
-import java.util.SortedSet;
+import java.util.Set;
 
 public interface HasProperty {
-  SortedSet<MovementProperty> movementProperties();
+  Set<MovementProperty> movementProperties();
 
-  SortedSet<PassiveProperty> passiveProperties();
+  Set<PassiveProperty> passiveProperties();
 }

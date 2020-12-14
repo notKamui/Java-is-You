@@ -37,12 +37,12 @@ public final class WordWrapper implements TransferWrapper {
     }
 
     @Override
-    public SortedSet<PassiveProperty> passiveProperties() {
+    public Set<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 
     @Override
-    public SortedSet<MovementProperty> movementProperties() {
+    public Set<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 

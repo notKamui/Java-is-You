@@ -35,12 +35,12 @@ public final class EntityWrapper implements TransferWrapper {
     }
 
     @Override
-    public SortedSet<PassiveProperty> passiveProperties() {
+    public Set<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 
     @Override
-    public SortedSet<MovementProperty> movementProperties() {
+    public Set<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
