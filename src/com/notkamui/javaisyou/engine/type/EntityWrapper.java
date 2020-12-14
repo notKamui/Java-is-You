@@ -18,7 +18,7 @@ public final class EntityWrapper implements TransferWrapper {
     private final ImageIcon nounIcon;
     private final Set<Entity> entities = new HashSet<>();
 
-    public EntityWrapper(ImageIcon nounIcon, ImageIcon elemIcon) {
+    public EntityWrapper(ImageIcon elemIcon, ImageIcon nounIcon) {
         Objects.requireNonNull(nounIcon);
         Objects.requireNonNull(elemIcon);
         this.nounIcon = nounIcon;
@@ -35,12 +35,12 @@ public final class EntityWrapper implements TransferWrapper {
     }
 
     @Override
-    public SortedSet<PassiveProperty> passiveProperties() {
+    public List<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 
     @Override
-    public SortedSet<MovementProperty> movementProperties() {
+    public List<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 

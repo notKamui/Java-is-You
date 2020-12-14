@@ -8,9 +8,9 @@ import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.SortedSet;
 
 public final class Entity implements BoardElement {
     private BehaviorData data = BehaviorData.emptyData();
@@ -27,12 +27,12 @@ public final class Entity implements BoardElement {
     }
 
     @Override
-    public SortedSet<MovementProperty> movementProperties() {
+    public List<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public SortedSet<PassiveProperty> passiveProperties() {
+    public List<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 

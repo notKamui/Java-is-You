@@ -11,9 +11,9 @@ import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.Wrapper;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.SortedSet;
 
 public final class Noun implements Word {
     private BehaviorData data = BehaviorData.emptyData();
@@ -33,12 +33,12 @@ public final class Noun implements Word {
     }
 
     @Override
-    public SortedSet<MovementProperty> movementProperties() {
+    public List<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public SortedSet<PassiveProperty> passiveProperties() {
+    public List<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 

@@ -6,6 +6,7 @@ import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.boardelement.LocatedObject;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.operation.Operator;
+import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
@@ -53,6 +54,8 @@ public class LevelManager implements MovementObserver {
     private void applyPassiveProperties() {
         model.elements()
                 .forEach(e -> e.passiveProperties()
+                        .stream()
+                        .sorted(Comparator.comparingInt(Property::priority))
                         .forEach(p -> {
                             var els = model.get(e.x(), e.y());
                             for (var left : els) {
