@@ -1,17 +1,17 @@
 20 10
 
-n resources/assets/nouns/WALL/WALL_0.gif resources/assets/nouns/WALL/Text_WALL_0.gif
+n WALL
 > e 6 6 0
 > t 2 0 0
 > t 9 0 0
 
-n resources/assets/nouns/BABA/BABA_0.gif resources/assets/nouns/BABA/Text_BABA_0.gif
+n BABA
 > e 3 3 0
 > t 0 2 0
 > t 9 2 0
 > t 10 0 0
 
-n resources/assets/nouns/WATER/WATER_0.gif resources/assets/nouns/WATER/Text_WATER_0.gif
+n WATER
 > e 9 9 0
 > t 10 2 0
 

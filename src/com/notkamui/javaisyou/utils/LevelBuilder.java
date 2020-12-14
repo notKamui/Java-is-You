@@ -57,16 +57,19 @@ public class LevelBuilder {
         Objects.requireNonNull(lines);
         Objects.requireNonNull(wrapper);
         var assets = lines.get(index).split(" ");
-        var entityWrapper = new EntityWrapper(new ImageIcon(assets[1]), new ImageIcon(assets[2]));
+        var dir = "resources/assets/nouns/" + assets[1] + "/";
+        var elemPic = dir + assets[1] + "_0.gif";
+        var nounPic = dir + "Text_" + assets[1] + "_0.gif";
+        var entityWrapper = new EntityWrapper(new ImageIcon(elemPic), new ImageIcon(nounPic));
         for (var i = index+1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
             var split = lines.get(i).split(" ");
-            var dir = Direction.values()[Integer.parseInt(split[4])];
+            var direct = Direction.values()[Integer.parseInt(split[4])];
             var x = Integer.parseInt(split[2]);
             var y = Integer.parseInt(split[3]);
             if (split[1].equals("e")) {
-                entityWrapper.addEntity(new Entity(dir, x, y));
+                entityWrapper.addEntity(new Entity(direct, x, y));
             } else if (split[1].equals("t")) {
-                wrapper.addWord(new Noun(dir, x, y, entityWrapper));
+                wrapper.addWord(new Noun(direct, x, y, entityWrapper));
             }
         }
         return entityWrapper;

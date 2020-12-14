@@ -18,7 +18,7 @@ public final class EntityWrapper implements TransferWrapper {
     private final ImageIcon nounIcon;
     private final Set<Entity> entities = new HashSet<>();
 
-    public EntityWrapper(ImageIcon nounIcon, ImageIcon elemIcon) {
+    public EntityWrapper(ImageIcon elemIcon, ImageIcon nounIcon) {
         Objects.requireNonNull(nounIcon);
         Objects.requireNonNull(elemIcon);
         this.nounIcon = nounIcon;
