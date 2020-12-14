@@ -30,7 +30,7 @@ public final class GameController {
             var height = (int) screenInfo.getHeight();
             level.update();
             do {
-                var event = context.pollOrWaitEvent(100);
+                var event = context.pollOrWaitEvent(300);
                 if (event != null && event.getKey() != null && event.getAction() == Event.Action.KEY_PRESSED) {
                     switch (event.getKey()) {
                         case UP -> level.moveYou(Direction.NORTH);
