@@ -44,7 +44,7 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
-      return leftOperand.applyIsAsLeft(this);
+      return leftOperand.unapplyIsAsLeft(this);
     }
   }
 
@@ -81,7 +81,7 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
-      return leftOperand.applyIsAsLeft(this);
+      return leftOperand.unapplyIsAsLeft(this);
     }
   }
 
@@ -123,7 +123,7 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
-      return leftOperand.applyIsAsLeft(this);
+      return leftOperand.unapplyIsAsLeft(this);
     }
   }
 
@@ -161,7 +161,7 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
-      return leftOperand.applyIsAsLeft(this);
+      return leftOperand.unapplyIsAsLeft(this);
     }
   }
 
@@ -233,7 +233,7 @@ public sealed interface PassiveProperty extends Property {
     @Override
     public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
-      return leftOperand.applyIsAsLeft(this);
+      return leftOperand.unapplyIsAsLeft(this);
     }
   }
 

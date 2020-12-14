@@ -46,7 +46,6 @@ public final class WordData implements EditableData {
     public void addProperty(PassiveProperty prop) {
         Objects.requireNonNull(prop);
         component.addProperty(prop);
-
     }
 
     @Override

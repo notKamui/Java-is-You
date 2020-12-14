@@ -33,6 +33,7 @@ class PropertyComponent implements EditableProperties {
     }
     propSet.remove(prop);
     if (propSet.isEmpty()) {
+
       propMap.remove(type);
     }
   }
