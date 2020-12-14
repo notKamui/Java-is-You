@@ -25,13 +25,13 @@ public final class EntityBehavior implements EditableData {
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
-        return Set.copyOf(passiveProps);
+    public SortedSet<PassiveProperty> passiveProperties() {
+        return new TreeSet<>(passiveProps);
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
-        return Set.copyOf(movementProps);
+    public SortedSet<MovementProperty> movementProperties() {
+        return new TreeSet<>(movementProps);
     }
 
     @Override

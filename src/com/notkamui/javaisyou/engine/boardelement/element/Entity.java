@@ -10,6 +10,7 @@ import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import javax.swing.*;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedSet;
 
 public final class Entity implements BoardElement {
     private BehaviorData data = BehaviorData.emptyData();
@@ -26,12 +27,12 @@ public final class Entity implements BoardElement {
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
+    public SortedSet<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
+    public SortedSet<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 

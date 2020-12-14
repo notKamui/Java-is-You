@@ -21,15 +21,15 @@ public final class WordBehavior implements EditableData {
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
-       return Set.copyOf(passiveProps);
-    }
-
-    @Override
-    public Set<MovementProperty> movementProperties() {
+    public SortedSet<MovementProperty> movementProperties() {
         var clone = new TreeSet<>(movementProps);
         clone.addAll(defaultMoveProp);
         return clone;
+    }
+
+    @Override
+    public SortedSet<PassiveProperty> passiveProperties() {
+       return new TreeSet<>(passiveProps);
     }
 
     @Override

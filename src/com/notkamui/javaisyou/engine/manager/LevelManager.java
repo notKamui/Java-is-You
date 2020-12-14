@@ -38,6 +38,29 @@ public class LevelManager implements MovementObserver {
         displayManager.display(graphics, x, y, windowWidth, windowHeight);
     }
 
+    public void update() {
+        updateRules();
+        applyPassiveProperties();
+        removeAllDead();
+    }
+
+    private void removeAllDead() {
+        model.removeAllDead();
+    }
+
+    private void applyPassiveProperties() {
+        model.elements()
+                .forEach(e -> e.passiveProperties()
+                        .forEach(p -> {
+                            var els = model.get(e.x(), e.y());
+                            for (var left : els) {
+                                for (var right : els) {
+                                        p.applyPassive(left, right);
+                                }
+                            }
+                        })
+                );
+    }
 
     private List<Rule> buildRules(List<BoardElement> leftList, Operator operator, List<BoardElement> rightList) {
         var newRules = new ArrayList<Rule>();
@@ -108,7 +131,7 @@ public class LevelManager implements MovementObserver {
         activeRules = newRules;
     }
 
-    public void updateRules() {
+    private void updateRules() {
         var newRules = newRules();
         applyNewRules(newRules);// apply new rules and remove ineffective rules
         setNewRules(newRules);

@@ -8,7 +8,6 @@ import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
-import com.notkamui.javaisyou.engine.type.WordWrapper;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -36,12 +35,12 @@ public final class TextualProperty implements Word {
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
+    public SortedSet<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
+    public SortedSet<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 
