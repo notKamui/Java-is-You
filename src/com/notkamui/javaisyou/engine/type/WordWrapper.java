@@ -71,15 +71,14 @@ public final class WordWrapper implements TransferWrapper {
     @Override
     public Result applyIsAsLeft(WordWrapper rightOperand) {
         Objects.requireNonNull(rightOperand);
-        rightOperand.transferElementsTo(this);
+        rightOperand.receiveWords(words);
         return Result.NORMAL;
     }
 
     @Override
     public Result applyIsAsLeft(EntityWrapper rightOperand) {
         Objects.requireNonNull(rightOperand);
-        nextConversion = Optional.of(rightOperand);
-        rightOperand.transferElementsTo(this);
+        rightOperand.receiveWords(words);
         return Result.NORMAL;
     }
 

@@ -40,6 +40,7 @@ public class LevelBuilder {
 
     private static List<EntityWrapper> parseBoardElements(List<String> lines, WordWrapper wordWrapper) {
         Objects.requireNonNull(lines);
+        Objects.requireNonNull(wordWrapper);
         var entityWrappers = new ArrayList<EntityWrapper>();
         for (var i = 0; i < lines.size(); i++) {
             var line = lines.get(i);
