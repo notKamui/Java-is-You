@@ -1,41 +1,40 @@
-package com.notkamui.javaisyou.engine.type;
+package com.notkamui.javaisyou.engine.data;
 
-import com.notkamui.javaisyou.engine.boardelement.HasFlag;
-import com.notkamui.javaisyou.engine.boardelement.HasProperty;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import javax.swing.*;
 import java.util.*;
 
-final class WordData implements WrapperData {
-    private final ImageIcon nounIcon;
+public final class EntityBehavior implements EditableData {
+    private final ImageIcon icon;
     private final SortedSet<PassiveProperty> passiveProps = new TreeSet<>();
     private final SortedSet<MovementProperty> movementProps = new TreeSet<>();
-    private final Set<MovementProperty> defaultMoveProp = Set.of(new MovementProperty.Push());
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
-    WordData(ImageIcon nounIcon) {
-        Objects.requireNonNull(nounIcon);
-        this.nounIcon = nounIcon;
+    public EntityBehavior(ImageIcon icon) {
+        Objects.requireNonNull(icon);
+        this.icon = icon;
     }
 
+    @Override
     public Set<PropertyFlag> flags() {
         return Set.copyOf(propertyFlags);
     }
 
+    @Override
     public Set<PassiveProperty> passiveProperties() {
-       return Set.copyOf(passiveProps);
+        return Set.copyOf(passiveProps);
     }
 
+    @Override
     public Set<MovementProperty> movementProperties() {
-        var clone = new TreeSet<>(movementProps);
-        clone.addAll(defaultMoveProp);
-        return clone;
+        return Set.copyOf(movementProps);
     }
 
+    @Override
     public void addProperty(Property prop) {
         Objects.requireNonNull(prop);
         if (prop instanceof MovementProperty moveProp) {
@@ -48,25 +47,22 @@ final class WordData implements WrapperData {
         propertyFlags.addAll(prop.flags());
     }
 
+    @Override
     public void removeProperty(Property prop) {
         Objects.requireNonNull(prop);
         if (prop instanceof MovementProperty moveProp) {
             movementProps.remove(moveProp);
         } else if (prop instanceof PassiveProperty passiveProp) {
             passiveProps.remove(passiveProp);
+        } else {
+            throw new RuntimeException("Unknown type of Property");
         }
         prop.flags().forEach(propertyFlags::remove);
     }
 
     @Override
-    public ImageIcon entityIcon(EntityAspect aspect) {
-        Objects.requireNonNull(aspect);
-        return switch (aspect) {
-            case NOUN -> nounIcon;
-            case ELEMENT -> throw new IllegalArgumentException(
-                    "Unsupported aspect: wordWrapper only has Noun representation");
-            default -> throw new IllegalArgumentException("Unknown aspect");
-        };
+    public ImageIcon image() {
+        return icon;
     }
-
 }
+

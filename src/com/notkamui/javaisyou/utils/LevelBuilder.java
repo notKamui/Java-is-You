@@ -3,10 +3,6 @@ package com.notkamui.javaisyou.utils;
 import com.notkamui.javaisyou.engine.babaoperator.BabaOperator;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.boardelement.element.*;
-import com.notkamui.javaisyou.engine.boardelement.element.data.Entity;
-import com.notkamui.javaisyou.engine.boardelement.element.data.Noun;
-import com.notkamui.javaisyou.engine.boardelement.element.data.TextualOperator;
-import com.notkamui.javaisyou.engine.boardelement.element.data.TextualProperty;
 import com.notkamui.javaisyou.engine.manager.LevelManager;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
@@ -23,9 +19,8 @@ import java.util.Objects;
 
 
 public class LevelBuilder {
-    private LevelBuilder() {}
 
-    public static LevelManager buildLevelFromFile(String fname) {
+    /*public static LevelManager buildLevelFromFile(String fname) {
         Objects.requireNonNull(fname);
         try {
             var lines = Files.readAllLines(
@@ -103,6 +98,6 @@ public class LevelBuilder {
             }
         }
         return newElements;
-    }
+    }*/
 
 }
