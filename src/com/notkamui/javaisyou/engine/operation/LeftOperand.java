@@ -1,54 +1,45 @@
 package com.notkamui.javaisyou.engine.operation;
 
-import com.notkamui.javaisyou.engine.property.Property;
+import com.notkamui.javaisyou.engine.property.MovementProperty;
+import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
 
 public interface LeftOperand {
   // TODO ask for global
   static LeftOperand nullLeftOperand() {
-    return new LeftOperand() {
-      @Override
-      public Result applyIsAsLeft(WordWrapper rightOperand) {
-        return Result.INEFFECTIVE;
-      }
-
-      @Override
-      public Result applyIsAsLeft(EntityWrapper rightOperand) {
-        return Result.INEFFECTIVE;
-      }
-
-      @Override
-      public Result applyIsAsLeft(Property rightOperand) {
-        return Result.INEFFECTIVE;
-      }
-
-      @Override
-      public Result unapplyIsAsLeft(WordWrapper rightOperand) {
-        return Result.INEFFECTIVE;
-      }
-
-      @Override
-      public Result unapplyIsAsLeft(EntityWrapper rightOperand) {
-        return Result.INEFFECTIVE;
-      }
-
-      @Override
-      public Result unapplyIsAsLeft(Property rightOperand) {
-        return Result.INEFFECTIVE;
-      }
-    };
+    return new LeftOperand(){};
   }
 
-  Result applyIsAsLeft(WordWrapper rightOperand);
+  default OperationResult applyIsAsLeft(WordWrapper rightOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
 
-  Result applyIsAsLeft(EntityWrapper rightOperand);
+  default OperationResult applyIsAsLeft(EntityWrapper rightOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
 
-  Result applyIsAsLeft(Property rightOperand);
+  default OperationResult applyIsAsLeft(MovementProperty rightOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
 
-  Result unapplyIsAsLeft(WordWrapper rightOperand);
+  default OperationResult applyIsAsLeft(PassiveProperty rightOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
 
-  Result unapplyIsAsLeft(EntityWrapper rightOperand);
+  default OperationResult unapplyIsAsLeft(WordWrapper rightOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
 
-  Result unapplyIsAsLeft(Property rightOperand);
+  default OperationResult unapplyIsAsLeft(EntityWrapper rightOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
+
+  default OperationResult unapplyIsAsLeft(PassiveProperty rightOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
+
+  default OperationResult unapplyIsAsLeft(MovementProperty rightOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
 }

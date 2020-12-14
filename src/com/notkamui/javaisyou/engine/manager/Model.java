@@ -1,8 +1,9 @@
 package com.notkamui.javaisyou.engine.manager;
 
-import com.notkamui.javaisyou.engine.Displayable;
+import com.notkamui.javaisyou.engine.boardelement.Displayable;
 import com.notkamui.javaisyou.engine.Rule;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
+import com.notkamui.javaisyou.engine.boardelement.element.Word;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Model {
+class Model {
 
   private final List<EntityWrapper> entityWrappers = new ArrayList<>();
   private final WordWrapper wordWrapper;
@@ -50,9 +51,16 @@ public class Model {
     return new ArrayList<>(elements());
   }
 
-  List<BoardElement> get(int x, int y) {
+  List<BoardElement> getElements(int x, int y) {
     return elements().stream()
             .filter(e -> e.x() == x && e.y() == y)
             .collect(Collectors.toList());
   }
+
+  List<Word> getWords(int x, int y) {
+    return wordWrapper.words().stream()
+            .filter(e -> e.x() == x && e.y() == y)
+            .collect(Collectors.toList());
+  }
+
 }

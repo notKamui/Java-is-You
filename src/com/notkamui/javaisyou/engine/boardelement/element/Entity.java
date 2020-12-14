@@ -5,34 +5,33 @@ import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.data.BehaviorData;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.PropertyType;
 
 import javax.swing.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 public final class Entity implements BoardElement {
     private BehaviorData data = BehaviorData.emptyData();
-    private final BoardElementComponent component;
+    private final BasicElementComponent component;
 
     public Entity(Direction dir, int x, int y) {
         Objects.requireNonNull(dir);
-        this.component = new BoardElementComponent(dir, x, y);
+        this.component = new BasicElementComponent(dir, x, y);
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
+    public Set<PropertyType> flags() {
         return data.flags();
     }
 
     @Override
-    public List<MovementProperty> movementProperties() {
+    public Set<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public List<PassiveProperty> passiveProperties() {
+    public Set<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 

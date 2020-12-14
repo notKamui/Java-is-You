@@ -1,8 +1,7 @@
 
 package com.notkamui.javaisyou.engine.manager;
 
-import com.notkamui.javaisyou.engine.Displayable;
-import com.notkamui.javaisyou.engine.boardelement.HasImage;
+import com.notkamui.javaisyou.engine.boardelement.Displayable;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

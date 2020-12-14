@@ -2,7 +2,7 @@ package com.notkamui.javaisyou.engine.property;
 
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.operation.LeftOperand;
-import com.notkamui.javaisyou.engine.operation.Result;
+import com.notkamui.javaisyou.engine.operation.OperationResult;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -12,6 +12,7 @@ public sealed interface PassiveProperty extends Property {
   void applyPassive(BoardElement trigger, BoardElement receiver);
 
   record Melt() implements PassiveProperty {
+    private final static PropertyType type = PropertyType.MELT;
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/MELT/Prop_MELT.gif");
 
     @Override
@@ -20,13 +21,13 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
-      return Set.of(PropertyFlag.MELT);
+    public int priority() {
+      return 2;
     }
 
     @Override
-    public int priority() {
-      return 2;
+    public PropertyType type() {
+      return type;
     }
 
     @Override
@@ -35,19 +36,20 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Result applyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult applyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
 
     @Override
-    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
   }
 
   record Hot() implements PassiveProperty {
+    private final static PropertyType type = PropertyType.HOT;
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/HOT/Prop_HOT.gif");
 
     @Override
@@ -56,13 +58,13 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
-      return Set.of(PropertyFlag.HOT);
+    public int priority() {
+      return 2;
     }
 
     @Override
-    public int priority() {
-      return 2;
+    public PropertyType type() {
+      return type;
     }
 
     @Override
@@ -71,26 +73,27 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Result applyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult applyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
 
     @Override
-    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
   }
 
   record Defeat() implements PassiveProperty {
+    private final static PropertyType type = PropertyType.DEFEAT;
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/DEFEAT/Prop_DEFEAT.gif");
 
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
-      if (trigger.flags().contains(PropertyFlag.YOU)) {
+      if (trigger.flags().contains(PropertyType.YOU)) {
         trigger.setState(false);
-      } else if (receiver.flags().contains(PropertyFlag.YOU)) {
+      } else if (receiver.flags().contains(PropertyType.YOU)) {
         receiver.setState(false);
       }
     }
@@ -101,9 +104,10 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
-      return Set.of();
+    public PropertyType type() {
+      return type;
     }
+
 
     @Override
     public ImageIcon image() {
@@ -111,19 +115,20 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Result applyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult applyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
 
     @Override
-    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
   }
 
   record Sink() implements PassiveProperty {
+    private final static PropertyType type = PropertyType.SINK;
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/SINK/Prop_SINK.gif");
 
     @Override
@@ -138,8 +143,8 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
-      return Set.of();
+    public PropertyType type() {
+      return type;
     }
 
     @Override
@@ -148,19 +153,20 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Result applyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult applyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
 
     @Override
-    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
   }
 
   record You() implements PassiveProperty {
+    private final static PropertyType type = PropertyType.YOU;
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/YOU/Prop_YOU.gif");
 
     @Override
@@ -173,8 +179,8 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
-      return Set.of(PropertyFlag.YOU);
+    public PropertyType type() {
+      return type;
     }
 
     @Override
@@ -183,19 +189,20 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Result applyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult applyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
 
     @Override
-    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.unapplyIsAsLeft(this);
     }
   }
 
   record Win() implements PassiveProperty {
+    private final static PropertyType type = PropertyType.WIN;
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/WIN/Prop_WIN.gif");
 
     @Override
@@ -208,8 +215,8 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
-      return Set.of(PropertyFlag.WIN);
+    public PropertyType type() {
+      return type;
     }
 
     @Override
@@ -218,13 +225,13 @@ public sealed interface PassiveProperty extends Property {
     }
 
     @Override
-    public Result applyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult applyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }
 
     @Override
-    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
       return leftOperand.applyIsAsLeft(this);
     }

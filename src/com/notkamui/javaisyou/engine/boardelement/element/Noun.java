@@ -7,38 +7,37 @@ import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.operation.RightOperand;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.PropertyType;
 import com.notkamui.javaisyou.engine.type.Wrapper;
 
 import javax.swing.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 public final class Noun implements Word {
     private BehaviorData data = BehaviorData.emptyData();
     private final Wrapper representedWrapper;
-    private final BoardElementComponent component;
+    private final BasicElementComponent component;
 
     public Noun (Direction dir, int x, int y, Wrapper representedWrapper) {
         Objects.requireNonNull(dir);
         Objects.requireNonNull(representedWrapper);
         this.representedWrapper = representedWrapper;
-        this.component = new BoardElementComponent(dir, x, y);
+        this.component = new BasicElementComponent(dir, x, y);
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
+    public Set<PropertyType> flags() {
         return data.flags();
     }
 
     @Override
-    public List<MovementProperty> movementProperties() {
+    public Set<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public List<PassiveProperty> passiveProperties() {
+    public Set<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 

@@ -7,40 +7,35 @@ import com.notkamui.javaisyou.engine.operation.RightOperand;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.Property;
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.PropertyType;
 
 import javax.swing.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 public final class TextualProperty implements Word {
     private BehaviorData data = BehaviorData.emptyData();
-    private final BoardElementComponent component;
+    private final BasicElementComponent component;
     private final Property property;
 
     public TextualProperty(Direction dir, int x, int y, Property property) {
         Objects.requireNonNull(dir);
         this.property = property;
-        this.component = new BoardElementComponent(dir, x, y);
-    }
-
-    public Property property() {
-        return property;
+        this.component = new BasicElementComponent(dir, x, y);
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
+    public Set<PropertyType> flags() {
         return data.flags();
     }
 
     @Override
-    public List<MovementProperty> movementProperties() {
+    public Set<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public List<PassiveProperty> passiveProperties() {
+    public Set<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 

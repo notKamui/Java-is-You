@@ -2,19 +2,18 @@ package com.notkamui.javaisyou.engine.type;
 
 import com.notkamui.javaisyou.engine.boardelement.element.Entity;
 import com.notkamui.javaisyou.engine.boardelement.element.Word;
-import com.notkamui.javaisyou.engine.data.EntityBehavior;
+import com.notkamui.javaisyou.engine.data.EntityData;
 import com.notkamui.javaisyou.engine.operation.LeftOperand;
-import com.notkamui.javaisyou.engine.operation.Result;
+import com.notkamui.javaisyou.engine.operation.OperationResult;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.property.Property;
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.PropertyType;
 
 import javax.swing.*;
 import java.util.*;
 
 public final class EntityWrapper implements TransferWrapper {
-    private final EntityBehavior data;
+    private final EntityData data;
     private final ImageIcon nounIcon;
     private final Set<Entity> entities = new HashSet<>();
 
@@ -22,7 +21,7 @@ public final class EntityWrapper implements TransferWrapper {
         Objects.requireNonNull(nounIcon);
         Objects.requireNonNull(elemIcon);
         this.nounIcon = nounIcon;
-        this.data = new EntityBehavior(elemIcon);
+        this.data = new EntityData(elemIcon);
     }
 
     // TODO to encapsulate
@@ -31,24 +30,24 @@ public final class EntityWrapper implements TransferWrapper {
     }
     // TODO to encapsulate
     public void removeAllDead() {
+        System.out.println(data.movementProperties().size());
         entities.removeIf(e -> !e.state());
     }
 
     @Override
-    public List<PassiveProperty> passiveProperties() {
+    public Set<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 
     @Override
-    public List<MovementProperty> movementProperties() {
+    public Set<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public Set<PropertyFlag> flags() {
+    public Set<PropertyType> flags() {
         return data.flags();
     }
-
 
     @Override
     public String toString() {
@@ -61,56 +60,59 @@ public final class EntityWrapper implements TransferWrapper {
     }
 
     @Override
-    public Result applyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult applyIsAsRight(LeftOperand leftOperand) {
         Objects.requireNonNull(leftOperand);
         return leftOperand.applyIsAsLeft(this);
     }
 
     @Override
-    public Result unapplyIsAsRight(LeftOperand leftOperand) {
+    public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
         Objects.requireNonNull(leftOperand);
         return leftOperand.unapplyIsAsLeft(this);
     }
 
-
     @Override
-    public Result applyIsAsLeft(WordWrapper rightOperand) {
+    public OperationResult applyIsAsLeft(WordWrapper rightOperand) {
         Objects.requireNonNull(rightOperand);
         rightOperand.receiveEntities(entities);
         entities.clear();
-        return Result.NORMAL;
+        return OperationResult.NORMAL;
     }
 
     @Override
-    public Result applyIsAsLeft(EntityWrapper rightOperand) {
+    public OperationResult applyIsAsLeft(EntityWrapper rightOperand) {
         Objects.requireNonNull(rightOperand);
         rightOperand.receiveEntities(entities);
         entities.clear();
-        return Result.NORMAL;
+        return OperationResult.NORMAL;
     }
 
     @Override
-    public Result applyIsAsLeft(Property rightOperand) {
+    public OperationResult applyIsAsLeft(PassiveProperty rightOperand) {
         Objects.requireNonNull(rightOperand);
-        this.data.addProperty(rightOperand);
-        return Result.NORMAL;
+        data.addProperty(rightOperand);
+        return OperationResult.NORMAL;
     }
 
     @Override
-    public Result unapplyIsAsLeft(WordWrapper rightOperand) {
-        return Result.INEFFECTIVE;
+    public OperationResult applyIsAsLeft(MovementProperty rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        data.addProperty(rightOperand);
+        return OperationResult.NORMAL;
     }
 
     @Override
-    public Result unapplyIsAsLeft(EntityWrapper rightOperand) {
-        return Result.INEFFECTIVE;
-    }
-
-    @Override
-    public Result unapplyIsAsLeft(Property rightOperand) {
+    public OperationResult unapplyIsAsLeft(PassiveProperty rightOperand) {
         Objects.requireNonNull(rightOperand);
         data.removeProperty(rightOperand);
-        return Result.NORMAL;
+        return OperationResult.NORMAL;
+    }
+
+    @Override
+    public OperationResult unapplyIsAsLeft(MovementProperty rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        data.removeProperty(rightOperand);
+        return OperationResult.NORMAL;
     }
 
     @Override
