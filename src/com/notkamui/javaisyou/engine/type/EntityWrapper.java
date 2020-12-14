@@ -69,18 +69,23 @@ public final class EntityWrapper implements TransferWrapper {
     @Override
     public Result unapplyIsAsRight(LeftOperand leftOperand) {
         Objects.requireNonNull(leftOperand);
-        return leftOperand.applyIsAsLeft(this);
+        return leftOperand.unapplyIsAsLeft(this);
     }
 
 
     @Override
     public Result applyIsAsLeft(WordWrapper rightOperand) {
-        return Result.ENTITY_TO_TEXT;
+        rightOperand.transferElementsTo(this);
+        rightOperand.receiveEntities(entities);
+        entities.clear();
+        return Result.NORMAL;
     }
 
     @Override
     public Result applyIsAsLeft(EntityWrapper rightOperand) {
         Objects.requireNonNull(rightOperand);
+        rightOperand.receiveEntities(entities);
+        entities.clear();
         return Result.NORMAL;
     }
 

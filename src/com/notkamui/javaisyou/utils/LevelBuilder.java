@@ -40,6 +40,7 @@ public class LevelBuilder {
 
     private static List<EntityWrapper> parseBoardElements(List<String> lines, WordWrapper wordWrapper) {
         Objects.requireNonNull(lines);
+        Objects.requireNonNull(wordWrapper);
         var entityWrappers = new ArrayList<EntityWrapper>();
         for (var i = 0; i < lines.size(); i++) {
             var line = lines.get(i);
@@ -57,7 +58,7 @@ public class LevelBuilder {
         Objects.requireNonNull(lines);
         Objects.requireNonNull(wrapper);
         var assets = lines.get(index).split(" ");
-        var entityWrapper = new EntityWrapper(new ImageIcon(assets[1]), new ImageIcon(assets[2]));
+        var entityWrapper = new EntityWrapper(new ImageIcon(assets[2]), new ImageIcon(assets[1]));
         for (var i = index+1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
             var split = lines.get(i).split(" ");
             var dir = Direction.values()[Integer.parseInt(split[4])];
