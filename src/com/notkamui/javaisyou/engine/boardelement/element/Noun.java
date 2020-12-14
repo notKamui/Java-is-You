@@ -11,8 +11,8 @@ import com.notkamui.javaisyou.engine.property.PropertyFlag;
 import com.notkamui.javaisyou.engine.type.Wrapper;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.Set;
 
 public final class Noun implements Word {
@@ -33,12 +33,12 @@ public final class Noun implements Word {
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
+    public List<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
+    public List<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 

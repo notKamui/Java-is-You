@@ -8,9 +8,8 @@ import com.notkamui.javaisyou.engine.property.PassiveProperty;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.Set;
-import java.util.Set;
-import java.util.TreeSet;
 
 public interface BehaviorData extends HasFlag, HasProperty, HasImage {
   static BehaviorData emptyData() {
@@ -26,13 +25,13 @@ public interface BehaviorData extends HasFlag, HasProperty, HasImage {
       }
 
       @Override
-      public Set<MovementProperty> movementProperties() {
-        return Set.of();
+      public List<MovementProperty> movementProperties() {
+        return List.of();
       }
 
       @Override
-      public Set<PassiveProperty> passiveProperties() {
-        return Set.of();
+      public List<PassiveProperty> passiveProperties() {
+        return List.of();
       }
     };
   }

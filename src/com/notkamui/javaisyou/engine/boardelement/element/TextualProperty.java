@@ -10,8 +10,8 @@ import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.Set;
 
 public final class TextualProperty implements Word {
@@ -35,12 +35,12 @@ public final class TextualProperty implements Word {
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
+    public List<MovementProperty> movementProperties() {
         return data.movementProperties();
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
+    public List<PassiveProperty> passiveProperties() {
         return data.passiveProperties();
     }
 

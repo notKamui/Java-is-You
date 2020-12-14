@@ -10,8 +10,8 @@ import java.util.*;
 
 public final class EntityBehavior implements EditableData {
     private final ImageIcon icon;
-    private final Set<PassiveProperty> passiveProps = new TreeSet<>();
-    private final Set<MovementProperty> movementProps = new TreeSet<>();
+    private final List<PassiveProperty> passiveProps = new ArrayList<>();
+    private final List<MovementProperty> movementProps = new ArrayList<>();
     private final Set<PropertyFlag> propertyFlags = new HashSet<>();
 
     public EntityBehavior(ImageIcon icon) {
@@ -25,13 +25,13 @@ public final class EntityBehavior implements EditableData {
     }
 
     @Override
-    public Set<PassiveProperty> passiveProperties() {
-        return Set.copyOf(passiveProps);
+    public List<PassiveProperty> passiveProperties() {
+        return List.copyOf(passiveProps);
     }
 
     @Override
-    public Set<MovementProperty> movementProperties() {
-        return Set.copyOf(movementProps);
+    public List<MovementProperty> movementProperties() {
+        return List.copyOf(movementProps);
     }
 
     @Override
