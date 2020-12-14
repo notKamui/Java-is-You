@@ -133,7 +133,7 @@ public sealed interface PassiveProperty extends Property {
 
     @Override
     public void applyPassive(BoardElement trigger, BoardElement receiver) {
-      if (!trigger.equals(receiver)) {
+      if (trigger != receiver) {
         trigger.setState(false);
         receiver.setState(false);
       }
