@@ -8,13 +8,13 @@ import com.notkamui.javaisyou.engine.boardelement.Stateable;
 
 import java.util.Objects;
 
-public class BoardElementComponent implements Moveable, Stateable, HasDirection {
+public class BasicElementComponent implements Moveable, Stateable, HasDirection {
     Direction direction;
     private boolean isAlive = true;
     private int x;
     private int y;
 
-    public BoardElementComponent(Direction dir, int x, int y) {
+    public BasicElementComponent(Direction dir, int x, int y) {
         Objects.requireNonNull(dir);
         this.direction = dir;
         this.x = x;

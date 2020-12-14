@@ -5,9 +5,11 @@ import com.notkamui.javaisyou.engine.Rule;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.boardelement.LocatedObject;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
+import com.notkamui.javaisyou.engine.boardelement.element.Word;
 import com.notkamui.javaisyou.engine.operation.Operator;
+import com.notkamui.javaisyou.engine.operation.OperationResult;
 import com.notkamui.javaisyou.engine.property.Property;
-import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.property.PropertyType;
 import com.notkamui.javaisyou.engine.type.EntityWrapper;
 import com.notkamui.javaisyou.engine.type.WordWrapper;
 import com.notkamui.javaisyou.utils.GameStatus;
@@ -57,7 +59,7 @@ public class LevelManager implements MovementObserver {
                         .stream()
                         .sorted(Comparator.comparingInt(Property::priority))
                         .forEach(p -> {
-                            var els = model.get(e.x(), e.y());
+                            var els = model.getElements(e.x(), e.y());
                             for (var left : els) {
                                 for (var right : els) {
                                         p.applyPassive(left, right);
@@ -67,21 +69,19 @@ public class LevelManager implements MovementObserver {
                 );
     }
 
-    private List<Rule> buildRules(List<BoardElement> leftList, Operator operator, List<BoardElement> rightList) {
+    private List<Rule> buildRules(List<Word> leftList, Operator operator, List<Word> rightList) {
         var newRules = new ArrayList<Rule>();
-        leftList.forEach(left -> {
-            rightList.forEach(right -> {
-                newRules.add(new Rule(left.getAsLeft(), operator, right.getAsRight()));
-            });
-        });
+        leftList.forEach(left -> rightList.forEach(right -> {
+            newRules.add(new Rule(left.getAsLeft(), operator, right.getAsRight()));
+        }));
         return newRules;
     }
 
     private List<Rule> findRules(Operator operator, int x, int y) {
-        var leftList = model.get(x, y - 1);
-        var rightList = model.get(x, y + 1);
-        var upList = model.get(x - 1, y);
-        var downList = model.get(x + 1, y);
+        var leftList = model.getWords(x, y - 1);
+        var rightList = model.getWords(x, y + 1);
+        var upList = model.getWords(x - 1, y);
+        var downList = model.getWords(x + 1, y);
 
         var foundRules = new ArrayList<Rule>();
         if (!leftList.isEmpty() && !rightList.isEmpty()) {
@@ -97,7 +97,7 @@ public class LevelManager implements MovementObserver {
         var newRules = new ArrayList<Rule>();
         for (var x = 0; x < width; x++) {
             for (var y = 0; y < height; y++) {
-                var operators = model.get(x, y);
+                var operators = model.getWords(x, y);
                 if (!operators.isEmpty()) {
                     for (var operator : operators) {
                         newRules.addAll(findRules(operator.getAsOperator(), x, y));
@@ -113,18 +113,8 @@ public class LevelManager implements MovementObserver {
         while (it.hasNext()) {
             var rule = it.next(); // applying the rule
             var res = rule.apply();
-            switch (res) {
-                case INEFFECTIVE:
-                    it.remove(); // removing ineffective rules
-                    break;
-                case TEXT_TO_ENTITY:
-                    textToEntity(rule); // conversion
-                    break;
-                case ENTITY_TO_TEXT:
-                    entityToText(rule); // conversion
-                    break;
-                default:
-                    break;
+            if (res == OperationResult.INEFFECTIVE) {
+                it.remove(); // removing ineffective rules
             }
         }
     }
@@ -160,7 +150,7 @@ public class LevelManager implements MovementObserver {
             return false;
         }
 
-        var others = model.get(destX, destY);
+        var others = model.getElements(destX, destY);
         if (!others.isEmpty()) {
             for (var other : others) {
                 if (!applyMoveProperties(movingObject, other, move))
@@ -178,7 +168,7 @@ public class LevelManager implements MovementObserver {
             case WEST -> new Movement(-1, 0);
             case EAST -> new Movement(1, 0);
         };
-        var yous = sortByDirection(getWithFlag(PropertyFlag.YOU), direction);
+        var yous = sortByDirection(getWithFlag(PropertyType.YOU), direction);
         yous.forEach(you -> tryToMove(you, move));
     }
 
@@ -208,11 +198,11 @@ public class LevelManager implements MovementObserver {
     }
 
     public GameStatus checkGameStatus() {
-        var yous = getWithFlag(PropertyFlag.YOU);
+        var yous = getWithFlag(PropertyType.YOU);
         if (yous.isEmpty()) {
             return GameStatus.LOSE;
         } else {
-            var wins = getWithFlag(PropertyFlag.WIN);
+            var wins = getWithFlag(PropertyType.WIN);
             for (var you : yous) {
                 for (var win : wins) {
                     if (you.x() == win.x() && you.y() == win.y()) {
@@ -224,7 +214,7 @@ public class LevelManager implements MovementObserver {
         }
     }
 
-    private List<BoardElement> getWithFlag(PropertyFlag flag) {
+    private List<BoardElement> getWithFlag(PropertyType flag) {
         return model.elements()
                 .stream()
                 .filter(e -> e.flags().contains(flag))

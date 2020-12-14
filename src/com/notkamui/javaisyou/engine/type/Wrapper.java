@@ -1,12 +1,7 @@
 package com.notkamui.javaisyou.engine.type;
 
-import com.notkamui.javaisyou.engine.boardelement.HasImage;
+import com.notkamui.javaisyou.engine.data.HasData;
 import com.notkamui.javaisyou.engine.operation.LeftOperand;
 import com.notkamui.javaisyou.engine.operation.RightOperand;
-import com.notkamui.javaisyou.engine.boardelement.HasFlag;
-import com.notkamui.javaisyou.engine.boardelement.HasProperty;
-import com.notkamui.javaisyou.engine.property.Property;
 
-public sealed interface Wrapper extends HasFlag, HasProperty, HasImage, RightOperand, LeftOperand
-        permits TransferWrapper {
-}
+public sealed interface Wrapper extends HasData, RightOperand, LeftOperand permits TransferWrapper {}

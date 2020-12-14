@@ -3,20 +3,14 @@ package com.notkamui.javaisyou.engine.operation;
 public interface RightOperand {
   // TODO ask for global
   static RightOperand nullRightOperand() {
-    return new RightOperand() {
-      @Override
-      public Result applyIsAsRight(LeftOperand leftOperand) {
-        return Result.INEFFECTIVE;
-      }
-
-      @Override
-      public Result unapplyIsAsRight(LeftOperand leftOperand) {
-        return Result.INEFFECTIVE;
-      }
-    };
+    return new RightOperand() {};
   }
 
-  Result applyIsAsRight(LeftOperand leftOperand);
+  default OperationResult applyIsAsRight(LeftOperand leftOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
 
-  Result unapplyIsAsRight(LeftOperand leftOperand);
+  default OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
+    return OperationResult.INEFFECTIVE;
+  }
 }
