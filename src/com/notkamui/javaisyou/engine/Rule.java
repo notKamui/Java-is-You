@@ -19,6 +19,7 @@ public record Rule(LeftOperand leftOperand, Operator Operator, RightOperand righ
     }
 
     public OperationResult unapply() {
+        System.out.println("unapplied");
         return Operator.unapply(leftOperand, rightOperand);
     }
 
@@ -35,10 +36,5 @@ public record Rule(LeftOperand leftOperand, Operator Operator, RightOperand righ
     @Override
     public int hashCode() {
         return Objects.hash(leftOperand, Operator, rightOperand);
-    }
-
-    @Override
-    public String toString() {
-        return "Rule= " + leftOperand + Operator + rightOperand;
     }
 }

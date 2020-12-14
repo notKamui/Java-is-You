@@ -47,12 +47,14 @@ public final class EntityData implements EditableData {
 
     @Override
     public void removeProperty(MovementProperty prop) {
-
+        Objects.requireNonNull(prop);
+        component.removeProperty(prop);
     }
 
     @Override
     public void removeProperty(PassiveProperty prop) {
-
+        Objects.requireNonNull(prop);
+        component.removeProperty(prop);
     }
 
     @Override

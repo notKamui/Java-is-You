@@ -27,14 +27,6 @@ public interface LeftOperand {
     return OperationResult.INEFFECTIVE;
   }
 
-  default OperationResult unapplyIsAsLeft(WordWrapper rightOperand) {
-    return OperationResult.INEFFECTIVE;
-  }
-
-  default OperationResult unapplyIsAsLeft(EntityWrapper rightOperand) {
-    return OperationResult.INEFFECTIVE;
-  }
-
   default OperationResult unapplyIsAsLeft(PassiveProperty rightOperand) {
     return OperationResult.INEFFECTIVE;
   }

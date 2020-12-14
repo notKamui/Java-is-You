@@ -11,21 +11,19 @@ import java.util.Objects;
 import java.util.Set;
 
 public sealed interface MovementProperty extends Property {
-  boolean applyOnMoveTrigger(BoardElement trigger, BoardElement receiver, Movement movement, MovementObserver observer);
+  default boolean applyOnMoveTrigger(BoardElement trigger, BoardElement receiver, Movement movement,
+                             MovementObserver observer) {
+    return true;
+  }
 
-  boolean applyOnMoveReceiver(BoardElement trigger, BoardElement receiver, Movement movement,
-                              MovementObserver observer);
+  default boolean applyOnMoveReceiver(BoardElement trigger, BoardElement receiver, Movement movement,
+                              MovementObserver observer) {
+    return true;
+  }
 
   record Push() implements MovementProperty {
     private final static PropertyType type = PropertyType.PUSH;
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/PUSH/Prop_PUSH.gif");
-
-
-    @Override
-    public boolean applyOnMoveTrigger(BoardElement trigger, BoardElement receiver, Movement movement,
-                                      MovementObserver observer) {
-      return true;
-    }
 
     @Override
     public boolean applyOnMoveReceiver(BoardElement trigger, BoardElement receiver, Movement movement,
@@ -61,7 +59,7 @@ public sealed interface MovementProperty extends Property {
     @Override
     public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
-      return leftOperand.applyIsAsLeft(this);
+      return leftOperand.unapplyIsAsLeft(this);
     }
   }
 
@@ -70,14 +68,9 @@ public sealed interface MovementProperty extends Property {
     private final static ImageIcon icon = new ImageIcon("resources/assets/properties/STOP/Prop_STOP.gif");
 
     @Override
-    public boolean applyOnMoveTrigger(BoardElement trigger, BoardElement receiver, Movement movement,
-                                      MovementObserver observer) {
-      return true;
-    }
-
-    @Override
     public boolean applyOnMoveReceiver(BoardElement trigger, BoardElement receiver, Movement movement,
                                        MovementObserver observer) {
+      System.out.println("Stopped");
       return false;
     }
 
@@ -99,13 +92,13 @@ public sealed interface MovementProperty extends Property {
     @Override
     public OperationResult applyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
-      return leftOperand.unapplyIsAsLeft(this);
+      return leftOperand.applyIsAsLeft(this);
     }
 
     @Override
     public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
       Objects.requireNonNull(leftOperand);
-      return leftOperand.applyIsAsLeft(this);
+      return leftOperand.unapplyIsAsLeft(this);
     }
   }
 }

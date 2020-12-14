@@ -112,9 +112,11 @@ public class LevelManager implements MovementObserver {
         var it = newRules.iterator();
         while (it.hasNext()) {
             var rule = it.next(); // applying the rule
-            var res = rule.apply();
-            if (res == OperationResult.INEFFECTIVE) {
-                it.remove(); // removing ineffective rules
+            if (!activeRules.contains(rule)) {
+                var res = rule.apply();
+                if (res == OperationResult.INEFFECTIVE) {
+                    it.remove(); // removing ineffective rules
+                }
             }
         }
     }
@@ -130,12 +132,6 @@ public class LevelManager implements MovementObserver {
         var newRules = newRules();
         applyNewRules(newRules);// apply new rules and remove ineffective rules
         setNewRules(newRules);
-    }
-
-    private void textToEntity(Rule rule) {
-    }
-
-    private void entityToText(Rule rule) {
     }
 
     @Override

@@ -61,12 +61,6 @@ public final class WordWrapper implements TransferWrapper {
     }
 
     @Override
-    public OperationResult unapplyIsAsRight(LeftOperand leftOperand) {
-        Objects.requireNonNull(leftOperand);
-        return leftOperand.unapplyIsAsLeft(this);
-    }
-
-    @Override
     public OperationResult applyIsAsLeft(WordWrapper rightOperand) {
         Objects.requireNonNull(rightOperand);
         rightOperand.receiveWords(words);
