@@ -25,6 +25,15 @@ public final class EntityWrapper implements TransferWrapper {
         this.data = new EntityBehavior(elemIcon);
     }
 
+    // TODO to encapsulate
+    public Set<Entity> entities() {
+        return new HashSet<>(entities);
+    }
+    // TODO to encapsulate
+    public void removeAllDead() {
+        entities.removeIf(e -> !e.state());
+    }
+
     @Override
     public SortedSet<PassiveProperty> passiveProperties() {
         return data.passiveProperties();

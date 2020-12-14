@@ -7,6 +7,8 @@ import com.notkamui.javaisyou.engine.boardelement.LocatedObject;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.operation.Operator;
 import com.notkamui.javaisyou.engine.property.PropertyFlag;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
+import com.notkamui.javaisyou.engine.type.WordWrapper;
 import com.notkamui.javaisyou.utils.GameStatus;
 
 import java.awt.*;
@@ -23,14 +25,14 @@ public class LevelManager implements MovementObserver {
     private List<Rule> activeRules = new ArrayList<>();
     private final Model model;
 
-    public LevelManager(int width, int height, List<BoardElement> boardElements) {
-        Objects.requireNonNull(boardElements);
+    public LevelManager(int width, int height, List<EntityWrapper> entityWrappers, WordWrapper wordWrapper) {
+        Objects.requireNonNull(entityWrappers);
         if (width < 0 || height < 0) {
             throw new IllegalArgumentException("width and height must be positives");
         }
         this.width = width;
         this.height = height;
-        this.model = new Model(boardElements);
+        this.model = new Model(entityWrappers, wordWrapper);
         this.displayManager = new DisplayManager(this.model, width, height);
     }
 

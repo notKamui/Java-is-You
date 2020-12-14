@@ -1,5 +1,6 @@
 package com.notkamui.javaisyou.engine.type;
 
+import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.boardelement.element.Entity;
 import com.notkamui.javaisyou.engine.boardelement.element.Noun;
 import com.notkamui.javaisyou.engine.boardelement.element.Word;
@@ -24,6 +25,15 @@ public final class WordWrapper implements TransferWrapper {
         Objects.requireNonNull(nounIcon);
         this.nounIcon = nounIcon;
         this.data = new WordBehavior();
+    }
+
+    // TODO to encapsulate
+    public Set<BoardElement> words() {
+        return new HashSet<>(words);
+    }
+    // TODO to encapsulate
+    public void removeAllDead() {
+        words.removeIf(w -> !w.state());
     }
 
     @Override

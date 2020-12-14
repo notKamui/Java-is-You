@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class LevelBuilder {
 
-    /*public static LevelManager buildLevelFromFile(String fname) {
+    public static LevelManager buildLevelFromFile(String fname) {
         Objects.requireNonNull(fname);
         try {
             var lines = Files.readAllLines(
@@ -29,36 +29,33 @@ public class LevelBuilder {
             var size = lines.get(0).split(" ");
             var width = Integer.parseInt(size[0]);
             var height = Integer.parseInt(size[1]);
-            var boardElements = parseBoardElements(lines);
-            return new LevelManager(width, height, boardElements);
+            var wordWrapper = new WordWrapper(new ImageIcon(""));
+            var entityWrappers = parseBoardElements(lines, wordWrapper);
+            return new LevelManager(width, height, entityWrappers, wordWrapper);
         } catch (IOException e) {
             System.out.println("Error while opening or reading file");
             return null;
         }
     }
 
-    private static List<BoardElement> parseBoardElements(List<String> lines) {
+    private static List<EntityWrapper> parseBoardElements(List<String> lines, WordWrapper wordWrapper) {
         Objects.requireNonNull(lines);
-        var boardElements = new ArrayList<BoardElement>();
-        var textIcon = new ImageIcon("");
-        Objects.requireNonNull(textIcon);
-        var wordWrapper = new WordWrapper(textIcon);
+        var entityWrappers = new ArrayList<EntityWrapper>();
         for (var i = 0; i < lines.size(); i++) {
             var line = lines.get(i);
             if (!line.isEmpty()) {
                 switch (line.charAt(0)) {
-                    case 'n' -> boardElements.addAll(parseNounsEntities(lines, i, wordWrapper));
-                    case 'o', 'p' -> boardElements.addAll(parseOpProps(lines, i, wordWrapper));
+                    case 'n' -> entityWrappers.add(parseNounsEntities(lines, i, wordWrapper));
+                    case 'o', 'p' -> parseOpProps(lines, i, wordWrapper);
                 }
             }
         }
-        return boardElements;
+        return entityWrappers;
     }
 
-    private static List<BoardElement> parseNounsEntities(List<String> lines, int index, WordWrapper wrapper) {
+    private static EntityWrapper parseNounsEntities(List<String> lines, int index, WordWrapper wrapper) {
         Objects.requireNonNull(lines);
         Objects.requireNonNull(wrapper);
-        var newElements = new ArrayList<BoardElement>();
         var assets = lines.get(index).split(" ");
         var entityWrapper = new EntityWrapper(new ImageIcon(assets[1]), new ImageIcon(assets[2]));
         for (var i = index+1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
@@ -67,37 +64,35 @@ public class LevelBuilder {
             var x = Integer.parseInt(split[2]);
             var y = Integer.parseInt(split[3]);
             if (split[1].equals("e")) {
-                newElements.add(new Entity(entityWrapper, dir, x, y));
+                entityWrapper.addEntity(new Entity(dir, x, y));
             } else if (split[1].equals("t")) {
-                newElements.add(new Noun(wrapper, dir, x, y, entityWrapper));
+                wrapper.addWord(new Noun(dir, x, y, entityWrapper));
             }
         }
-        return newElements;
+        return entityWrapper;
     }
 
-    private static List<BoardElement> parseOpProps(List<String> lines, int index, WordWrapper wrapper) {
+    private static void parseOpProps(List<String> lines, int index, WordWrapper wrapper) {
         Objects.requireNonNull(lines);
         Objects.requireNonNull(wrapper);
-        var newElements = new ArrayList<BoardElement>();
         for (var i = index+1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
             var split = lines.get(i).split(" ");
             var dir = Direction.values()[Integer.parseInt(split[3])];
             var x = Integer.parseInt(split[1]);
             var y = Integer.parseInt(split[2]);
             switch (lines.get(index).split(" ")[1]) {
-                case "IS" -> newElements.add(new TextualOperator(wrapper, dir, x, y, new BabaOperator.Is()));
+                case "IS" -> wrapper.addWord((new TextualOperator(dir, x, y, new BabaOperator.Is())));
 
-                case "YOU" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.You()));
-                case "DEFEAT" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Defeat()));
-                case "SINK" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Sink()));
-                case "HOT" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Hot()));
-                case "MELT" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Melt()));
-                case "WIN" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new PassiveProperty.Win()));
-                case "PUSH" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new MovementProperty.Push()));
-                case "STOP" -> newElements.add(new TextualProperty(wrapper, dir, x, y, new MovementProperty.Stop()));
+                case "YOU" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.You()));
+                case "DEFEAT" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Defeat()));
+                case "SINK" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Sink()));
+                case "HOT" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Hot()));
+                case "MELT" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Melt()));
+                case "WIN" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Win()));
+                case "PUSH" -> wrapper.addWord(new TextualProperty(dir, x, y, new MovementProperty.Push()));
+                case "STOP" -> wrapper.addWord(new TextualProperty(dir, x, y, new MovementProperty.Stop()));
             }
         }
-        return newElements;
-    }*/
+    }
 
 }

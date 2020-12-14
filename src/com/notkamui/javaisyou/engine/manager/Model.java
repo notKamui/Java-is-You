@@ -3,6 +3,8 @@ package com.notkamui.javaisyou.engine.manager;
 import com.notkamui.javaisyou.engine.Displayable;
 import com.notkamui.javaisyou.engine.Rule;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
+import com.notkamui.javaisyou.engine.type.EntityWrapper;
+import com.notkamui.javaisyou.engine.type.WordWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +13,15 @@ import java.util.stream.Collectors;
 
 public class Model {
 
-  private final List<BoardElement> boardElements = new ArrayList<>();
+  private final List<EntityWrapper> entityWrappers = new ArrayList<>();
+  private final WordWrapper wordWrapper;
   private final List<Rule> activeRules = new ArrayList<>();
 
-  Model(List<BoardElement> boardElements) {
-    Objects.requireNonNull(boardElements);
-    this.boardElements.addAll(boardElements);
+  Model(List<EntityWrapper> entityWrappers, WordWrapper wordWrapper) {
+    Objects.requireNonNull(entityWrappers);
+    Objects.requireNonNull(wordWrapper);
+    this.entityWrappers.addAll(entityWrappers);
+    this.wordWrapper = wordWrapper;
   }
 
   void addRule(Rule rule) {
@@ -30,19 +35,23 @@ public class Model {
   }
 
   void removeAllDead() {
-    boardElements.removeIf(e -> !e.state());
+    entityWrappers.forEach(EntityWrapper::removeAllDead);
+    wordWrapper.removeAllDead();
   }
 
   List<BoardElement> elements() {
-    return new ArrayList<>(boardElements);
+    var elements = new ArrayList<BoardElement>();
+    entityWrappers.forEach(w -> elements.addAll(w.entities()));
+    elements.addAll(wordWrapper.words());
+    return elements;
   }
 
   List<Displayable> displayableElements() {
-    return new ArrayList<>(boardElements);
+    return new ArrayList<>(elements());
   }
 
   List<BoardElement> get(int x, int y) {
-    return boardElements.stream()
+    return elements().stream()
             .filter(e -> e.x() == x && e.y() == y)
             .collect(Collectors.toList());
   }

@@ -9,6 +9,8 @@ import com.notkamui.javaisyou.engine.property.PropertyFlag;
 
 import javax.swing.*;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public interface BehaviorData extends HasFlag, HasProperty, HasImage {
   static BehaviorData emptyData() {
@@ -24,13 +26,13 @@ public interface BehaviorData extends HasFlag, HasProperty, HasImage {
       }
 
       @Override
-      public Set<MovementProperty> movementProperties() {
-        return Set.of();
+      public SortedSet<MovementProperty> movementProperties() {
+        return new TreeSet<>();
       }
 
       @Override
-      public Set<PassiveProperty> passiveProperties() {
-        return Set.of();
+      public SortedSet<PassiveProperty> passiveProperties() {
+        return new TreeSet<>();
       }
     };
   }
