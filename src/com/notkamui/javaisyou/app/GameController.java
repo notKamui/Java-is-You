@@ -43,8 +43,10 @@ public final class GameController {
                 }
                 render(context, level, width, height);
             } while (level.checkGameStatus() == GameStatus.ONGOING);
-            System.exit(0);
+            System.out.println("Level cleared !");
         }));
+        System.out.println("All levels cleared !");
+        System.exit(0);
     }
 
     private void render(ApplicationContext context, LevelManager level, int width, int height) {
