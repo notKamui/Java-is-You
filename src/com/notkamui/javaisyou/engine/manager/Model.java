@@ -1,11 +1,8 @@
 package com.notkamui.javaisyou.engine.manager;
 
-import com.notkamui.javaisyou.engine.boardelement.Displayable;
 import com.notkamui.javaisyou.engine.Rule;
+import com.notkamui.javaisyou.engine.boardelement.Displayable;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
-import com.notkamui.javaisyou.engine.boardelement.element.Word;
-import com.notkamui.javaisyou.engine.type.EntityWrapper;
-import com.notkamui.javaisyou.engine.type.WordWrapper;
 
 import java.util.ArrayList;
 import java.util.List;

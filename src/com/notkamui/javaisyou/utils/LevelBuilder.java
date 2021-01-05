@@ -1,19 +1,14 @@
 package com.notkamui.javaisyou.utils;
 
-import com.notkamui.javaisyou.engine.babaoperator.BabaOperator;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
-import com.notkamui.javaisyou.engine.boardelement.element.*;
 import com.notkamui.javaisyou.engine.manager.LevelManager;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.type.EntityWrapper;
-import com.notkamui.javaisyou.engine.type.WordWrapper;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

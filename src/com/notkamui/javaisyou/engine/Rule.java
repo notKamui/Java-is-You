@@ -1,10 +1,5 @@
 package com.notkamui.javaisyou.engine;
 
-import com.notkamui.javaisyou.engine.operation.LeftOperand;
-import com.notkamui.javaisyou.engine.operation.Operator;
-import com.notkamui.javaisyou.engine.operation.OperationResult;
-import com.notkamui.javaisyou.engine.operation.RightOperand;
-
 import java.util.Objects;
 
 public record Rule(LeftOperand leftOperand, Operator Operator, RightOperand rightOperand) {
@@ -14,26 +9,21 @@ public record Rule(LeftOperand leftOperand, Operator Operator, RightOperand righ
         Objects.requireNonNull(rightOperand);
     }
 
-    public OperationResult apply() {
-        return Operator.apply(leftOperand, rightOperand);
+    boolean onMove(BoardElement trigger, BoardElement receiver, Movement movement, MovementObserver observer) {
+        Objects.requireNonNull(trigger);
+        Objects.requireNonNull(receiver);
+        Objects.requireNonNull(movement);
+        Objects.requireNonNull(observer);
+        return operator.onMove(trigger, receiver, movement, observer);
     }
 
-    public OperationResult unapply() {
-        return Operator.unapply(leftOperand, rightOperand);
+    void onSuperposition(BoardElement first, BoardElement second) {
+        Objects.requireNonNull(first);
+        Objects.requireNonNull(second);
+        operator.onSuperposition(first, second);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Rule rule = (Rule) o;
-        return leftOperand.equals(rule.leftOperand) &&
-                Operator.equals(rule.Operator) &&
-                rightOperand.equals(rule.rightOperand);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(leftOperand, Operator, rightOperand);
+    void onRuleCreation() {
+        operator.onRuleCreation();
     }
 }

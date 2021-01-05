@@ -1,12 +1,9 @@
 package com.notkamui.javaisyou.engine.property;
 
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
-import com.notkamui.javaisyou.engine.operation.LeftOperand;
-import com.notkamui.javaisyou.engine.operation.OperationResult;
 
 import javax.swing.*;
 import java.util.Objects;
-import java.util.Set;
 
 public sealed interface PassiveProperty extends Property {
   void applyPassive(BoardElement trigger, BoardElement receiver);
