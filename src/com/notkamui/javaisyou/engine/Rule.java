@@ -1,11 +1,14 @@
 package com.notkamui.javaisyou.engine;
 
+import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
+import com.notkamui.javaisyou.engine.manager.MovementObserver;
+
 import java.util.Objects;
 
-public record Rule(LeftOperand leftOperand, Operator Operator, RightOperand rightOperand) {
+public record Rule(Type type, Operator operator, RightOperand rightOperand) {
     public Rule {
-        Objects.requireNonNull(leftOperand);
-        Objects.requireNonNull(Operator);
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(operator);
         Objects.requireNonNull(rightOperand);
     }
 
