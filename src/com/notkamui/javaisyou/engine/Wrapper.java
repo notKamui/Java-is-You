@@ -1,5 +1,9 @@
 package com.notkamui.javaisyou.engine;
 
+import com.notkamui.javaisyou.engine.rule.RightOperand;
+import com.notkamui.javaisyou.engine.rule.RulePart;
+import com.notkamui.javaisyou.engine.rule.Type;
+
 public class Wrapper implements Type, RightOperand, RulePart {
     private final long id;
 

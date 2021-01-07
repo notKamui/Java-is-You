@@ -1,13 +1,12 @@
 package com.notkamui.javaisyou.engine.boardelement.element;
 
 import com.notkamui.javaisyou.engine.Movement;
-import com.notkamui.javaisyou.engine.RulePart;
+import com.notkamui.javaisyou.engine.rule.RulePart;
 import com.notkamui.javaisyou.engine.boardelement.Displayable;
 import com.notkamui.javaisyou.engine.boardelement.*;
 
 import javax.swing.*;
 import java.util.Objects;
-import java.util.Set;
 
 public class BoardElement implements Moveable, Stateable, Displayable, HasDirection {
   private RulePart rulePart;

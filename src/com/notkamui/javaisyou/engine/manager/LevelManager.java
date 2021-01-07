@@ -1,17 +1,12 @@
 package com.notkamui.javaisyou.engine.manager;
 
 import com.notkamui.javaisyou.engine.Movement;
-import com.notkamui.javaisyou.engine.Rule;
+import com.notkamui.javaisyou.engine.rule.Rule;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.boardelement.LocatedObject;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
-import com.notkamui.javaisyou.engine.boardelement.element.Word;
-import com.notkamui.javaisyou.engine.operation.Operator;
-import com.notkamui.javaisyou.engine.operation.OperationResult;
 import com.notkamui.javaisyou.engine.property.Property;
 import com.notkamui.javaisyou.engine.property.PropertyType;
-import com.notkamui.javaisyou.engine.type.EntityWrapper;
-import com.notkamui.javaisyou.engine.type.WordWrapper;
 import com.notkamui.javaisyou.utils.GameStatus;
 
 import java.awt.*;

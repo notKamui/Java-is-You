@@ -1,6 +1,6 @@
 package com.notkamui.javaisyou.engine.manager;
 
-import com.notkamui.javaisyou.engine.Rule;
+import com.notkamui.javaisyou.engine.rule.Rule;
 import com.notkamui.javaisyou.engine.boardelement.Displayable;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 
