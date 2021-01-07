@@ -5,14 +5,14 @@ public interface RulePart {
     };
 
     default Type getAsType() {
-        return Type.nullType;
+        return Type.NULL_TYPE;
     }
 
     default Operator getAsOperator() {
-        return Operator.nullOperator;
+        return Operator.NULL_OPERATOR;
     }
 
     default RightOperand getAsRightOperand() {
-        return RightOperand.nullRO;
+        return RightOperand.NULL_RIGHT_OPERAND;
     }
 }

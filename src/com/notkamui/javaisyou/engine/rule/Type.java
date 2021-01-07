@@ -1,7 +1,7 @@
 package com.notkamui.javaisyou.engine.rule;
 
 public interface Type {
-    Type nullType = () -> -1;
+    Type NULL_TYPE = () -> -1;
 
     long id();
 }

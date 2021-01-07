@@ -4,6 +4,7 @@ import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
+import com.notkamui.javaisyou.engine.property.OperandType;
 
 import java.util.Objects;
 
@@ -14,7 +15,11 @@ public record Rule(Type type, Operator operator, RightOperand rightOperand) {
         Objects.requireNonNull(rightOperand);
     }
 
-    boolean onMove(BoardElement trigger, BoardElement receiver, PropertyChecker checker,
+    public OperandType rightOperandType() {
+        return rightOperand.operandType();
+    }
+
+    public boolean onMove(BoardElement trigger, BoardElement receiver, PropertyChecker checker,
                    Movement movement, MovementObserver observer) {
         Objects.requireNonNull(trigger);
         Objects.requireNonNull(receiver);
@@ -23,13 +28,13 @@ public record Rule(Type type, Operator operator, RightOperand rightOperand) {
         return operator.onMove(trigger, receiver, checker, movement, observer);
     }
 
-    void onSuperposition(BoardElement first, BoardElement second, PropertyChecker checker) {
+    public void onSuperposition(BoardElement first, BoardElement second, PropertyChecker checker) {
         Objects.requireNonNull(first);
         Objects.requireNonNull(second);
         operator.onSuperposition(first, second, checker);
     }
 
-    void onRuleCreation() {
+    public void onRuleCreation() {
         operator.onRuleCreation();
     }
 }

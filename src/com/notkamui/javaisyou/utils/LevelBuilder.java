@@ -4,6 +4,7 @@ import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.manager.LevelManager;
 import com.notkamui.javaisyou.engine.property.MovementProperty;
 import com.notkamui.javaisyou.engine.property.PassiveProperty;
+import com.notkamui.javaisyou.engine.property.Property;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -82,14 +83,14 @@ public class LevelBuilder {
             switch (lines.get(index).split(" ")[1]) {
                 case "IS" -> wrapper.addWord((new TextualOperator(dir, x, y, new BabaOperator.Is())));
 
-                case "YOU" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.You()));
-                case "DEFEAT" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Defeat()));
-                case "SINK" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Sink()));
-                case "HOT" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Hot()));
-                case "MELT" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Melt()));
-                case "WIN" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Win()));
-                case "PUSH" -> wrapper.addWord(new TextualProperty(dir, x, y, new MovementProperty.Push()));
-                case "STOP" -> wrapper.addWord(new TextualProperty(dir, x, y, new MovementProperty.Stop()));
+                case "YOU" -> wrapper.addWord(new TextualProperty(dir, x, y, new Property.You()));
+                case "DEFEAT" -> wrapper.addWord(new TextualProperty(dir, x, y, new Property.Defeat()));
+                case "SINK" -> wrapper.addWord(new TextualProperty(dir, x, y, new Property.Sink()));
+                case "HOT" -> wrapper.addWord(new TextualProperty(dir, x, y, new Property.Hot()));
+                case "MELT" -> wrapper.addWord(new TextualProperty(dir, x, y, new Property.Melt()));
+                case "WIN" -> wrapper.addWord(new TextualProperty(dir, x, y, new Property.Win()));
+                case "PUSH" -> wrapper.addWord(new TextualProperty(dir, x, y, new Property.Push()));
+                case "STOP" -> wrapper.addWord(new TextualProperty(dir, x, y, new Property.Stop()));
             }
         }
     }

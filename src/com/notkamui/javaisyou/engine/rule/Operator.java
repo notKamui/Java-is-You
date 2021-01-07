@@ -5,15 +5,6 @@ import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
 
-public interface Operator {
-    Operator nullOperator = new Operator() {};
-
-    default boolean onMove(BoardElement trigger, BoardElement receiver, PropertyChecker checker,
-                           Movement movement, MovementObserver observer) {
-        return true;
-    }
-
-    default void onSuperposition(BoardElement first, BoardElement second, PropertyChecker checker) {}
-
-    default void onRuleCreation() {}
+public non-sealed interface Operator extends OperationPart{
+    Operator NULL_OPERATOR = new Operator() {};
 }
