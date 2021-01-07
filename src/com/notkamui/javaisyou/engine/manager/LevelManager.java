@@ -1,17 +1,11 @@
 package com.notkamui.javaisyou.engine.manager;
 
 import com.notkamui.javaisyou.engine.Movement;
-import com.notkamui.javaisyou.engine.Rule;
+import com.notkamui.javaisyou.engine.rule.Rule;
 import com.notkamui.javaisyou.engine.boardelement.Direction;
 import com.notkamui.javaisyou.engine.boardelement.LocatedObject;
 import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
-import com.notkamui.javaisyou.engine.boardelement.element.Word;
-import com.notkamui.javaisyou.engine.operation.Operator;
-import com.notkamui.javaisyou.engine.operation.OperationResult;
-import com.notkamui.javaisyou.engine.property.Property;
-import com.notkamui.javaisyou.engine.property.PropertyType;
-import com.notkamui.javaisyou.engine.type.EntityWrapper;
-import com.notkamui.javaisyou.engine.type.WordWrapper;
+import com.notkamui.javaisyou.engine.property.OperandType;
 import com.notkamui.javaisyou.utils.GameStatus;
 
 import java.awt.*;
@@ -27,15 +21,16 @@ public class LevelManager implements MovementObserver {
     private final DisplayManager displayManager;
     private List<Rule> activeRules = new ArrayList<>();
     private final Model model;
+    private final RuleManager ruleManager = new RuleManager();
 
-    public LevelManager(int width, int height, List<EntityWrapper> entityWrappers, WordWrapper wordWrapper) {
-        Objects.requireNonNull(entityWrappers);
+    public LevelManager(int width, int height, List<BoardElement> boardElements) {
+        Objects.requireNonNull(boardElements);
         if (width < 0 || height < 0) {
             throw new IllegalArgumentException("width and height must be positives");
         }
         this.width = width;
         this.height = height;
-        this.model = new Model(entityWrappers, wordWrapper);
+        this.model = new Model(boardElements);
         this.displayManager = new DisplayManager(this.model, width, height);
     }
 
@@ -55,14 +50,15 @@ public class LevelManager implements MovementObserver {
 
     private void applyPassiveProperties() {
         model.elements()
-                .forEach(e -> e.passiveProperties()
+                .forEach(element -> ruleManager.rulesOf(element.id())
                         .stream()
-                        .sorted(Comparator.comparingInt(Property::priority))
-                        .forEach(p -> {
-                            var els = model.getElements(e.x(), e.y());
-                            for (var left : els) {
-                                for (var right : els) {
-                                        p.applyPassive(left, right);
+                        //.filter(r -> r.rightOperandType() != OperandType.NULL_OPERAND)
+                        .sorted(Comparator.comparing(Rule::rightOperandType))
+                        .forEach(rule -> {
+                            var others = model.getElements(element.x(), element.y());
+                            for (var other : others) {
+                                if (other != element) {
+                                    rule.onSuperposition(element, other, ruleManager);
                                 }
                             }
                         })
@@ -164,7 +160,7 @@ public class LevelManager implements MovementObserver {
             case WEST -> new Movement(-1, 0);
             case EAST -> new Movement(1, 0);
         };
-        var yous = sortByDirection(getWithFlag(PropertyType.YOU), direction);
+        var yous = sortByDirection(getWithFlag(OperandType.YOU), direction);
         yous.forEach(you -> tryToMove(you, move));
     }
 
@@ -194,11 +190,11 @@ public class LevelManager implements MovementObserver {
     }
 
     public GameStatus checkGameStatus() {
-        var yous = getWithFlag(PropertyType.YOU);
+        var yous = getWithFlag(OperandType.YOU);
         if (yous.isEmpty()) {
             return GameStatus.LOSE;
         } else {
-            var wins = getWithFlag(PropertyType.WIN);
+            var wins = getWithFlag(OperandType.WIN);
             for (var you : yous) {
                 for (var win : wins) {
                     if (you.x() == win.x() && you.y() == win.y()) {
@@ -210,7 +206,7 @@ public class LevelManager implements MovementObserver {
         }
     }
 
-    private List<BoardElement> getWithFlag(PropertyType flag) {
+    private List<BoardElement> getWithFlag(OperandType flag) {
         return model.elements()
                 .stream()
                 .filter(e -> e.flags().contains(flag))
