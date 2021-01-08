@@ -1,4 +1,4 @@
-package com.notkamui.javaisyou.engine.boardelement;
+package com.notkamui.javaisyou.engine;
 
 public enum Direction {
     NORTH, WEST, EAST, SOUTH

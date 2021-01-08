@@ -1,18 +1,35 @@
 package com.notkamui.javaisyou.engine.rule;
 
-public interface RulePart {
-    RulePart nullRulePart = new RulePart() {
+import com.notkamui.javaisyou.engine.HasImage;
+
+import javax.swing.*;
+
+public interface RulePart extends HasImage {
+    RulePart NULL_RULE_PART = new RulePart() {
+        @Override
+        public ImageIcon image() {
+            return null;
+        }
+
+        @Override
+        public LeftOperand getAsLeftOperand() {
+            return LeftOperand.NULL_LEFT_OPERAND;
+        }
+
+        @Override
+        public Operator getAsOperator() {
+            return Operator.NULL_OPERATOR;
+        }
+
+        @Override
+        public RightOperand getAsRightOperand() {
+            return RightOperand.NULL_RIGHT_OPERAND;
+        }
     };
 
-    default Type getAsType() {
-        return Type.NULL_TYPE;
-    }
+    LeftOperand getAsLeftOperand();
 
-    default Operator getAsOperator() {
-        return Operator.NULL_OPERATOR;
-    }
+    Operator getAsOperator();
 
-    default RightOperand getAsRightOperand() {
-        return RightOperand.NULL_RIGHT_OPERAND;
-    }
+    RightOperand getAsRightOperand();
 }
