@@ -1,19 +1,5 @@
 package com.notkamui.javaisyou.utils;
 
-import com.notkamui.javaisyou.engine.boardelement.Direction;
-import com.notkamui.javaisyou.engine.manager.LevelManager;
-import com.notkamui.javaisyou.engine.property.MovementProperty;
-import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.property.Property;
-
-import javax.swing.*;
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.util.List;
-import java.util.Objects;
-
-
 public class LevelBuilder {
 
     public static LevelManager buildLevelFromFile(String fname) {

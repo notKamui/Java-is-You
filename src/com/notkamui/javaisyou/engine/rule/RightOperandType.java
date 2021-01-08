@@ -1,8 +1,8 @@
-package com.notkamui.javaisyou.engine.property;
+package com.notkamui.javaisyou.engine.rule;
 
-public enum OperandType {
+public enum RightOperandType {
     NULL_OPERAND,
-    // Type (i.e Baba is Rock)
+    // Type (i.e BABA, ROCK...)
     TYPE,
     // Movement
     STOP, PUSH,
