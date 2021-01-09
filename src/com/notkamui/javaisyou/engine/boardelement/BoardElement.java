@@ -2,8 +2,6 @@ package com.notkamui.javaisyou.engine.boardelement;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.rule.RulePart;
-import com.notkamui.javaisyou.engine.boardelement.Displayable;
-import com.notkamui.javaisyou.engine.boardelement.*;
 
 import javax.swing.*;
 import java.util.Objects;

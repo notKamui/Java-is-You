@@ -37,9 +37,7 @@ public final class RuleManager implements PropertyChecker {
 
     rightOperands.forEach(rightOperand -> {
       if (rightOperand.acceptedAsRight(operator)) {
-        leftOperands.forEach(leftOperand -> {
-          rules.add(new Rule(leftOperand, operator, rightOperand));
-        });
+        leftOperands.forEach(leftOperand -> rules.add(new Rule(leftOperand, operator, rightOperand)));
       }
     });
   }
@@ -63,9 +61,7 @@ public final class RuleManager implements PropertyChecker {
     var operators = model.elements().stream()
             .filter(e -> e.rulePart().getAsOperator() != Operator.NULL_OPERATOR)
             .collect(Collectors.toList());
-    operators.forEach(operator -> {
-      buildOperatorRules(operator.rulePart().getAsOperator(), operator.x(), operator.y());
-    });
+    operators.forEach(operator -> buildOperatorRules(operator.rulePart().getAsOperator(), operator.x(), operator.y()));
   }
 
   void update() {

@@ -1,6 +1,5 @@
 package com.notkamui.javaisyou.engine.rule.rulepart.property;
 
-import com.notkamui.javaisyou.engine.HasImage;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;

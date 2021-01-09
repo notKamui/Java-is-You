@@ -41,12 +41,10 @@ public class LevelManager implements MovementObserver {
   }
 
   private void updateElements() {
-    model.elements().forEach(first -> {
-      model.elementsAt(first.x(), first.y()).forEach(second -> {
-        applySuperpositionRules(first, second);
-        applySuperpositionRules(second, first);
-      });
-    });
+    model.elements().forEach(first -> model.elementsAt(first.x(), first.y()).forEach(second -> {
+      applySuperpositionRules(first, second);
+      applySuperpositionRules(second, first);
+    }));
   }
 
   public void update() {
@@ -71,8 +69,12 @@ public class LevelManager implements MovementObserver {
     var others = model.elementsAt(destX, destY);
     if (!others.isEmpty()) {
       for (var other : others) {
-        var otherRules = ruleManager.rulesOf(other.id());
-        otherRules.forEach(r -> r.onMove(movingElement, other, ruleManager, move, this));
+        for (var otherRule : ruleManager.rulesOf(other.id())) {
+          var cantMove = otherRule.onMove(movingElement, other, ruleManager, move, this);
+          if (cantMove) {
+            return false;
+          }
+        }
       }
     }
     movingElement.move(move);
