@@ -1,15 +1,15 @@
 package com.notkamui.javaisyou.engine.rule.rulepart;
 
 import com.notkamui.javaisyou.engine.manager.TypeModifier;
-import com.notkamui.javaisyou.engine.rule.Operator;
-import com.notkamui.javaisyou.engine.rule.RightOperandType;
 import com.notkamui.javaisyou.engine.rule.LeftOperand;
+import com.notkamui.javaisyou.engine.rule.Operator;
 import com.notkamui.javaisyou.engine.rule.RightOperand;
+import com.notkamui.javaisyou.engine.rule.RightOperandType;
 
 import javax.swing.*;
 import java.util.Objects;
 
-public record Type(long id, ImageIcon image) implements LeftOperand, RightOperand {
+public record Type(long id, ImageIcon image, ImageIcon elemImage) implements LeftOperand, RightOperand {
   public Type {
     Objects.requireNonNull(image);
     if (id < 0) {

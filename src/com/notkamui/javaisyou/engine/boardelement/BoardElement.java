@@ -2,19 +2,22 @@ package com.notkamui.javaisyou.engine.boardelement;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.rule.RulePart;
+import com.notkamui.javaisyou.engine.rule.rulepart.Type;
 
 import javax.swing.*;
 import java.util.Objects;
 
 public class BoardElement implements LocatedObject, Displayable {
-  private RulePart rulePart;
   private long id;
   private boolean isAlive = true;
   private int x;
   private int y;
+  private Type type;
+  private RulePart rulePart;
 
-  public BoardElement(int x, int y, long id, RulePart rulePart) {
+  public BoardElement(int x, int y, long id, RulePart rulePart, Type type) {
     Objects.requireNonNull(rulePart);
+    Objects.requireNonNull(type);
     if (x < 0 || y < 0) {
       throw new IllegalArgumentException("Invalid coordinates");
     }
@@ -22,6 +25,7 @@ public class BoardElement implements LocatedObject, Displayable {
     this.y = y;
     this.id = id;
     this.rulePart = rulePart;
+    this.type = type;
   }
 
   @Override
@@ -54,7 +58,7 @@ public class BoardElement implements LocatedObject, Displayable {
   @Override
   public ImageIcon image() {
     if (rulePart == RulePart.NULL_RULE_PART) {
-      return null; //TODO
+      return type.elemImage();
     } else {
       return rulePart.image();
     }
