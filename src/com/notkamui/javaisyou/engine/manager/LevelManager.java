@@ -71,8 +71,12 @@ public class LevelManager implements MovementObserver {
     var others = model.elementsAt(destX, destY);
     if (!others.isEmpty()) {
       for (var other : others) {
-        var otherRules = ruleManager.rulesOf(other.id());
-        otherRules.forEach(r -> r.onMove(movingElement, other, ruleManager, move, this));
+        for (var otherRule : ruleManager.rulesOf(other.type())) {
+          var canMove = otherRule.onMove(movingElement, other, ruleManager, move, this);
+          if (!canMove) {
+            return false;
+          }
+        }
       }
     }
     movingElement.move(move);
@@ -122,8 +126,8 @@ public class LevelManager implements MovementObserver {
 
   private List<BoardElement> getElementsWithProperty(RightOperandType type) {
     return model.elements()
-            .stream()
-            .filter(e -> ruleManager.hasProperty(type, e.id()))
+        .stream()
+        .filter(e -> ruleManager.hasProperty(type, e.type()))
             .collect(Collectors.toList());
   }
 }

@@ -3,7 +3,6 @@ package com.notkamui.javaisyou.engine.manager;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.boardelement.Displayable;
 import com.notkamui.javaisyou.engine.rule.LeftOperand;
-import com.notkamui.javaisyou.engine.rule.RulePart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +48,16 @@ class Model implements TypeModifier {
   public void modify(LeftOperand oldType, LeftOperand newType) {
     Objects.requireNonNull(oldType);
     Objects.requireNonNull(newType);
-    var toModify = elementsFiltered(e -> e.id() == oldType.id());
+    if (oldType == newType) {
+      return;
+    }
+    var toModify = elementsFiltered(e -> oldType.equals(e.type()));
     toModify.forEach(element -> {
-      element.setId(newType.id());
-      if (newType.id() == 0 && oldType.id() != 0) {
-        element.setRulePart(newType);
-      } else if (newType.id() != 0 && oldType.id() == 0) {
-        element.setRulePart(RulePart.NULL_RULE_PART);
-      }
+      element.setType(newType.getAsType());
+//      if (element.rulePart() != RulePart.NULL_RULE_PART) { // text -> entity
+//        element.setRulePart(RulePart.NULL_RULE_PART);
+//      }
+      // TODO entity -> text
     });
   }
 }

@@ -19,13 +19,22 @@ public record IsOperator() implements Operator {
   @Override
   public boolean onMove(RightOperand rightOperand, BoardElement trigger, BoardElement receiver,
                         PropertyChecker checker, Movement movement, MovementObserver observer) {
-    return true;
+    Objects.requireNonNull(rightOperand);
+    Objects.requireNonNull(trigger);
+    Objects.requireNonNull(receiver);
+    Objects.requireNonNull(movement);
+    Objects.requireNonNull(observer);
+    return rightOperand.onMove(trigger, receiver, checker, movement, observer);
   }
 
   @Override
   public void onSuperposition(RightOperand rightOperand, BoardElement first, BoardElement second,
                               PropertyChecker checker) {
-
+    Objects.requireNonNull(rightOperand);
+    Objects.requireNonNull(first);
+    Objects.requireNonNull(second);
+    Objects.requireNonNull(checker);
+    rightOperand.onSuperposition(first, second, checker);
   }
 
   @Override

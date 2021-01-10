@@ -74,4 +74,9 @@ public class BoardElement implements LocatedObject, Displayable {
   public Type type() {
     return type;
   }
+
+  public void setType(Type type) {
+    Objects.requireNonNull(type);
+    this.type = type;
+  }
 }

@@ -47,4 +47,9 @@ public record Type(ImageIcon image, ImageIcon elemImage) implements LeftOperand,
     Objects.requireNonNull(modifier);
     modifier.modify(leftOperand, this);
   }
+
+  @Override
+  public Type getAsType() {
+    return this;
+  }
 }

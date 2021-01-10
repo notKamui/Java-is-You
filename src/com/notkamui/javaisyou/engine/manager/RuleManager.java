@@ -5,16 +5,21 @@ import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.rule.*;
 import com.notkamui.javaisyou.engine.rule.rulepart.Type;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class RuleManager implements PropertyChecker {
   private final List<Rule> rules = new ArrayList<>();
+  private final List<Rule> defaultRules;
   private final Model model;
 
-  public RuleManager(Model model) {
+  public RuleManager(Model model, List<Rule> defaultRules) {
     Objects.requireNonNull(model);
+    Objects.requireNonNull(defaultRules);
     this.model = model;
+    this.defaultRules = defaultRules;
   }
 
   private static List<LeftOperand> toLeftOperands(List<BoardElement> elements) {
@@ -67,6 +72,7 @@ public final class RuleManager implements PropertyChecker {
     operators.forEach(operator -> {
       buildOperatorRules(operator.rulePart().getAsOperator(), operator.x(), operator.y());
     });
+    rules.addAll(defaultRules);
   }
 
   void update() {
@@ -80,14 +86,15 @@ public final class RuleManager implements PropertyChecker {
 
   public List<Rule> rulesOf(Type type) {
     return rules.stream()
-            .filter(rule -> rule.leftOperand().id() == id)
-            .collect(Collectors.toList());
+        .filter(rule -> type.equals(rule.leftOperand()))
+        .collect(Collectors.toList());
   }
 
   @Override
   public boolean hasProperty(RightOperandType property, Type type) {
     return rules.stream()
-            .map(Rule::rightOperandType)
-            .anyMatch(type -> type.equals(property));
+        .filter(r -> type.equals(r.leftOperand()))
+        .map(Rule::rightOperandType)
+        .anyMatch(t -> t.equals(property));
   }
 }

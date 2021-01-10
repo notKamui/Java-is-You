@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.notkamui.javaisyou.engine.rule.rulepart.property.Property.*;
@@ -99,5 +101,4 @@ public class LevelBuilder {
     }
     return boardElements;
   }
-
 }
