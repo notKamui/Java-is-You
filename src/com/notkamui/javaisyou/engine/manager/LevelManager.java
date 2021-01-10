@@ -5,35 +5,32 @@ import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.boardelement.LocatedObject;
 import com.notkamui.javaisyou.engine.rule.RightOperandType;
+import com.notkamui.javaisyou.engine.rule.Rule;
 import com.notkamui.javaisyou.utils.GameStatus;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class LevelManager implements MovementObserver {
   private final int width;
   private final int height;
-  private final Map<Long, ImageIcon> elemIcons;
   private final DisplayManager displayManager;
   private final Model model;
   private final RuleManager ruleManager;
 
-  public LevelManager(int width, int height, List<BoardElement> boardElements, Map<Long, ImageIcon> elemIcons) {
+  public LevelManager(int width, int height, List<BoardElement> boardElements, List<Rule> defaultRules) {
     Objects.requireNonNull(boardElements);
-    Objects.requireNonNull(elemIcons);
+    Objects.requireNonNull(defaultRules);
     if (width < 0 || height < 0) {
       throw new IllegalArgumentException("width and height must be positives");
     }
     this.width = width;
     this.height = height;
-    this.elemIcons = Map.copyOf(elemIcons);
     this.model = new Model(boardElements);
-    this.ruleManager = new RuleManager(model);
+    this.ruleManager = new RuleManager(model, defaultRules);
     this.displayManager = new DisplayManager(this.model, width, height);
   }
 
@@ -42,16 +39,14 @@ public class LevelManager implements MovementObserver {
   }
 
   private void applySuperpositionRules(BoardElement first, BoardElement second) {
-    ruleManager.rulesOf(first.id()).forEach(rule -> rule.onSuperposition(first, second, ruleManager));
+    ruleManager.rulesOf(first.type()).forEach(rule -> rule.onSuperposition(first, second, ruleManager));
   }
 
   private void updateElements() {
-    model.elements().forEach(first -> {
-      model.elementsAt(first.x(), first.y()).forEach(second -> {
-        applySuperpositionRules(first, second);
-        applySuperpositionRules(second, first);
-      });
-    });
+    model.elements().forEach(first -> model.elementsAt(first.x(), first.y()).forEach(second -> {
+      applySuperpositionRules(first, second);
+      applySuperpositionRules(second, first);
+    }));
   }
 
   public void update() {

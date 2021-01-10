@@ -3,6 +3,7 @@ package com.notkamui.javaisyou.engine.manager;
 
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.rule.*;
+import com.notkamui.javaisyou.engine.rule.rulepart.Type;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -77,14 +78,14 @@ public final class RuleManager implements PropertyChecker {
     return List.copyOf(rules);
   }
 
-  public List<Rule> rulesOf(long id) {
+  public List<Rule> rulesOf(Type type) {
     return rules.stream()
             .filter(rule -> rule.leftOperand().id() == id)
             .collect(Collectors.toList());
   }
 
   @Override
-  public boolean hasProperty(RightOperandType property, long id) {
+  public boolean hasProperty(RightOperandType property, Type type) {
     return rules.stream()
             .map(Rule::rightOperandType)
             .anyMatch(type -> type.equals(property));

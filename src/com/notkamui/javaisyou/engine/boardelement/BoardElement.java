@@ -8,14 +8,13 @@ import javax.swing.*;
 import java.util.Objects;
 
 public class BoardElement implements LocatedObject, Displayable {
-  private long id;
   private boolean isAlive = true;
   private int x;
   private int y;
   private Type type;
   private RulePart rulePart;
 
-  public BoardElement(int x, int y, long id, RulePart rulePart, Type type) {
+  public BoardElement(int x, int y, RulePart rulePart, Type type) {
     Objects.requireNonNull(rulePart);
     Objects.requireNonNull(type);
     if (x < 0 || y < 0) {
@@ -23,7 +22,6 @@ public class BoardElement implements LocatedObject, Displayable {
     }
     this.x = x;
     this.y = y;
-    this.id = id;
     this.rulePart = rulePart;
     this.type = type;
   }
@@ -73,11 +71,7 @@ public class BoardElement implements LocatedObject, Displayable {
     this.rulePart = rulePart;
   }
 
-  public long id() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
+  public Type type() {
+    return type;
   }
 }

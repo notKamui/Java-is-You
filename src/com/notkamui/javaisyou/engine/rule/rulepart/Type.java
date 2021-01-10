@@ -9,12 +9,9 @@ import com.notkamui.javaisyou.engine.rule.RightOperandType;
 import javax.swing.*;
 import java.util.Objects;
 
-public record Type(long id, ImageIcon image, ImageIcon elemImage) implements LeftOperand, RightOperand {
+public record Type(ImageIcon image, ImageIcon elemImage) implements LeftOperand, RightOperand {
   public Type {
     Objects.requireNonNull(image);
-    if (id < 0) {
-      throw new IllegalArgumentException("id < 0");
-    }
   }
 
   @Override

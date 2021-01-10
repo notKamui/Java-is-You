@@ -1,6 +1,5 @@
 package com.notkamui.javaisyou.engine.rule.rulepart.property;
 
-import com.notkamui.javaisyou.engine.HasImage;
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
@@ -36,7 +35,7 @@ public sealed interface Property extends RightOperand {
             Objects.requireNonNull(movement);
             Objects.requireNonNull(observer);
             Objects.requireNonNull(checker);
-            if (checker.hasProperty(RightOperandType.PUSH, receiver.id())) {
+            if (checker.hasProperty(RightOperandType.PUSH, receiver.type())) {
                 return observer.tryToMove(receiver, movement);
             } else {
                 return true;
@@ -74,7 +73,7 @@ public sealed interface Property extends RightOperand {
                               Movement movement, MovementObserver observer) {
             Objects.requireNonNull(receiver);
             Objects.requireNonNull(checker);
-            return !checker.hasProperty(RightOperandType.STOP, receiver.id());
+            return !checker.hasProperty(RightOperandType.STOP, receiver.type());
         }
 
         @Override
@@ -177,7 +176,7 @@ public sealed interface Property extends RightOperand {
             Objects.requireNonNull(first);
             Objects.requireNonNull(second);
             Objects.requireNonNull(checker);
-            if (checker.hasProperty(RightOperandType.YOU, first.id())) {
+            if (checker.hasProperty(RightOperandType.YOU, first.type())) {
                 first.setState(false);
             } else {
                 second.setState(false);

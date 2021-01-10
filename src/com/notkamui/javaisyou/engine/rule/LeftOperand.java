@@ -1,5 +1,7 @@
 package com.notkamui.javaisyou.engine.rule;
 
+import com.notkamui.javaisyou.engine.rule.rulepart.Type;
+
 import javax.swing.*;
 
 public interface LeftOperand extends RulePart {
@@ -10,13 +12,13 @@ public interface LeftOperand extends RulePart {
         }
 
         @Override
-        public long id() {
-            return -1;
+        public LeftOperand getAsLeftOperand() {
+            return this;
         }
 
         @Override
-        public LeftOperand getAsLeftOperand() {
-            return this;
+        public Type getAsType() {
+            return null;
         }
     };
 
@@ -30,5 +32,5 @@ public interface LeftOperand extends RulePart {
         return RightOperand.NULL_RIGHT_OPERAND;
     }
 
-    long id();
+    Type getAsType();
 }

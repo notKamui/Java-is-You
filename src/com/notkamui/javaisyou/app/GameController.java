@@ -37,7 +37,10 @@ public final class GameController {
             case DOWN -> level.moveYou(Direction.SOUTH);
             case LEFT -> level.moveYou(Direction.WEST);
             case RIGHT -> level.moveYou(Direction.EAST);
-            case P -> System.exit(0);
+            case P -> {
+              System.out.println("Force quitting game...");
+              System.exit(0);
+            }
           }
           level.update();
         }
