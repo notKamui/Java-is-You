@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class LevelManager implements MovementObserver {
+public final class LevelManager implements MovementObserver {
   private final int width;
   private final int height;
   private final DisplayManager displayManager;

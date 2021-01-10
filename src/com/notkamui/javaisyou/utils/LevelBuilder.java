@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 import static com.notkamui.javaisyou.engine.rule.rulepart.property.Property.*;
 
-public class LevelBuilder {
+public final class LevelBuilder {
   private final static Type TEXT_TYPE = new Type(new ImageIcon(
       "resources/assets/nouns/TEXT/Text_TEXT_0.gif"),
       new ImageIcon()

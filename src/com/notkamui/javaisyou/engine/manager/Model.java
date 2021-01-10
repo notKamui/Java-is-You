@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-class Model implements TypeModifier {
+final class Model implements TypeModifier {
   private final List<BoardElement> elements = new ArrayList<>();
 
   Model(List<BoardElement> elements) {

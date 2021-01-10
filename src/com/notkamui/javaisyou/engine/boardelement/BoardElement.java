@@ -7,7 +7,7 @@ import com.notkamui.javaisyou.engine.rule.rulepart.Type;
 import javax.swing.*;
 import java.util.Objects;
 
-public class BoardElement implements LocatedObject, Displayable {
+public final class BoardElement implements LocatedObject, Displayable {
   private boolean isAlive = true;
   private int x;
   private int y;
