@@ -213,8 +213,10 @@ public sealed interface Property extends RightOperand {
         public void onSuperposition(BoardElement first, BoardElement second, PropertyChecker checker) {
             Objects.requireNonNull(first);
             Objects.requireNonNull(second);
-            first.setState(false);
-            second.setState(false);
+            if (first != second) {
+                first.setState(false);
+                second.setState(false);
+            }
         }
 
         @Override

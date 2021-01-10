@@ -19,11 +19,7 @@ final class Model implements TypeModifier {
   }
 
   void removeAllDead() {
-    elements.forEach(e -> {
-      if (!e.state()) {
-        elements.remove(e);
-      }
-    });
+    elements.removeIf(e -> !e.state());
   }
 
   List<BoardElement> elements() {
