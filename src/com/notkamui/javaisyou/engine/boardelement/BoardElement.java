@@ -2,8 +2,6 @@ package com.notkamui.javaisyou.engine.boardelement;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.rule.RulePart;
-import com.notkamui.javaisyou.engine.boardelement.Displayable;
-import com.notkamui.javaisyou.engine.boardelement.*;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -45,7 +43,6 @@ public class BoardElement implements LocatedObject, Displayable {
     if (move.vectorX() == 0 && move.vectorY() == 0) {
       throw new IllegalArgumentException("movement vectors == 0");
     }
-
     x += move.vectorX();
     y += move.vectorY();
   }
@@ -54,10 +51,13 @@ public class BoardElement implements LocatedObject, Displayable {
     isAlive = state;
   }
 
-  // TODO remove null
   @Override
   public ImageIcon image() {
-    return null;
+    if (rulePart == RulePart.NULL_RULE_PART) {
+      return null; //TODO
+    } else {
+      return rulePart.image();
+    }
   }
 
   public RulePart rulePart() {
