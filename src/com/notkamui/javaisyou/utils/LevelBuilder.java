@@ -4,7 +4,6 @@ import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.manager.LevelManager;
 import com.notkamui.javaisyou.engine.rule.Rule;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -20,7 +19,7 @@ public final class LevelBuilder {
 
   public static LevelManager buildLevelFromFile(String filename, List<String[]> additionalRules) throws IOException {
     Objects.requireNonNull(filename);
-    var factory = new ElementsFactory();
+    var factory = new GameObjectFactory();
     var path = Path.of("resources/levels", filename);
     try (var buffer = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
       final var lines = buffer.lines().collect(Collectors.toList());

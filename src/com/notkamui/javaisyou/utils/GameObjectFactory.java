@@ -1,7 +1,6 @@
 package com.notkamui.javaisyou.utils;
 
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.rule.RightOperandType;
 import com.notkamui.javaisyou.engine.rule.Rule;
 import com.notkamui.javaisyou.engine.rule.RulePart;
 import com.notkamui.javaisyou.engine.rule.rulepart.IsOperator;
@@ -13,11 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-class ElementsFactory {
+class GameObjectFactory {
   private final Map<String, RulePart> ruleParts = new HashMap<>();
   private final Map<String, Type> types = new HashMap<>();
 
-  ElementsFactory() {
+  GameObjectFactory() {
     types.put("TEXT", new Type(new ImageIcon("resources/assets/nouns/TEXT/Text_TEXT_0.gif"), new ImageIcon()));
     ruleParts.put("NULL_RULE_PART", RulePart.NULL_RULE_PART);
   }
