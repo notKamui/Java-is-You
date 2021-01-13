@@ -34,7 +34,7 @@ public final class LevelBuilder {
     }
   }
 
-  private static List<BoardElement> parseBoardElements(List<String> lines, ElementsFactory factory) {
+  private static List<BoardElement> parseBoardElements(List<String> lines, GameObjectFactory factory) {
     Objects.requireNonNull(lines);
     Objects.requireNonNull(factory);
     var boardElements = new ArrayList<BoardElement>();
@@ -50,7 +50,7 @@ public final class LevelBuilder {
     return boardElements;
   }
 
-  private static List<BoardElement> parseNounsEntities(List<String> lines, int index, ElementsFactory factory) {
+  private static List<BoardElement> parseNounsEntities(List<String> lines, int index, GameObjectFactory factory) {
     Objects.requireNonNull(lines);
     Objects.requireNonNull(factory);
     var type = lines.get(index).split(" ")[1];
@@ -58,7 +58,7 @@ public final class LevelBuilder {
     return parseTypeElement(lines, index, factory, type);
   }
 
-  private static List<BoardElement> parseTypeElement(List<String> lines, int index, ElementsFactory factory,
+  private static List<BoardElement> parseTypeElement(List<String> lines, int index, GameObjectFactory factory,
                                                      String type) {
     var boardElements = new ArrayList<BoardElement>();
     for (var i = index + 1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
@@ -74,7 +74,7 @@ public final class LevelBuilder {
     return boardElements;
   }
 
-  private static List<BoardElement> parseOpProps(List<String> lines, int index, ElementsFactory factory) {
+  private static List<BoardElement> parseOpProps(List<String> lines, int index, GameObjectFactory factory) {
     Objects.requireNonNull(lines);
     var boardElements = new ArrayList<BoardElement>();
     var rulePart = lines.get(index).split(" ")[1];
