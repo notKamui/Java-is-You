@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public final class LevelManager implements MovementObserver {
   private final int width;
   private final int height;
+  private int turn = 0;
   private final DisplayManager displayManager;
   private final Model model;
   private final RuleManager ruleManager;
@@ -54,6 +55,7 @@ public final class LevelManager implements MovementObserver {
     ruleManager.rules().forEach(rule -> rule.onRuleCreation(model));
     updateElements();
     model.removeAllDead();
+    turn++;
   }
 
   @Override
@@ -79,7 +81,7 @@ public final class LevelManager implements MovementObserver {
         }
       }
     }
-    movingElement.move(move);
+    movingElement.move(move, turn);
     return true;
   }
 
@@ -125,10 +127,7 @@ public final class LevelManager implements MovementObserver {
   }
 
   private List<BoardElement> getElementsWithProperty(RightOperandType type) {
-    return model.elements()
-        .stream()
-        .filter(e -> ruleManager.hasProperty(type, e.type()))
-            .collect(Collectors.toList());
+    return model.elementsFiltered(e -> ruleManager.hasProperty(type, e.type()));
   }
 }
 

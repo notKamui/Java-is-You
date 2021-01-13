@@ -7,5 +7,5 @@ public enum RightOperandType {
     // Movement
     STOP, PUSH,
     // Passive
-    YOU, SINK, HOT, MELT, DEFEAT, WIN
+    YOU, SINK, HOT, MELT, BOOM, DEFEAT, WIN
 }

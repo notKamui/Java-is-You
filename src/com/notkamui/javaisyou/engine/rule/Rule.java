@@ -2,9 +2,9 @@ package com.notkamui.javaisyou.engine.rule;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
+import com.notkamui.javaisyou.engine.manager.ElementProvider;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
-import com.notkamui.javaisyou.engine.manager.TypeModifier;
 
 import java.util.Objects;
 
@@ -35,8 +35,8 @@ public record Rule(LeftOperand leftOperand, Operator operator, RightOperand righ
         operator.onSuperposition(rightOperand, first, second, checker);
     }
 
-    public void onRuleCreation(TypeModifier modifier) {
-        Objects.requireNonNull(modifier);
-        operator.onRuleCreation(leftOperand, rightOperand, modifier);
+    public void onRuleCreation(ElementProvider provider) {
+        Objects.requireNonNull(provider);
+        operator.onRuleCreation(leftOperand, rightOperand, provider);
     }
 }

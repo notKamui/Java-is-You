@@ -13,7 +13,7 @@ import com.notkamui.javaisyou.engine.rule.rulepart.property.Property;
 import javax.swing.*;
 import java.util.Objects;
 
-public record IsOperator() implements Operator {
+public record HasOperator() implements Operator {
   private final static ImageIcon icon = new ImageIcon("resources/assets/operators/IS/Op_IS.gif");
 
   @Override
@@ -24,7 +24,7 @@ public record IsOperator() implements Operator {
     Objects.requireNonNull(receiver);
     Objects.requireNonNull(movement);
     Objects.requireNonNull(observer);
-    return rightOperand.onMove(trigger, receiver, checker, movement, observer);
+    return true;
   }
 
   @Override

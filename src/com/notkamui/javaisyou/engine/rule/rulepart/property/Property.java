@@ -2,8 +2,10 @@ package com.notkamui.javaisyou.engine.rule.rulepart.property;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
+import com.notkamui.javaisyou.engine.manager.ElementProvider;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
+import com.notkamui.javaisyou.engine.rule.LeftOperand;
 import com.notkamui.javaisyou.engine.rule.Operator;
 import com.notkamui.javaisyou.engine.rule.RightOperand;
 import com.notkamui.javaisyou.engine.rule.RightOperandType;
@@ -283,5 +285,46 @@ public sealed interface Property extends RightOperand {
         }
     }
 
-    //TODO Idea : Explosive property (all Explosive explodes after ttl==0)
+    record Boom() implements Property {
+        private final static RightOperandType type = RightOperandType.BOOM;
+        private final static ImageIcon icon = new ImageIcon("resources/assets/properties/BEST/Prop_BEST.gif");
+
+        @Override
+        public RightOperandType operandType() {
+            return type;
+        }
+
+        @Override
+        public ImageIcon image() {
+            return icon;
+        }
+
+        @Override
+        public RightOperand getAsRightOperand() {
+            return this;
+        }
+
+        @Override
+        public boolean acceptedAsRight(Operator operator) {
+            Objects.requireNonNull(operator);
+            return operator.acceptAsRight(this);
+        }
+
+        @Override
+        public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {
+            Objects.requireNonNull(leftOperand);
+            Objects.requireNonNull(provider);
+
+            var bombs = provider.elementsFiltered(e -> leftOperand.getAsType().equals(e.type()));
+            bombs.forEach(bomb -> {
+                var x = bomb.x();
+                var y = bomb.y();
+                provider.elementsFiltered(e ->
+                    x - e.x() >= -1 && x - e.x() <= 1 &&
+                    y - e.y() >= -1 && y - e.y() <= 1
+                ).forEach(e -> e.setState(false));
+                bomb.setState(false);
+            });
+        }
+    }
 }

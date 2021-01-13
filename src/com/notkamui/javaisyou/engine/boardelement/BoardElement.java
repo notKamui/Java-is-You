@@ -11,6 +11,7 @@ public final class BoardElement implements LocatedObject, Displayable {
   private boolean isAlive = true;
   private int x;
   private int y;
+  private int lastTurnMove = 0;
   private Type type;
   private RulePart rulePart;
 
@@ -40,13 +41,14 @@ public final class BoardElement implements LocatedObject, Displayable {
     return isAlive;
   }
 
-  public void move(Movement move) {
+  public void move(Movement move, long turn) {
     Objects.requireNonNull(move);
     if (move.vectorX() == 0 && move.vectorY() == 0) {
       throw new IllegalArgumentException("movement vectors == 0");
     }
     x += move.vectorX();
     y += move.vectorY();
+    lastTurnMove++;
   }
 
   public void setState(boolean state) {
@@ -78,5 +80,9 @@ public final class BoardElement implements LocatedObject, Displayable {
   public void setType(Type type) {
     Objects.requireNonNull(type);
     this.type = type;
+  }
+
+  public int lastTurnMove() {
+    return lastTurnMove;
   }
 }

@@ -2,15 +2,15 @@ package com.notkamui.javaisyou.engine.manager;
 
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.boardelement.Displayable;
-import com.notkamui.javaisyou.engine.rule.LeftOperand;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-final class Model implements TypeModifier {
+final class Model implements ElementProvider {
   private final List<BoardElement> elements = new ArrayList<>();
 
   Model(List<BoardElement> elements) {
@@ -22,15 +22,19 @@ final class Model implements TypeModifier {
     elements.removeIf(e -> !e.state());
   }
 
-  List<BoardElement> elements() {
+  @Override
+  public List<BoardElement> elements() {
     return List.copyOf(elements);
   }
 
   List<Displayable> displayableElements() {
-    return List.copyOf(elements);
+    return elements.stream()
+        .sorted(Comparator.comparingInt(BoardElement::lastTurnMove))
+        .collect(Collectors.toList());
   }
 
-  private List<BoardElement> elementsFiltered(Predicate<BoardElement> filter) {
+  @Override
+  public List<BoardElement> elementsFiltered(Predicate<BoardElement> filter) {
     return elements.stream()
             .filter(filter)
             .collect(Collectors.toList());
@@ -38,22 +42,5 @@ final class Model implements TypeModifier {
 
   List<BoardElement> elementsAt(int x, int y) {
     return elementsFiltered(e -> e.x() == x && e.y() == y);
-  }
-
-  @Override
-  public void modify(LeftOperand oldType, LeftOperand newType) {
-    Objects.requireNonNull(oldType);
-    Objects.requireNonNull(newType);
-    if (oldType == newType) {
-      return;
-    }
-    var toModify = elementsFiltered(e -> oldType.equals(e.type()));
-    toModify.forEach(element -> {
-      element.setType(newType.getAsType());
-//      if (element.rulePart() != RulePart.NULL_RULE_PART) { // text -> entity
-//        element.setRulePart(RulePart.NULL_RULE_PART);
-//      }
-      // TODO entity -> text
-    });
   }
 }

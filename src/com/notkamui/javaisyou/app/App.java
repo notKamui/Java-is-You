@@ -30,26 +30,60 @@ public final class App {
         (Arrays.asList(args).contains("--level") && Arrays.asList(args).contains("--levels"))) {
       quitWithErrorUsage();
     }
-    if (args.length == 0) {
-      return List.of(Objects.requireNonNull(LevelBuilder.buildLevelFromFile("default-level.txt")));
+
+    var defaultRules = parseDefaultRules(args);
+
+    var levels = parseLevels(args, defaultRules);
+
+    if (levels.isEmpty()) {
+      return List.of(Objects.requireNonNull(LevelBuilder.buildLevelFromFile("default-level.txt", defaultRules)));
     }
+    return levels;
+  }
+
+  private static List<String[]> parseDefaultRules(String[] args) {
+    var defaultRules = new ArrayList<String[]>();
+    for (var i = 0; i < args.length; i++) {
+      if (args[i].equals("--execute")) {
+        defaultRules.add(new String[]{args[i + 1], args[i + 2], args[i + 3]});
+        i += 3;
+      }
+    }
+    return defaultRules;
+  }
+
+  private static List<LevelManager> parseLevels(String[] args, List<String[]> defaultRules) throws IOException {
     var levels = new ArrayList<LevelManager>();
-    for (var i = 0; i < args.length; i += 2) {
+    for (var i = 0; i < args.length; i++) {
       switch (args[i]) {
-        case "--level" -> levels.add(Objects.requireNonNull(LevelBuilder.buildLevelFromFile(args[i + 1] + ".txt")));
-        case "--levels" -> levels.addAll(listOfLevelsFromDir(args[i + 1]));
-        default -> quitWithErrorUsage();
+        case "--level" -> {
+          levels.add(Objects.requireNonNull(LevelBuilder.buildLevelFromFile(args[i + 1] + ".txt", defaultRules)));
+          i += 2;
+        }
+        case "--levels" -> {
+          levels.addAll(listOfLevelsFromDir(args[i + 1], defaultRules));
+          i += 2;
+        }
       }
     }
     return levels;
   }
 
-  public static void quitWithErrorUsage() {
-    System.out.println("Invalid command\nUsage:\njava -jar baba.jar [options]\n\nOptions:\n> --level [name]\n--levels [folder name]\n--level and --levels are incompatible");
+  private static void quitWithErrorUsage() {
+    System.out.println("""
+        Invalid command
+        Usage:
+        java -jar baba.jar [options]
+
+        Options:
+        > --level [name]
+        > --levels [folder name]
+        > --execute [left_operand] [operator] [right_operand]
+        --level and --levels are incompatible""".trim());
     System.exit(1);
   }
 
-  public static List<LevelManager> listOfLevelsFromDir(String dirName) throws IOException {
+  private static List<LevelManager> listOfLevelsFromDir(String dirName, List<String[]> defaultRules) throws IOException {
     var levels = new ArrayList<LevelManager>();
     var path = FileSystems.getDefault().getPath("resources/levels", dirName);
     File dir = new File(path.toString());
@@ -60,7 +94,7 @@ public final class App {
     for (String f : Arrays.stream(Objects.requireNonNull(dir.listFiles()))
         .map(File::getName)
         .collect(Collectors.toList())) {
-      levels.add(Objects.requireNonNull(LevelBuilder.buildLevelFromFile(dirName + "/" + f)));
+      levels.add(Objects.requireNonNull(LevelBuilder.buildLevelFromFile(dirName + "/" + f, defaultRules)));
     }
     return levels;
   }

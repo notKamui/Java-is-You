@@ -66,9 +66,7 @@ public final class RuleManager implements PropertyChecker {
   }
 
   private void buildRules() {
-    var operators = model.elements().stream()
-            .filter(e -> e.rulePart().getAsOperator() != Operator.NULL_OPERATOR)
-            .collect(Collectors.toList());
+    var operators = model.elementsFiltered(e -> e.rulePart().getAsOperator() != Operator.NULL_OPERATOR);
     operators.forEach(operator -> {
       buildOperatorRules(operator.rulePart().getAsOperator(), operator.x(), operator.y());
     });
