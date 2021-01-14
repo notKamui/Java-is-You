@@ -50,7 +50,9 @@
     </target>
 
     <target name="clean">
-        <delete dir="${build.dir}/com"/>
+        <delete includeemptydirs="true">
+            <fileset dir="${build.dir}" includes="**/*"/>
+        </delete>
     </target>
 
     <target name="full-clean" depends="clean">
