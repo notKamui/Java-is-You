@@ -1,0 +1,8 @@
+com.notkamui.javaisyou.app
+com.notkamui.javaisyou.engine
+com.notkamui.javaisyou.engine.boardelement
+com.notkamui.javaisyou.engine.manager
+com.notkamui.javaisyou.engine.rule
+com.notkamui.javaisyou.engine.rule.rulepart
+com.notkamui.javaisyou.engine.rule.rulepart.property
+com.notkamui.javaisyou.utils

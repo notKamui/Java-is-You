@@ -1,0 +1,921 @@
+memberSearchIndex = [{
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Operator",
+    "l": "acceptAsRight(Property)",
+    "u": "acceptAsRight(com.notkamui.javaisyou.engine.rule.rulepart.property.Property)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "acceptAsRight(Property)",
+    "u": "acceptAsRight(com.notkamui.javaisyou.engine.rule.rulepart.property.Property)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "acceptAsRight(Property)",
+    "u": "acceptAsRight(com.notkamui.javaisyou.engine.rule.rulepart.property.Property)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Operator",
+    "l": "acceptAsRight(Type)",
+    "u": "acceptAsRight(com.notkamui.javaisyou.engine.rule.rulepart.Type)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "acceptAsRight(Type)",
+    "u": "acceptAsRight(com.notkamui.javaisyou.engine.rule.rulepart.Type)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "acceptAsRight(Type)",
+    "u": "acceptAsRight(com.notkamui.javaisyou.engine.rule.rulepart.Type)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperand",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Boom",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Defeat",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Hot",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Melt",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Push",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Sink",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Stop",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Win",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.You",
+    "l": "acceptedAsRight(Operator)",
+    "u": "acceptedAsRight(com.notkamui.javaisyou.engine.rule.Operator)"
+}, {
+    "p": "com.notkamui.javaisyou.app",
+    "c": "App",
+    "l": "App()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "BoardElement(int, int, RulePart, Type)",
+    "u": "%3Cinit%3E(int,int,com.notkamui.javaisyou.engine.rule.RulePart,com.notkamui.javaisyou.engine.rule.rulepart.Type)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "BOOM"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Boom",
+    "l": "Boom()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.utils",
+    "c": "LevelBuilder",
+    "l": "buildLevelFromFile(String, List<String[]>)",
+    "u": "buildLevelFromFile(java.lang.String,java.util.List)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "LevelManager",
+    "l": "checkGameStatus()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "DEFEAT"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Defeat",
+    "l": "Defeat()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "LevelManager",
+    "l": "displayGame(Graphics2D, int, int, int, int)",
+    "u": "displayGame(java.awt.Graphics2D,int,int,int,int)"
+}, {"p": "com.notkamui.javaisyou.engine", "c": "Direction", "l": "EAST"}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "ElementProvider",
+    "l": "elements()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "ElementProvider",
+    "l": "elementsFiltered(Predicate<BoardElement>)",
+    "u": "elementsFiltered(java.util.function.Predicate)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "elemImage()"
+}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "Movement",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Boom",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Defeat",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Hot",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Melt",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Push",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Sink",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Stop",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Win",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.You",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "com.notkamui.javaisyou.app",
+    "c": "GameController",
+    "l": "GameController(List<LevelManager>)",
+    "u": "%3Cinit%3E(java.util.List)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Operator",
+    "l": "getAsLeftOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperand",
+    "l": "getAsLeftOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RulePart",
+    "l": "getAsLeftOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "getAsLeftOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "LeftOperand",
+    "l": "getAsOperator()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperand",
+    "l": "getAsOperator()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RulePart",
+    "l": "getAsOperator()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "getAsOperator()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "getAsOperator()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "getAsOperator()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "LeftOperand",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Operator",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RulePart",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Boom",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Defeat",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Hot",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Melt",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Push",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Sink",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Stop",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Win",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.You",
+    "l": "getAsRightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "LeftOperand",
+    "l": "getAsType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "getAsType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "Movement",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Boom",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Defeat",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Hot",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Melt",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Push",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Sink",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Stop",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Win",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.You",
+    "l": "hashCode()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "HasOperator()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "PropertyChecker",
+    "l": "hasProperty(RightOperandType, Type)",
+    "u": "hasProperty(com.notkamui.javaisyou.engine.rule.RightOperandType,com.notkamui.javaisyou.engine.rule.rulepart.Type)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "RuleManager",
+    "l": "hasProperty(RightOperandType, Type)",
+    "u": "hasProperty(com.notkamui.javaisyou.engine.rule.RightOperandType,com.notkamui.javaisyou.engine.rule.rulepart.Type)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "HOT"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Hot",
+    "l": "Hot()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "HasImage",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Boom",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Defeat",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Hot",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Melt",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Push",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Sink",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Stop",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Win",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.You",
+    "l": "image()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "IsOperator()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "lastTurnMove()"
+}, {"p": "com.notkamui.javaisyou.engine.rule", "c": "Rule", "l": "leftOperand()"}, {
+    "p": "com.notkamui.javaisyou.utils",
+    "c": "LevelBuilder",
+    "l": "LevelBuilder()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "LevelManager",
+    "l": "LevelManager(int, int, List<BoardElement>, List<Rule>)",
+    "u": "%3Cinit%3E(int,int,java.util.List,java.util.List)"
+}, {"p": "com.notkamui.javaisyou.utils", "c": "GameStatus", "l": "LOSE"}, {
+    "p": "com.notkamui.javaisyou.app",
+    "c": "App",
+    "l": "main(String[])",
+    "u": "main(java.lang.String[])"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "MELT"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Melt",
+    "l": "Melt()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "move(Movement, long)",
+    "u": "move(com.notkamui.javaisyou.engine.Movement,long)"
+}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "Movement",
+    "l": "Movement(int, int)",
+    "u": "%3Cinit%3E(int,int)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "LevelManager",
+    "l": "moveYou(Direction)",
+    "u": "moveYou(com.notkamui.javaisyou.engine.Direction)"
+}, {"p": "com.notkamui.javaisyou.engine", "c": "Direction", "l": "NORTH"}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "LeftOperand",
+    "l": "NULL_LEFT_OPERAND"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "NULL_OPERAND"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Operator",
+    "l": "NULL_OPERATOR"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperand",
+    "l": "NULL_RIGHT_OPERAND"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RulePart",
+    "l": "NULL_RULE_PART"
+}, {"p": "com.notkamui.javaisyou.utils", "c": "GameStatus", "l": "ONGOING"}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperand",
+    "l": "onMove(BoardElement, BoardElement, PropertyChecker, Movement, MovementObserver)",
+    "u": "onMove(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker,com.notkamui.javaisyou.engine.Movement,com.notkamui.javaisyou.engine.manager.MovementObserver)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "onMove(BoardElement, BoardElement, PropertyChecker, Movement, MovementObserver)",
+    "u": "onMove(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker,com.notkamui.javaisyou.engine.Movement,com.notkamui.javaisyou.engine.manager.MovementObserver)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Push",
+    "l": "onMove(BoardElement, BoardElement, PropertyChecker, Movement, MovementObserver)",
+    "u": "onMove(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker,com.notkamui.javaisyou.engine.Movement,com.notkamui.javaisyou.engine.manager.MovementObserver)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Stop",
+    "l": "onMove(BoardElement, BoardElement, PropertyChecker, Movement, MovementObserver)",
+    "u": "onMove(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker,com.notkamui.javaisyou.engine.Movement,com.notkamui.javaisyou.engine.manager.MovementObserver)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Operator",
+    "l": "onMove(RightOperand, BoardElement, BoardElement, PropertyChecker, Movement, MovementObserver)",
+    "u": "onMove(com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker,com.notkamui.javaisyou.engine.Movement,com.notkamui.javaisyou.engine.manager.MovementObserver)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "onMove(RightOperand, BoardElement, BoardElement, PropertyChecker, Movement, MovementObserver)",
+    "u": "onMove(com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker,com.notkamui.javaisyou.engine.Movement,com.notkamui.javaisyou.engine.manager.MovementObserver)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "onMove(RightOperand, BoardElement, BoardElement, PropertyChecker, Movement, MovementObserver)",
+    "u": "onMove(com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker,com.notkamui.javaisyou.engine.Movement,com.notkamui.javaisyou.engine.manager.MovementObserver)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "onRuleCreation(ElementProvider)",
+    "u": "onRuleCreation(com.notkamui.javaisyou.engine.manager.ElementProvider)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Operator",
+    "l": "onRuleCreation(LeftOperand, RightOperand, ElementProvider)",
+    "u": "onRuleCreation(com.notkamui.javaisyou.engine.rule.LeftOperand,com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.manager.ElementProvider)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperand",
+    "l": "onRuleCreation(LeftOperand, RightOperand, ElementProvider)",
+    "u": "onRuleCreation(com.notkamui.javaisyou.engine.rule.LeftOperand,com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.manager.ElementProvider)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "onRuleCreation(LeftOperand, RightOperand, ElementProvider)",
+    "u": "onRuleCreation(com.notkamui.javaisyou.engine.rule.LeftOperand,com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.manager.ElementProvider)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "onRuleCreation(LeftOperand, RightOperand, ElementProvider)",
+    "u": "onRuleCreation(com.notkamui.javaisyou.engine.rule.LeftOperand,com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.manager.ElementProvider)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "onRuleCreation(LeftOperand, RightOperand, ElementProvider)",
+    "u": "onRuleCreation(com.notkamui.javaisyou.engine.rule.LeftOperand,com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.manager.ElementProvider)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Boom",
+    "l": "onRuleCreation(LeftOperand, RightOperand, ElementProvider)",
+    "u": "onRuleCreation(com.notkamui.javaisyou.engine.rule.LeftOperand,com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.manager.ElementProvider)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperand",
+    "l": "onSuperposition(BoardElement, BoardElement, PropertyChecker)",
+    "u": "onSuperposition(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "onSuperposition(BoardElement, BoardElement, PropertyChecker)",
+    "u": "onSuperposition(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Defeat",
+    "l": "onSuperposition(BoardElement, BoardElement, PropertyChecker)",
+    "u": "onSuperposition(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Hot",
+    "l": "onSuperposition(BoardElement, BoardElement, PropertyChecker)",
+    "u": "onSuperposition(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Melt",
+    "l": "onSuperposition(BoardElement, BoardElement, PropertyChecker)",
+    "u": "onSuperposition(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Sink",
+    "l": "onSuperposition(BoardElement, BoardElement, PropertyChecker)",
+    "u": "onSuperposition(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Operator",
+    "l": "onSuperposition(RightOperand, BoardElement, BoardElement, PropertyChecker)",
+    "u": "onSuperposition(com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "onSuperposition(RightOperand, BoardElement, BoardElement, PropertyChecker)",
+    "u": "onSuperposition(com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "onSuperposition(RightOperand, BoardElement, BoardElement, PropertyChecker)",
+    "u": "onSuperposition(com.notkamui.javaisyou.engine.rule.RightOperand,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.manager.PropertyChecker)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperand",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Boom",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Defeat",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Hot",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Melt",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Push",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Sink",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Stop",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Win",
+    "l": "operandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.You",
+    "l": "operandType()"
+}, {"p": "com.notkamui.javaisyou.engine.rule", "c": "Rule", "l": "operator()"}, {
+    "p": "com.notkamui.javaisyou.app",
+    "c": "App",
+    "l": "parseCommandLine(String[])",
+    "u": "parseCommandLine(java.lang.String[])"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "PUSH"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Push",
+    "l": "Push()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "rightOperand()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "rightOperandType()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "Rule(LeftOperand, Operator, RightOperand)",
+    "u": "%3Cinit%3E(com.notkamui.javaisyou.engine.rule.LeftOperand,com.notkamui.javaisyou.engine.rule.Operator,com.notkamui.javaisyou.engine.rule.RightOperand)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "RuleManager",
+    "l": "RuleManager(Model, List<Rule>)",
+    "u": "%3Cinit%3E(com.notkamui.javaisyou.engine.manager.Model,java.util.List)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "rulePart()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "RuleManager",
+    "l": "rules()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "RuleManager",
+    "l": "rulesOf(Type)",
+    "u": "rulesOf(com.notkamui.javaisyou.engine.rule.rulepart.Type)"
+}, {
+    "p": "com.notkamui.javaisyou.app",
+    "c": "GameController",
+    "l": "run()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "setRulePart(RulePart)",
+    "u": "setRulePart(com.notkamui.javaisyou.engine.rule.RulePart)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "setState(boolean)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "setType(Type)",
+    "u": "setType(com.notkamui.javaisyou.engine.rule.rulepart.Type)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "SINK"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Sink",
+    "l": "Sink()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "Direction",
+    "l": "SOUTH"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "state()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "STOP"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Stop",
+    "l": "Stop()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "Movement",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "HasOperator",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "IsOperator",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Boom",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Defeat",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Hot",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Melt",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Push",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Sink",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Stop",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Win",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.You",
+    "l": "toString()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "LevelManager",
+    "l": "tryToMove(BoardElement, Movement)",
+    "u": "tryToMove(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.Movement)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "MovementObserver",
+    "l": "tryToMove(BoardElement, Movement)",
+    "u": "tryToMove(com.notkamui.javaisyou.engine.boardelement.BoardElement,com.notkamui.javaisyou.engine.Movement)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "TYPE"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "type()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart",
+    "c": "Type",
+    "l": "Type(ImageIcon, ImageIcon)",
+    "u": "%3Cinit%3E(javax.swing.ImageIcon,javax.swing.ImageIcon)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.manager",
+    "c": "LevelManager",
+    "l": "update()"
+}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "Direction",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "com.notkamui.javaisyou.utils",
+    "c": "GameStatus",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "Direction",
+    "l": "values()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "values()"
+}, {"p": "com.notkamui.javaisyou.utils", "c": "GameStatus", "l": "values()"}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "Movement",
+    "l": "vectorX()"
+}, {"p": "com.notkamui.javaisyou.engine", "c": "Movement", "l": "vectorY()"}, {
+    "p": "com.notkamui.javaisyou.engine",
+    "c": "Direction",
+    "l": "WEST"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "WIN"
+}, {
+    "p": "com.notkamui.javaisyou.utils",
+    "c": "GameStatus",
+    "l": "WIN"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.Win",
+    "l": "Win()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "x()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "LocatedObject",
+    "l": "x()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
+    "l": "y()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "LocatedObject",
+    "l": "y()"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "RightOperandType",
+    "l": "YOU"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
+    "c": "Property.You",
+    "l": "You()",
+    "u": "%3Cinit%3E()"
+}];
+updateSearchResults();
