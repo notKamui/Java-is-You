@@ -37,13 +37,21 @@ public final class GameController {
             case DOWN -> level.moveYou(Direction.SOUTH);
             case LEFT -> level.moveYou(Direction.WEST);
             case RIGHT -> level.moveYou(Direction.EAST);
-            case P -> System.exit(0);
+            case P -> {
+              System.out.println("Force quitting game...");
+              System.exit(0);
+            }
           }
           level.update();
         }
         render(context, level, width, height);
       } while (level.checkGameStatus() == GameStatus.ONGOING);
-      System.out.println("Level cleared !");
+      if (level.checkGameStatus() == GameStatus.WIN) {
+        System.out.println("Level cleared !");
+      } else {
+        System.out.println("Level failed...\nExiting game.");
+        System.exit(0);
+      }
     }));
     System.out.println("All levels cleared !");
     System.exit(0);

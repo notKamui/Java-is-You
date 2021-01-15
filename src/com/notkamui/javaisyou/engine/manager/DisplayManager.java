@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class DisplayManager {
+public final class DisplayManager {
 
   private final Model model;
   private final int boardWidth;

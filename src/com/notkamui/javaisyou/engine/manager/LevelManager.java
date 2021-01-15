@@ -1,10 +1,11 @@
 package com.notkamui.javaisyou.engine.manager;
 
-import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.Direction;
-import com.notkamui.javaisyou.engine.boardelement.LocatedObject;
+import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
+import com.notkamui.javaisyou.engine.boardelement.LocatedObject;
 import com.notkamui.javaisyou.engine.rule.RightOperandType;
+import com.notkamui.javaisyou.engine.rule.Rule;
 import com.notkamui.javaisyou.utils.GameStatus;
 
 import java.awt.*;
@@ -13,22 +14,24 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class LevelManager implements MovementObserver {
+public final class LevelManager implements MovementObserver {
   private final int width;
   private final int height;
+  private int turn = 0;
   private final DisplayManager displayManager;
   private final Model model;
   private final RuleManager ruleManager;
 
-  public LevelManager(int width, int height, List<BoardElement> boardElements) {
+  public LevelManager(int width, int height, List<BoardElement> boardElements, List<Rule> defaultRules) {
     Objects.requireNonNull(boardElements);
+    Objects.requireNonNull(defaultRules);
     if (width < 0 || height < 0) {
       throw new IllegalArgumentException("width and height must be positives");
     }
     this.width = width;
     this.height = height;
     this.model = new Model(boardElements);
-    this.ruleManager = new RuleManager(model);
+    this.ruleManager = new RuleManager(model, defaultRules);
     this.displayManager = new DisplayManager(this.model, width, height);
   }
 
@@ -37,7 +40,7 @@ public class LevelManager implements MovementObserver {
   }
 
   private void applySuperpositionRules(BoardElement first, BoardElement second) {
-    ruleManager.rulesOf(first.id()).forEach(rule -> rule.onSuperposition(first, second, ruleManager));
+    ruleManager.rulesOf(first.type()).forEach(rule -> rule.onSuperposition(first, second, ruleManager));
   }
 
   private void updateElements() {
@@ -52,6 +55,7 @@ public class LevelManager implements MovementObserver {
     ruleManager.rules().forEach(rule -> rule.onRuleCreation(model));
     updateElements();
     model.removeAllDead();
+    turn++;
   }
 
   @Override
@@ -69,15 +73,15 @@ public class LevelManager implements MovementObserver {
     var others = model.elementsAt(destX, destY);
     if (!others.isEmpty()) {
       for (var other : others) {
-        for (var otherRule : ruleManager.rulesOf(other.id())) {
-          var cantMove = otherRule.onMove(movingElement, other, ruleManager, move, this);
-          if (cantMove) {
+        for (var otherRule : ruleManager.rulesOf(other.type())) {
+          var canMove = otherRule.onMove(movingElement, other, ruleManager, move, this);
+          if (!canMove) {
             return false;
           }
         }
       }
     }
-    movingElement.move(move);
+    movingElement.move(move, turn);
     return true;
   }
 
@@ -123,10 +127,7 @@ public class LevelManager implements MovementObserver {
   }
 
   private List<BoardElement> getElementsWithProperty(RightOperandType type) {
-    return model.elements()
-            .stream()
-            .filter(e -> ruleManager.hasProperty(type, e.id()))
-            .collect(Collectors.toList());
+    return model.elementsFiltered(e -> ruleManager.hasProperty(type, e.type()));
   }
 }
 

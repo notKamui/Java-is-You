@@ -2,26 +2,29 @@ package com.notkamui.javaisyou.engine.boardelement;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.rule.RulePart;
+import com.notkamui.javaisyou.engine.rule.rulepart.Type;
 
 import javax.swing.*;
 import java.util.Objects;
 
-public class BoardElement implements LocatedObject, Displayable {
-  private RulePart rulePart;
-  private long id;
+public final class BoardElement implements LocatedObject, Displayable {
   private boolean isAlive = true;
   private int x;
   private int y;
+  private int lastTurnMove = 0;
+  private Type type;
+  private RulePart rulePart;
 
-  public BoardElement(int x, int y, long id, RulePart rulePart) {
+  public BoardElement(int x, int y, RulePart rulePart, Type type) {
     Objects.requireNonNull(rulePart);
+    Objects.requireNonNull(type);
     if (x < 0 || y < 0) {
       throw new IllegalArgumentException("Invalid coordinates");
     }
     this.x = x;
     this.y = y;
-    this.id = id;
     this.rulePart = rulePart;
+    this.type = type;
   }
 
   @Override
@@ -38,24 +41,27 @@ public class BoardElement implements LocatedObject, Displayable {
     return isAlive;
   }
 
-  public void move(Movement move) {
+  public void move(Movement move, long turn) {
     Objects.requireNonNull(move);
     if (move.vectorX() == 0 && move.vectorY() == 0) {
       throw new IllegalArgumentException("movement vectors == 0");
     }
-
     x += move.vectorX();
     y += move.vectorY();
+    lastTurnMove++;
   }
 
   public void setState(boolean state) {
     isAlive = state;
   }
 
-  // TODO remove null
   @Override
   public ImageIcon image() {
-    return null;
+    if (rulePart == RulePart.NULL_RULE_PART) {
+      return type.elemImage();
+    } else {
+      return rulePart.image();
+    }
   }
 
   public RulePart rulePart() {
@@ -67,11 +73,16 @@ public class BoardElement implements LocatedObject, Displayable {
     this.rulePart = rulePart;
   }
 
-  public long id() {
-    return id;
+  public Type type() {
+    return type;
   }
 
-  public void setId(long id) {
-    this.id = id;
+  public void setType(Type type) {
+    Objects.requireNonNull(type);
+    this.type = type;
+  }
+
+  public int lastTurnMove() {
+    return lastTurnMove;
   }
 }
