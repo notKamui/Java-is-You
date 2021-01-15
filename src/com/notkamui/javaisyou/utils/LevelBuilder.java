@@ -13,10 +13,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-
+/**
+ * This class only serves to create a LevelManager from a given file.
+ * There is currently no integrity of validity check for said file.
+ */
 public final class LevelBuilder {
   private final static String TEXT = "TEXT";
 
+  /**
+   * Builds a LevelManager from a given file
+   *
+   * @param filename        the level file's name
+   * @param additionalRules the additional default rules of the level (given by --execute)
+   * @return the built LevelManager
+   * @throws IOException when there's an error while reading the file
+   */
   public static LevelManager buildLevelFromFile(String filename, List<String[]> additionalRules) throws IOException {
     Objects.requireNonNull(filename);
     var factory = new GameObjectFactory();

@@ -7,7 +7,17 @@ import com.notkamui.javaisyou.engine.rule.*;
 import javax.swing.*;
 import java.util.Objects;
 
+/**
+ * This record represents the type of an element (in both its text and item version)
+ * A Type knows both its images
+ */
 public record Type(ImageIcon image, ImageIcon elemImage) implements LeftOperand, RightOperand {
+  /**
+   * Constructor for a Type
+   *
+   * @param image     the text image
+   * @param elemImage the element image
+   */
   public Type {
     Objects.requireNonNull(image);
     Objects.requireNonNull(elemImage);

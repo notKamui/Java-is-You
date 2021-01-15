@@ -10,11 +10,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * This class manages the rules of a level by updating them and applying them.
+ * A RuleManager knows its active rules, default rules, as well as the model of the level.
+ */
 public final class RuleManager implements PropertyChecker {
   private final List<Rule> rules = new ArrayList<>();
   private final List<Rule> defaultRules;
   private final Model model;
 
+  /**
+   * Constructor for RuleManager
+   * Initializes the list of active rules.
+   *
+   * @param model        the model of the level
+   * @param defaultRules the default rules of the level (contains at least TEXT IS PUSH)
+   */
   public RuleManager(Model model, List<Rule> defaultRules) {
     Objects.requireNonNull(model);
     Objects.requireNonNull(defaultRules);
@@ -90,16 +101,32 @@ public final class RuleManager implements PropertyChecker {
 
   }
 
+  /**
+   * Updates the list of active rules by clearing the previous ones and building the new ones.
+   */
   void update() {
     rules.clear();
     buildRules();
     removeForbiddenRules();
   }
 
+  /**
+   * Getter for the list of rules.
+   * (Safe copy)
+   *
+   * @return the safe copy of the list of rules
+   */
   public List<Rule> rules() {
     return List.copyOf(rules);
   }
 
+  /**
+   * Getter for the list of rules for a given type
+   * (Safe copy)
+   *
+   * @param type the type to retrieve the rules of
+   * @return the safe copy of the list of rules for the given type
+   */
   public List<Rule> rulesOf(Type type) {
     return rules.stream()
         .filter(rule -> type.equals(rule.leftOperand()))

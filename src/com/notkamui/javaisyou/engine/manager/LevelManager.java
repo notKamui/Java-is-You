@@ -15,14 +15,26 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * A class that represents and manages ONE level and can manipulate its state.
+ * A LevelManager knows the width and height of the board
+ * and contains a DisplayManager and a RuleManager in addition to the Model of the level.
+ */
 public final class LevelManager implements MovementObserver {
   private final int width;
   private final int height;
-  private int turn = 0;
   private final DisplayManager displayManager;
   private final Model model;
   private final RuleManager ruleManager;
 
+  /**
+   * Constructor for the LevelManager
+   *
+   * @param width         the width of the board
+   * @param height        the height of the board
+   * @param boardElements the list of board elements of the level
+   * @param defaultRules  the list of default rules (that cannot be broken)
+   */
   public LevelManager(int width, int height, List<BoardElement> boardElements, List<Rule> defaultRules) {
     Objects.requireNonNull(boardElements);
     Objects.requireNonNull(defaultRules);
@@ -36,6 +48,15 @@ public final class LevelManager implements MovementObserver {
     this.displayManager = new DisplayManager(this.model, width, height);
   }
 
+  /**
+   * Renders and displays a frame
+   *
+   * @param graphics     the graphic engine zone
+   * @param x            the x coordinate of the top left corner
+   * @param y            the y coordinate of the top left corner
+   * @param windowWidth  the width of the viewport
+   * @param windowHeight the height of the viewport
+   */
   public void displayGame(Graphics2D graphics, int x, int y, int windowWidth, int windowHeight) {
     displayManager.display(graphics, x, y, windowWidth, windowHeight);
   }
@@ -61,12 +82,18 @@ public final class LevelManager implements MovementObserver {
     model.elements().forEach(this::updateElement);
   }
 
+  /**
+   * Updates the state of the game.
+   * - Updates the rules
+   * - Applies each rule
+   * - Updates the state of each elements
+   * - Removes all dead elements from the board
+   */
   public void update() {
     ruleManager.update();
     ruleManager.rules().forEach(rule -> rule.onRuleCreation(model));
     updateElements();
     model.removeAllDead();
-    turn++;
   }
 
   @Override
@@ -92,10 +119,15 @@ public final class LevelManager implements MovementObserver {
         }
       }
     }
-    movingElement.move(move, turn);
+    movingElement.move(move);
     return true;
   }
 
+  /**
+   * Moves all elements with the property YOU  with a given Direction.
+   *
+   * @param direction the direction of the movement
+   */
   public void moveYou(Direction direction) {
     var move = switch (direction) {
       case NORTH -> new Movement(0, -1);
@@ -120,6 +152,11 @@ public final class LevelManager implements MovementObserver {
     return youList.stream().sorted(comp).collect(Collectors.toList());
   }
 
+  /**
+   * Checks the status of the game
+   *
+   * @return the current GameStatus of the game (ONGOING, WIN or LOSE)
+   */
   public GameStatus checkGameStatus() {
     var yous = getElementsWithProperty(RightOperandType.YOU);
     if (yous.isEmpty()) {

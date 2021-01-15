@@ -1,5 +1,22 @@
 package com.notkamui.javaisyou.utils;
 
+/**
+ * This enum represents the different status of the game
+ */
 public enum GameStatus {
-    ONGOING, WIN, LOSE
+
+    /**
+     * Ongoing state
+     */
+    ONGOING,
+
+    /**
+     * Win state
+     */
+    WIN,
+
+    /**
+     * Lost state
+     */
+    LOSE
 }

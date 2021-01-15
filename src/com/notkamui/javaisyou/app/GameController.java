@@ -12,10 +12,19 @@ import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.Objects;
 
-public final class GameController {
+/**
+ * Main controller for the game.
+ * Manages the game loop and rendering every frame
+ */
+final class GameController {
   private final List<LevelManager> levels;
 
-  public GameController(List<LevelManager> levels) {
+  /**
+   * Constructor for the GameController
+   *
+   * @param levels the levels to be played
+   */
+  GameController(List<LevelManager> levels) {
     Objects.requireNonNull(levels);
     if (levels.isEmpty()) {
       throw new IllegalArgumentException("At least one level must be selected");
@@ -23,7 +32,11 @@ public final class GameController {
     this.levels = List.copyOf(levels);
   }
 
-  public void run() {
+  /**
+   * Starts the game loop on each level
+   * Each frame registers inputs, updates the state of the level and then renders it.
+   */
+  void run() {
     levels.forEach(level -> Application.run(Color.BLACK, context -> {
       var screenInfo = context.getScreenInfo();
       var width = (int) screenInfo.getWidth();

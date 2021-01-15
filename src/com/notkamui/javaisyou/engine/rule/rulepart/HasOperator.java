@@ -12,6 +12,10 @@ import com.notkamui.javaisyou.engine.rule.rulepart.property.Property;
 import javax.swing.*;
 import java.util.Objects;
 
+/**
+ * The HAS operator
+ * When an element of the left type disappear, it is replaced by an element of the right type
+ */
 public record HasOperator() implements Operator {
   private final static ImageIcon icon = new ImageIcon("resources/assets/operators/HAS/Op_HAS.gif");
 

@@ -14,6 +14,11 @@ import com.notkamui.javaisyou.engine.rule.rulepart.property.Property;
 import javax.swing.*;
 import java.util.Objects;
 
+/**
+ * The IS operator
+ * If the right type is a property, the elements of the left type receive said property.
+ * If the right type is a type, the elements of the left type become elements of the right type.
+ */
 public record IsOperator() implements Operator {
   private final static ImageIcon icon = new ImageIcon("resources/assets/operators/IS/Op_IS.gif");
 
