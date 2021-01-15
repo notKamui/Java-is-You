@@ -9,7 +9,13 @@ import com.notkamui.javaisyou.engine.manager.PropertyChecker;
 
 import javax.swing.*;
 
+/**
+ * Represents rule parts that can be right operands
+ */
 public interface RightOperand extends RulePart {
+  /**
+   * Default/Null right operand
+   */
   RightOperand NULL_RIGHT_OPERAND = new RightOperand() {
     @Override
     public ImageIcon image() {
@@ -34,7 +40,7 @@ public interface RightOperand extends RulePart {
 
   @Override
   default LeftOperand getAsLeftOperand() {
-    return  LeftOperand.NULL_LEFT_OPERAND;
+    return LeftOperand.NULL_LEFT_OPERAND;
   }
 
   @Override
@@ -42,16 +48,53 @@ public interface RightOperand extends RulePart {
     return Operator.NULL_OPERATOR;
   }
 
+  /**
+   * Getter on its operand type
+   *
+   * @return the operand type
+   */
   RightOperandType operandType();
 
+  /**
+   * Is applied to when the trigger is moved
+   *
+   * @param trigger  the trigger of the rule
+   * @param receiver the receiver of the rule
+   * @param checker  the property checker
+   * @param movement the movement of the trigger
+   * @param observer the movement observer
+   * @return true if the move is successful, false otherwise
+   */
   default boolean onMove(BoardElement trigger, BoardElement receiver, PropertyChecker checker,
                          Movement movement, MovementObserver observer) {
     return true;
   }
 
-  default void onSuperposition(BoardElement first, BoardElement second, PropertyChecker checker) {}
+  /**
+   * Is applied when the first element is superimposed with the second one
+   *
+   * @param first   the first element
+   * @param second  the second element
+   * @param checker the property checker
+   */
+  default void onSuperposition(BoardElement first, BoardElement second, PropertyChecker checker) {
+  }
 
-  default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {}
+  /**
+   * Is applied when the rule is created
+   *
+   * @param leftOperand  the left operand of the rule
+   * @param rightOperand the right operand of the rule
+   * @param provider     the element provider
+   */
+  default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {
+  }
 
+  /**
+   * Checks if an Operator is accepted as a right operand
+   *
+   * @param operator the supposed right operand
+   * @return true if accepted, false otherwise
+   */
   boolean acceptedAsRight(Operator operator);
 }

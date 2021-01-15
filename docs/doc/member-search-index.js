@@ -209,11 +209,6 @@ memberSearchIndex = [{
     "l": "equals(Object)",
     "u": "equals(java.lang.Object)"
 }, {
-    "p": "com.notkamui.javaisyou.app",
-    "c": "GameController",
-    "l": "GameController(List<LevelManager>)",
-    "u": "%3Cinit%3E(java.util.List)"
-}, {
     "p": "com.notkamui.javaisyou.engine.rule",
     "c": "Operator",
     "l": "getAsLeftOperand()"
@@ -394,12 +389,12 @@ memberSearchIndex = [{
     "l": "Hot()",
     "u": "%3Cinit%3E()"
 }, {
-    "p": "com.notkamui.javaisyou.engine",
-    "c": "HasImage",
+    "p": "com.notkamui.javaisyou.engine.boardelement",
+    "c": "BoardElement",
     "l": "image()"
 }, {
     "p": "com.notkamui.javaisyou.engine.boardelement",
-    "c": "BoardElement",
+    "c": "HasImage",
     "l": "image()"
 }, {
     "p": "com.notkamui.javaisyou.engine.rule.rulepart",
@@ -485,8 +480,8 @@ memberSearchIndex = [{
 }, {
     "p": "com.notkamui.javaisyou.engine.boardelement",
     "c": "BoardElement",
-    "l": "move(Movement, long)",
-    "u": "move(com.notkamui.javaisyou.engine.Movement,long)"
+    "l": "move(Movement)",
+    "u": "move(com.notkamui.javaisyou.engine.Movement)"
 }, {
     "p": "com.notkamui.javaisyou.engine",
     "c": "Movement",
@@ -676,11 +671,10 @@ memberSearchIndex = [{
     "p": "com.notkamui.javaisyou.engine.rule.rulepart.property",
     "c": "Property.You",
     "l": "operandType()"
-}, {"p": "com.notkamui.javaisyou.engine.rule", "c": "Rule", "l": "operator()"}, {
-    "p": "com.notkamui.javaisyou.app",
-    "c": "App",
-    "l": "parseCommandLine(String[])",
-    "u": "parseCommandLine(java.lang.String[])"
+}, {
+    "p": "com.notkamui.javaisyou.engine.rule",
+    "c": "Rule",
+    "l": "operator()"
 }, {
     "p": "com.notkamui.javaisyou.engine.rule",
     "c": "RightOperandType",
@@ -721,10 +715,6 @@ memberSearchIndex = [{
     "c": "RuleManager",
     "l": "rulesOf(Type)",
     "u": "rulesOf(com.notkamui.javaisyou.engine.rule.rulepart.Type)"
-}, {
-    "p": "com.notkamui.javaisyou.app",
-    "c": "GameController",
-    "l": "run()"
 }, {
     "p": "com.notkamui.javaisyou.engine.boardelement",
     "c": "BoardElement",

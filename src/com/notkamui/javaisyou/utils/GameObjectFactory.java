@@ -12,10 +12,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * This class contains methods to safely create board elements types
+ */
 class GameObjectFactory {
   private final Map<String, RulePart> ruleParts = new HashMap<>();
   private final Map<String, Type> types = new HashMap<>();
 
+  /**
+   * Constructor for the GameObjectFactory.
+   * Initializes type maps
+   */
   GameObjectFactory() {
     types.put("TEXT", new Type(new ImageIcon("resources/assets/nouns/TEXT/Text_TEXT_0.gif"), new ImageIcon()));
     ruleParts.put("NULL_RULE_PART", RulePart.NULL_RULE_PART);
@@ -40,17 +47,26 @@ class GameObjectFactory {
     };
   }
 
-  BoardElement provideElement(int x, int y, String part, String stringType) {
-    Objects.requireNonNull(part);
+  /**
+   * Provides a board element with given types (without instantiating them again)
+   *
+   * @param x              the x coordinate of the element
+   * @param y              the y coordinate of the element
+   * @param stringRulePart the rule part type in String format
+   * @param stringType     the type in String format
+   * @return a new element with the given attributes
+   */
+  BoardElement provideElement(int x, int y, String stringRulePart, String stringType) {
+    Objects.requireNonNull(stringRulePart);
     Objects.requireNonNull(stringType);
 
-    var rulePart = ruleParts.get(part);
+    var rulePart = ruleParts.get(stringRulePart);
     if (rulePart == null) {
-      rulePart = createRulePart(part);
+      rulePart = createRulePart(stringRulePart);
       if (rulePart == null) {
-        throw new IllegalArgumentException("unknown rule part " + part);
+        throw new IllegalArgumentException("unknown rule stringRulePart " + stringRulePart);
       }
-      ruleParts.put(part, rulePart);
+      ruleParts.put(stringRulePart, rulePart);
     }
     var type = types.get(stringType);
     if (type == null) {
@@ -59,6 +75,11 @@ class GameObjectFactory {
     return new BoardElement(x, y, rulePart, type);
   }
 
+  /**
+   * Adds a new type to the type map
+   *
+   * @param stringType the type in String format
+   */
   void addType(String stringType) {
     Objects.requireNonNull(stringType);
     if (types.containsKey(stringType)) {
@@ -73,6 +94,14 @@ class GameObjectFactory {
     ruleParts.put(stringType, type);
   }
 
+  /**
+   * Provides a complete rule with the given parts (without instantiating them again)
+   *
+   * @param leftOperand  the left operand in String format
+   * @param operator     the operator in String format
+   * @param rightOperand the right operand in String format
+   * @return the created rule
+   */
   Rule provideRule(String leftOperand, String operator, String rightOperand) {
     Objects.requireNonNull(leftOperand);
     Objects.requireNonNull(operator);
@@ -90,5 +119,4 @@ class GameObjectFactory {
     }
     return new Rule(left.getAsLeftOperand(), createRulePart(operator).getAsOperator(), right.getAsRightOperand());
   }
-
 }

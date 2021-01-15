@@ -4,7 +4,13 @@ import com.notkamui.javaisyou.engine.rule.rulepart.Type;
 
 import javax.swing.*;
 
+/**
+ * Represents rule parts that can be left operands
+ */
 public interface LeftOperand extends RulePart {
+    /**
+     * Default/Null left operand
+     */
     LeftOperand NULL_LEFT_OPERAND = new LeftOperand() {
         @Override
         public ImageIcon image() {
@@ -32,5 +38,10 @@ public interface LeftOperand extends RulePart {
         return RightOperand.NULL_RIGHT_OPERAND;
     }
 
+    /**
+     * Returns itself as a Type
+     *
+     * @return itself as a Type
+     */
     Type getAsType();
 }

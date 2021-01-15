@@ -12,7 +12,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Entry point class for the application
+ */
 public final class App {
+
+  /**
+   * Entry point for the application
+   *
+   * @param args the arguments for the game
+   */
   public static void main(String[] args) {
     List<LevelManager> levels;
     try {
@@ -25,7 +34,7 @@ public final class App {
     game.run();
   }
 
-  public static List<LevelManager> parseCommandLine(String[] args) throws IOException {
+  private static List<LevelManager> parseCommandLine(String[] args) throws IOException {
     if (args.length % 2 != 0 ||
         (Arrays.asList(args).contains("--level") && Arrays.asList(args).contains("--levels"))) {
       quitWithErrorUsage();

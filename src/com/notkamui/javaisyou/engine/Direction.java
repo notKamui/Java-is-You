@@ -1,5 +1,26 @@
 package com.notkamui.javaisyou.engine;
 
+/**
+ * Represents the cardinal directions
+ */
 public enum Direction {
-    NORTH, WEST, EAST, SOUTH
+    /**
+     * North
+     */
+    NORTH,
+
+    /**
+     * West
+     */
+    WEST,
+
+    /**
+     * East
+     */
+    EAST,
+
+    /**
+     * South
+     */
+    SOUTH
 }

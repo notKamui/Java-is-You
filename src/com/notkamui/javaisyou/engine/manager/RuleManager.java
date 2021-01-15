@@ -1,6 +1,5 @@
 package com.notkamui.javaisyou.engine.manager;
 
-
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.rule.*;
 import com.notkamui.javaisyou.engine.rule.rulepart.Type;
@@ -10,11 +9,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * This class manages the rules of a level by updating them and applying them.
+ * A RuleManager knows its active rules, default rules, as well as the model of the level.
+ */
 public final class RuleManager implements PropertyChecker {
   private final List<Rule> rules = new ArrayList<>();
   private final List<Rule> defaultRules;
   private final Model model;
 
+  /**
+   * Constructor for RuleManager
+   * Initializes the list of active rules.
+   *
+   * @param model        the model of the level
+   * @param defaultRules the default rules of the level (contains at least TEXT IS PUSH)
+   */
   public RuleManager(Model model, List<Rule> defaultRules) {
     Objects.requireNonNull(model);
     Objects.requireNonNull(defaultRules);
@@ -24,16 +34,16 @@ public final class RuleManager implements PropertyChecker {
 
   private static List<LeftOperand> toLeftOperands(List<BoardElement> elements) {
     return elements.stream()
-            .map(e -> e.rulePart().getAsLeftOperand())
-            .filter(l -> l != LeftOperand.NULL_LEFT_OPERAND)
-            .collect(Collectors.toList());
+        .map(e -> e.rulePart().getAsLeftOperand())
+        .filter(l -> l != LeftOperand.NULL_LEFT_OPERAND)
+        .collect(Collectors.toList());
   }
 
   private static List<RightOperand> toRightOperands(List<BoardElement> elements) {
     return elements.stream()
-            .map(e -> e.rulePart().getAsRightOperand())
-            .filter(r -> r != RightOperand.NULL_RIGHT_OPERAND)
-            .collect(Collectors.toList());
+        .map(e -> e.rulePart().getAsRightOperand())
+        .filter(r -> r != RightOperand.NULL_RIGHT_OPERAND)
+        .collect(Collectors.toList());
   }
 
   private void build(List<LeftOperand> leftOperands, Operator operator, List<RightOperand> rightOperands) {
@@ -43,9 +53,7 @@ public final class RuleManager implements PropertyChecker {
 
     rightOperands.forEach(rightOperand -> {
       if (rightOperand.acceptedAsRight(operator)) {
-        leftOperands.forEach(leftOperand -> {
-          rules.add(new Rule(leftOperand, operator, rightOperand));
-        });
+        leftOperands.forEach(leftOperand -> rules.add(new Rule(leftOperand, operator, rightOperand)));
       }
     });
   }
@@ -67,21 +75,39 @@ public final class RuleManager implements PropertyChecker {
 
   private void buildRules() {
     var operators = model.elementsFiltered(e -> e.rulePart().getAsOperator() != Operator.NULL_OPERATOR);
-    operators.forEach(operator -> {
-      buildOperatorRules(operator.rulePart().getAsOperator(), operator.x(), operator.y());
-    });
+    operators.forEach(operator -> buildOperatorRules(
+        operator.rulePart().getAsOperator(),
+        operator.x(),
+        operator.y()
+    ));
     rules.addAll(defaultRules);
   }
 
+  /**
+   * Updates the list of active rules by clearing the previous ones and building the new ones.
+   */
   void update() {
     rules.clear();
     buildRules();
   }
 
+  /**
+   * Getter for the list of rules.
+   * (Safe copy)
+   *
+   * @return the safe copy of the list of rules
+   */
   public List<Rule> rules() {
     return List.copyOf(rules);
   }
 
+  /**
+   * Getter for the list of rules for a given type
+   * (Safe copy)
+   *
+   * @param type the type to retrieve the rules of
+   * @return the safe copy of the list of rules for the given type
+   */
   public List<Rule> rulesOf(Type type) {
     return rules.stream()
         .filter(rule -> type.equals(rule.leftOperand()))
