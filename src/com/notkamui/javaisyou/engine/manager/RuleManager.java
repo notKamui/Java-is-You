@@ -73,9 +73,27 @@ public final class RuleManager implements PropertyChecker {
     rules.addAll(defaultRules);
   }
 
+  private void removeForbiddenRules() {
+    var toRemove = new ArrayList<>();
+    for (var i = 0; i < rules.size(); i++) {
+      for (var j = i; j < rules.size(); j++) {
+        var first = rules.get(i);
+        var second = rules.get(j);
+        if (first != second) {
+          if (first.isIncompatible(second)) {
+            toRemove.add(first.isProhibition() ? second : first);
+          }
+        }
+      }
+    }
+    rules.removeIf(toRemove::contains);
+
+  }
+
   void update() {
     rules.clear();
     buildRules();
+    removeForbiddenRules();
   }
 
   public List<Rule> rules() {

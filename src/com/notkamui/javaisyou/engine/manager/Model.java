@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-final class Model implements ElementProvider {
+final class Model implements ElementEditor {
   private final List<BoardElement> elements = new ArrayList<>();
 
   Model(List<BoardElement> elements) {
@@ -19,7 +19,7 @@ final class Model implements ElementProvider {
   }
 
   void removeAllDead() {
-    elements.removeIf(e -> !e.state());
+    elements.removeIf(Predicate.not(BoardElement::state));
   }
 
   @Override
@@ -40,7 +40,15 @@ final class Model implements ElementProvider {
             .collect(Collectors.toList());
   }
 
+  @Override
+  public void addElement(BoardElement boardElement) {
+    Objects.requireNonNull(boardElement);
+    elements.add(boardElement);
+  }
+
   List<BoardElement> elementsAt(int x, int y) {
     return elementsFiltered(e -> e.x() == x && e.y() == y);
   }
+
+
 }

@@ -2,7 +2,7 @@ package com.notkamui.javaisyou.engine.rule;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.manager.ElementProvider;
+import com.notkamui.javaisyou.engine.manager.ElementEditor;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
 
@@ -35,8 +35,27 @@ public record Rule(LeftOperand leftOperand, Operator operator, RightOperand righ
         operator.onSuperposition(rightOperand, first, second, checker);
     }
 
-    public void onRuleCreation(ElementProvider provider) {
+    public void onRuleCreation(ElementEditor provider) {
         Objects.requireNonNull(provider);
         operator.onRuleCreation(leftOperand, rightOperand, provider);
+    }
+
+    public void onDeath(BoardElement dyingElement, ElementEditor elementEditor) {
+        Objects.requireNonNull(dyingElement);
+        Objects.requireNonNull(elementEditor);
+        operator.onDeath(dyingElement, rightOperand, elementEditor);
+    }
+
+    public boolean isProhibition() {
+        return operator.isProhibition(leftOperand, rightOperand);
+    }
+
+    public boolean canBeForbidden() {
+        return operator.canBeForbidden(rightOperand);
+    }
+
+    public boolean isIncompatible(Rule other) {
+        return (leftOperand.equals(other.leftOperand) && operator.equals(other.operator)) &&
+                (isProhibition() && other.canBeForbidden() || other.isProhibition() && canBeForbidden());
     }
 }

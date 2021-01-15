@@ -2,10 +2,9 @@ package com.notkamui.javaisyou.engine.rule.rulepart;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.manager.ElementProvider;
+import com.notkamui.javaisyou.engine.manager.ElementEditor;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
-import com.notkamui.javaisyou.engine.rule.LeftOperand;
 import com.notkamui.javaisyou.engine.rule.Operator;
 import com.notkamui.javaisyou.engine.rule.RightOperand;
 import com.notkamui.javaisyou.engine.rule.rulepart.property.Property;
@@ -14,7 +13,7 @@ import javax.swing.*;
 import java.util.Objects;
 
 public record HasOperator() implements Operator {
-  private final static ImageIcon icon = new ImageIcon("resources/assets/operators/IS/Op_IS.gif");
+  private final static ImageIcon icon = new ImageIcon("resources/assets/operators/HAS/Op_HAS.gif");
 
   @Override
   public boolean onMove(RightOperand rightOperand, BoardElement trigger, BoardElement receiver,
@@ -28,22 +27,6 @@ public record HasOperator() implements Operator {
   }
 
   @Override
-  public void onSuperposition(RightOperand rightOperand, BoardElement first, BoardElement second,
-                              PropertyChecker checker) {
-    Objects.requireNonNull(rightOperand);
-    Objects.requireNonNull(first);
-    Objects.requireNonNull(second);
-    Objects.requireNonNull(checker);
-    rightOperand.onSuperposition(first, second, checker);
-  }
-
-  @Override
-  public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {
-    Objects.requireNonNull(rightOperand);
-    rightOperand.onRuleCreation(leftOperand, rightOperand, provider);
-  }
-
-  @Override
   public boolean acceptAsRight(Type rightOperand) {
     Objects.requireNonNull(rightOperand);
     return true;
@@ -52,12 +35,19 @@ public record HasOperator() implements Operator {
   @Override
   public boolean acceptAsRight(Property rightOperand) {
     Objects.requireNonNull(rightOperand);
-    return true;
+    return false;
   }
 
   @Override
   public Operator getAsOperator() {
     return this;
+  }
+
+  @Override
+  public void onDeath(BoardElement dyingElement, RightOperand rightOperand, ElementEditor elementEditor) {
+    Objects.requireNonNull(dyingElement);
+    Objects.requireNonNull(rightOperand);
+    rightOperand.onDeath(dyingElement, elementEditor);
   }
 
   @Override

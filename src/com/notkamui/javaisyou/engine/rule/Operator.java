@@ -2,7 +2,7 @@ package com.notkamui.javaisyou.engine.rule;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.manager.ElementProvider;
+import com.notkamui.javaisyou.engine.manager.ElementEditor;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
 import com.notkamui.javaisyou.engine.rule.rulepart.Type;
@@ -51,9 +51,19 @@ public interface Operator extends RulePart {
     default void onSuperposition(RightOperand rightOperand, BoardElement first, BoardElement second,
                                  PropertyChecker checker) {}
 
-    default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {}
+    default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {}
+
+    default void onDeath(BoardElement dyingElement, RightOperand rightOperand, ElementEditor elementEditor) {}
 
     boolean acceptAsRight(Type rightOperand);
 
     boolean acceptAsRight(Property rightOperand);
+
+    default boolean isProhibition(LeftOperand leftOperand, RightOperand rightOperand) {
+        return false;
+    }
+
+    default boolean canBeForbidden(RightOperand rightOperand) {
+        return false;
+    }
 }

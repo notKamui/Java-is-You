@@ -36,7 +36,8 @@ public final class App {
     var levels = parseLevels(args, defaultRules);
 
     if (levels.isEmpty()) {
-      return List.of(Objects.requireNonNull(LevelBuilder.buildLevelFromFile("default-level.txt", defaultRules)));
+      return List.of(Objects.requireNonNull(LevelBuilder.buildLevelFromFile("default-level.txt",
+              defaultRules)));
     }
     return levels;
   }

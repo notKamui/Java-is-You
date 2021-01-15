@@ -2,7 +2,7 @@ package com.notkamui.javaisyou.engine.rule.rulepart.property;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.manager.ElementProvider;
+import com.notkamui.javaisyou.engine.manager.ElementEditor;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
 import com.notkamui.javaisyou.engine.rule.LeftOperand;
@@ -311,15 +311,15 @@ public sealed interface Property extends RightOperand {
         }
 
         @Override
-        public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {
+        public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {
             Objects.requireNonNull(leftOperand);
-            Objects.requireNonNull(provider);
+            Objects.requireNonNull(elementEditor);
 
-            var bombs = provider.elementsFiltered(e -> leftOperand.getAsType().equals(e.type()));
+            var bombs = elementEditor.elementsFiltered(e -> leftOperand.getAsType().equals(e.type()));
             bombs.forEach(bomb -> {
                 var x = bomb.x();
                 var y = bomb.y();
-                provider.elementsFiltered(e ->
+                elementEditor.elementsFiltered(e ->
                     x - e.x() >= -1 && x - e.x() <= 1 &&
                     y - e.y() >= -1 && y - e.y() <= 1
                 ).forEach(e -> e.setState(false));

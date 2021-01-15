@@ -3,6 +3,7 @@ package com.notkamui.javaisyou.utils;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.rule.Rule;
 import com.notkamui.javaisyou.engine.rule.RulePart;
+import com.notkamui.javaisyou.engine.rule.rulepart.HasOperator;
 import com.notkamui.javaisyou.engine.rule.rulepart.IsOperator;
 import com.notkamui.javaisyou.engine.rule.rulepart.Type;
 import com.notkamui.javaisyou.engine.rule.rulepart.property.Property;
@@ -25,6 +26,7 @@ class GameObjectFactory {
     Objects.requireNonNull(part);
     return switch (part) {
       case "IS" -> new IsOperator();
+      case "HAS" -> new HasOperator();
 
       case "YOU" -> new Property.You();
       case "DEFEAT" -> new Property.Defeat();

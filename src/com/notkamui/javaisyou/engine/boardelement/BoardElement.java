@@ -7,7 +7,7 @@ import com.notkamui.javaisyou.engine.rule.rulepart.Type;
 import javax.swing.*;
 import java.util.Objects;
 
-public final class BoardElement implements LocatedObject, Displayable {
+public final class BoardElement implements LocatedObject, Displayable, Cloneable {
   private boolean isAlive = true;
   private int x;
   private int y;
@@ -84,5 +84,14 @@ public final class BoardElement implements LocatedObject, Displayable {
 
   public int lastTurnMove() {
     return lastTurnMove;
+  }
+
+  public BoardElement clone() {
+    try {
+      return (BoardElement) super.clone();
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 }
