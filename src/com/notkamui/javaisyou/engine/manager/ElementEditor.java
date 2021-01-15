@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Represents objects that can provide BoardElements
+ * Represents objects that can provide and add BoardElements to itself
  */
-public interface ElementProvider {
+public interface ElementEditor {
 
   /**
    * Getter for a list of elements
@@ -24,4 +24,11 @@ public interface ElementProvider {
    * @return the filtered list of elements
    */
   List<BoardElement> elementsFiltered(Predicate<BoardElement> filter);
+
+  /**
+   * Adds an element to itself
+   *
+   * @param boardElement the element to add
+   */
+  void addElement(BoardElement boardElement);
 }

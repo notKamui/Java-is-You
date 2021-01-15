@@ -2,7 +2,7 @@ package com.notkamui.javaisyou.engine.rule;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.manager.ElementProvider;
+import com.notkamui.javaisyou.engine.manager.ElementEditor;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
 import com.notkamui.javaisyou.engine.rule.rulepart.Type;
@@ -81,10 +81,18 @@ public interface Operator extends RulePart {
      *
      * @param leftOperand  the left operand of the rule
      * @param rightOperand the right operand of the rule
-     * @param provider     the element provider
+     * @param elementEditor the element editor
      */
-    default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {
-    }
+    default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {}
+
+    /**
+     * Is applied when the dyingElement dies
+     *
+     * @param dyingElement the element that is dying
+     * @param rightOperand the right operand of the rule
+     * @param elementEditor the element editor
+     */
+    default void onDeath(BoardElement dyingElement, RightOperand rightOperand, ElementEditor elementEditor) {}
 
     /**
      * Checks if a Type is accepted as a right operand
@@ -101,4 +109,25 @@ public interface Operator extends RulePart {
      * @return true if accepted, false otherwise
      */
     boolean acceptAsRight(Property rightOperand);
+
+    /**
+     * Checks if a the rule is a prohibition
+     *
+     * @param leftOperand the left operand of the rule
+     * @param rightOperand the right operand of the rule
+     * @return true if is a prohibitions, false otherwise
+     */
+    default boolean isProhibition(LeftOperand leftOperand, RightOperand rightOperand) {
+        return false;
+    }
+
+    /**
+     * Checks if a right operand can be forbidden for this operator
+     *
+     * @param rightOperand the right operand of the rule
+     * @return true if can be forbidden, false otherwise
+     */
+    default boolean canBeForbidden(RightOperand rightOperand) {
+        return false;
+    }
 }

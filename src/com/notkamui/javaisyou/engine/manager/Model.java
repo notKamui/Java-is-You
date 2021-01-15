@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * This class represents the model of a level and serves to encapsulate its state.
  * A Model knows the elements of the level.
  */
-final class Model implements ElementProvider {
+final class Model implements ElementEditor {
   private final List<BoardElement> elements = new ArrayList<>();
 
   /**
@@ -31,7 +31,7 @@ final class Model implements ElementProvider {
    * Removes all dead elements (state == false)
    */
   void removeAllDead() {
-    elements.removeIf(e -> !e.state());
+    elements.removeIf(Predicate.not(BoardElement::state));
   }
 
   @Override
@@ -58,6 +58,12 @@ final class Model implements ElementProvider {
         .collect(Collectors.toList());
   }
 
+  @Override
+  public void addElement(BoardElement boardElement) {
+    Objects.requireNonNull(boardElement);
+    elements.add(boardElement);
+  }
+
   /**
    * The list of elements at given coordinates (there can be several elements on the same tile)
    *
@@ -68,4 +74,6 @@ final class Model implements ElementProvider {
   List<BoardElement> elementsAt(int x, int y) {
     return elementsFiltered(e -> e.x() == x && e.y() == y);
   }
+
+
 }

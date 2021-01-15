@@ -2,7 +2,7 @@ package com.notkamui.javaisyou.engine.rule.rulepart.property;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.manager.ElementProvider;
+import com.notkamui.javaisyou.engine.manager.ElementEditor;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
 import com.notkamui.javaisyou.engine.rule.LeftOperand;
@@ -18,7 +18,6 @@ import java.util.Objects;
  * A property knows its type and its images
  */
 public sealed interface Property extends RightOperand {
-
   // Movement
 
   /**
@@ -355,7 +354,7 @@ public sealed interface Property extends RightOperand {
     }
 
     @Override
-    public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {
+    public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor provider) {
       Objects.requireNonNull(leftOperand);
       Objects.requireNonNull(provider);
 

@@ -1,5 +1,6 @@
 package com.notkamui.javaisyou.engine.manager;
 
+
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.rule.*;
 import com.notkamui.javaisyou.engine.rule.rulepart.Type;
@@ -34,16 +35,16 @@ public final class RuleManager implements PropertyChecker {
 
   private static List<LeftOperand> toLeftOperands(List<BoardElement> elements) {
     return elements.stream()
-        .map(e -> e.rulePart().getAsLeftOperand())
-        .filter(l -> l != LeftOperand.NULL_LEFT_OPERAND)
-        .collect(Collectors.toList());
+            .map(e -> e.rulePart().getAsLeftOperand())
+            .filter(l -> l != LeftOperand.NULL_LEFT_OPERAND)
+            .collect(Collectors.toList());
   }
 
   private static List<RightOperand> toRightOperands(List<BoardElement> elements) {
     return elements.stream()
-        .map(e -> e.rulePart().getAsRightOperand())
-        .filter(r -> r != RightOperand.NULL_RIGHT_OPERAND)
-        .collect(Collectors.toList());
+            .map(e -> e.rulePart().getAsRightOperand())
+            .filter(r -> r != RightOperand.NULL_RIGHT_OPERAND)
+            .collect(Collectors.toList());
   }
 
   private void build(List<LeftOperand> leftOperands, Operator operator, List<RightOperand> rightOperands) {
@@ -53,7 +54,9 @@ public final class RuleManager implements PropertyChecker {
 
     rightOperands.forEach(rightOperand -> {
       if (rightOperand.acceptedAsRight(operator)) {
-        leftOperands.forEach(leftOperand -> rules.add(new Rule(leftOperand, operator, rightOperand)));
+        leftOperands.forEach(leftOperand -> {
+          rules.add(new Rule(leftOperand, operator, rightOperand));
+        });
       }
     });
   }
@@ -75,12 +78,27 @@ public final class RuleManager implements PropertyChecker {
 
   private void buildRules() {
     var operators = model.elementsFiltered(e -> e.rulePart().getAsOperator() != Operator.NULL_OPERATOR);
-    operators.forEach(operator -> buildOperatorRules(
-        operator.rulePart().getAsOperator(),
-        operator.x(),
-        operator.y()
-    ));
+    operators.forEach(operator -> {
+      buildOperatorRules(operator.rulePart().getAsOperator(), operator.x(), operator.y());
+    });
     rules.addAll(defaultRules);
+  }
+
+  private void removeForbiddenRules() {
+    var toRemove = new ArrayList<>();
+    for (var i = 0; i < rules.size(); i++) {
+      for (var j = i; j < rules.size(); j++) {
+        var first = rules.get(i);
+        var second = rules.get(j);
+        if (first != second) {
+          if (first.isIncompatible(second)) {
+            toRemove.add(first.isProhibition() ? second : first);
+          }
+        }
+      }
+    }
+    rules.removeIf(toRemove::contains);
+
   }
 
   /**
@@ -89,6 +107,7 @@ public final class RuleManager implements PropertyChecker {
   void update() {
     rules.clear();
     buildRules();
+    removeForbiddenRules();
   }
 
   /**

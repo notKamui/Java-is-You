@@ -2,12 +2,13 @@ package com.notkamui.javaisyou.engine.rule.rulepart;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.manager.ElementProvider;
+import com.notkamui.javaisyou.engine.manager.ElementEditor;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
 import com.notkamui.javaisyou.engine.rule.LeftOperand;
 import com.notkamui.javaisyou.engine.rule.Operator;
 import com.notkamui.javaisyou.engine.rule.RightOperand;
+import com.notkamui.javaisyou.engine.rule.RightOperandType;
 import com.notkamui.javaisyou.engine.rule.rulepart.property.Property;
 
 import javax.swing.*;
@@ -43,9 +44,9 @@ public record IsOperator() implements Operator {
   }
 
   @Override
-  public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {
+  public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {
     Objects.requireNonNull(rightOperand);
-    rightOperand.onRuleCreation(leftOperand, rightOperand, provider);
+    rightOperand.onRuleCreation(leftOperand, rightOperand, elementEditor);
   }
 
   @Override
@@ -68,5 +69,18 @@ public record IsOperator() implements Operator {
   @Override
   public ImageIcon image() {
     return icon;
+  }
+
+  @Override
+  public boolean isProhibition(LeftOperand leftOperand, RightOperand rightOperand) {
+    Objects.requireNonNull(leftOperand);
+    Objects.requireNonNull(rightOperand);
+    return leftOperand.equals(rightOperand);
+  }
+
+  @Override
+  public boolean canBeForbidden(RightOperand rightOperand) {
+    Objects.requireNonNull(rightOperand);
+    return rightOperand.operandType().equals(RightOperandType.TYPE);
   }
 }

@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -61,14 +62,24 @@ public final class LevelManager implements MovementObserver {
   }
 
   private void applySuperpositionRules(BoardElement first, BoardElement second) {
-    ruleManager.rulesOf(first.type()).forEach(rule -> rule.onSuperposition(first, second, ruleManager));
+    if (first.state() && second.state()) {
+      var rules = ruleManager.rulesOf(first.type());
+      rules.addAll(ruleManager.rulesOf(second.type()));
+      rules.forEach(rule -> rule.onSuperposition(first, second, ruleManager));
+    }
+  }
+
+  private void updateElement(BoardElement element) {
+    model.elementsAt(element.x(), element.y()).forEach(other -> {
+      applySuperpositionRules(element, other);
+    });
+    if (!element.state()) {
+      ruleManager.rulesOf(element.type()).forEach(r -> r.onDeath(element, model));
+    }
   }
 
   private void updateElements() {
-    model.elements().forEach(first -> model.elementsAt(first.x(), first.y()).forEach(second -> {
-      applySuperpositionRules(first, second);
-      applySuperpositionRules(second, first);
-    }));
+    model.elements().forEach(this::updateElement);
   }
 
   /**

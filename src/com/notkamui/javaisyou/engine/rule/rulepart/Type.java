@@ -1,10 +1,8 @@
 package com.notkamui.javaisyou.engine.rule.rulepart;
 
-import com.notkamui.javaisyou.engine.manager.ElementProvider;
-import com.notkamui.javaisyou.engine.rule.LeftOperand;
-import com.notkamui.javaisyou.engine.rule.Operator;
-import com.notkamui.javaisyou.engine.rule.RightOperand;
-import com.notkamui.javaisyou.engine.rule.RightOperandType;
+import com.notkamui.javaisyou.engine.boardelement.BoardElement;
+import com.notkamui.javaisyou.engine.manager.ElementEditor;
+import com.notkamui.javaisyou.engine.rule.*;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -52,16 +50,16 @@ public record Type(ImageIcon image, ImageIcon elemImage) implements LeftOperand,
   }
 
   @Override
-  public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {
+  public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {
     Objects.requireNonNull(leftOperand);
     Objects.requireNonNull(rightOperand);
-    Objects.requireNonNull(provider);
+    Objects.requireNonNull(elementEditor);
 
     var oldType = leftOperand.getAsType();
     if (oldType == this) {
       return;
     }
-    var toModify = provider.elementsFiltered(e -> oldType.equals(e.type()));
+    var toModify = elementEditor.elementsFiltered(e -> oldType.equals(e.type()));
     toModify.forEach(element -> {
       element.setType(this);
 //      if (element.rulePart() != RulePart.NULL_RULE_PART) { // text -> entity
@@ -74,5 +72,16 @@ public record Type(ImageIcon image, ImageIcon elemImage) implements LeftOperand,
   @Override
   public Type getAsType() {
     return this;
+  }
+
+  @Override
+  public void onDeath(BoardElement dyingElement, ElementEditor elementEditor) {
+    Objects.requireNonNull(dyingElement);
+    Objects.requireNonNull(elementEditor);
+    var clone = dyingElement.clone();
+    Objects.requireNonNull(clone);
+    clone.setType(this);
+    clone.setState(true);
+    elementEditor.addElement(clone);
   }
 }

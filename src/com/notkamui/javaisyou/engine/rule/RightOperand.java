@@ -3,7 +3,7 @@ package com.notkamui.javaisyou.engine.rule;
 
 import com.notkamui.javaisyou.engine.Movement;
 import com.notkamui.javaisyou.engine.boardelement.BoardElement;
-import com.notkamui.javaisyou.engine.manager.ElementProvider;
+import com.notkamui.javaisyou.engine.manager.ElementEditor;
 import com.notkamui.javaisyou.engine.manager.MovementObserver;
 import com.notkamui.javaisyou.engine.manager.PropertyChecker;
 
@@ -81,14 +81,21 @@ public interface RightOperand extends RulePart {
   }
 
   /**
+   * Is applied when the dyingElement dies
+   *
+   * @param dyingElement the element that is dying
+   * @param elementEditor the element editor
+   */
+  default void onDeath(BoardElement dyingElement, ElementEditor elementEditor) {}
+
+  /**
    * Is applied when the rule is created
    *
    * @param leftOperand  the left operand of the rule
    * @param rightOperand the right operand of the rule
-   * @param provider     the element provider
+   * @param elementEditor the element editor
    */
-  default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementProvider provider) {
-  }
+  default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {}
 
   /**
    * Checks if an Operator is accepted as a right operand
