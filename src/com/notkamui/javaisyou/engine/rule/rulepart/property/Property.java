@@ -205,7 +205,7 @@ public sealed interface Property extends RightOperand {
       Objects.requireNonNull(checker);
       if (checker.hasProperty(RightOperandType.YOU, first.type())) {
         first.setState(false);
-      } else {
+      } else if (checker.hasProperty(RightOperandType.YOU, second.type())) {
         second.setState(false);
       }
     }
