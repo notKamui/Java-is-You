@@ -15,14 +15,14 @@ public enum RightOperandType {
     TYPE,
 
     /**
-     * Stop
-     */
-    STOP,
-
-    /**
      * Push
      */
     PUSH,
+
+    /**
+     * Stop
+     */
+    STOP,
 
     /**
      * Passive

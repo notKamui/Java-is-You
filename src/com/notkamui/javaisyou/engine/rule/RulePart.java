@@ -1,6 +1,6 @@
 package com.notkamui.javaisyou.engine.rule;
 
-import com.notkamui.javaisyou.engine.boardelement.HasImage;
+import com.notkamui.javaisyou.engine.HasImage;
 
 import javax.swing.*;
 
