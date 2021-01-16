@@ -1,66 +1,79 @@
 package com.notkamui.javaisyou.engine.manager;
 
+import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.boardelement.Displayable;
-import com.notkamui.javaisyou.engine.Rule;
-import com.notkamui.javaisyou.engine.boardelement.element.BoardElement;
-import com.notkamui.javaisyou.engine.boardelement.element.Word;
-import com.notkamui.javaisyou.engine.type.EntityWrapper;
-import com.notkamui.javaisyou.engine.type.WordWrapper;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-class Model {
+/**
+ * This class represents the model of a level and serves to encapsulate its state.
+ * A Model knows the elements of the level.
+ */
+final class Model implements ElementEditor {
+  private final List<BoardElement> elements = new ArrayList<>();
 
-  private final List<EntityWrapper> entityWrappers = new ArrayList<>();
-  private final WordWrapper wordWrapper;
-  private final List<Rule> activeRules = new ArrayList<>();
-
-  Model(List<EntityWrapper> entityWrappers, WordWrapper wordWrapper) {
-    Objects.requireNonNull(entityWrappers);
-    Objects.requireNonNull(wordWrapper);
-    this.entityWrappers.addAll(entityWrappers);
-    this.wordWrapper = wordWrapper;
+  /**
+   * Constructor for the Model
+   *
+   * @param elements the list of elements of the level
+   */
+  Model(List<BoardElement> elements) {
+    Objects.requireNonNull(elements);
+    this.elements.addAll(elements);
   }
 
-  void addRule(Rule rule) {
-    Objects.requireNonNull(rule);
-    activeRules.add(rule);
-  }
-
-  void removeRule(Rule rule) {
-    Objects.requireNonNull(rule);
-    activeRules.remove(rule);
-  }
-
+  /**
+   * Removes all dead elements (state == false)
+   */
   void removeAllDead() {
-    entityWrappers.forEach(EntityWrapper::removeAllDead);
-    wordWrapper.removeAllDead();
+    elements.removeIf(Predicate.not(BoardElement::state));
   }
 
-  List<BoardElement> elements() {
-    var elements = new ArrayList<BoardElement>();
-    entityWrappers.forEach(w -> elements.addAll(w.entities()));
-    elements.addAll(wordWrapper.words());
-    return elements;
+  @Override
+  public List<BoardElement> elements() {
+    return List.copyOf(elements);
   }
 
+  /**
+   * The list of elements as Displayable
+   * (To preserve encapsulation)
+   *
+   * @return the list of elements as Displayable ordered by their last turn of movement
+   */
   List<Displayable> displayableElements() {
-    return new ArrayList<>(elements());
+    return elements.stream()
+        .sorted(Comparator.comparingInt(BoardElement::lastTurnMove))
+        .collect(Collectors.toList());
   }
 
-  List<BoardElement> getElements(int x, int y) {
-    return elements().stream()
-            .filter(e -> e.x() == x && e.y() == y)
-            .collect(Collectors.toList());
+  @Override
+  public List<BoardElement> elementsFiltered(Predicate<BoardElement> filter) {
+    return elements.stream()
+        .filter(filter)
+        .collect(Collectors.toList());
   }
 
-  List<Word> getWords(int x, int y) {
-    return wordWrapper.words().stream()
-            .filter(e -> e.x() == x && e.y() == y)
-            .collect(Collectors.toList());
+  @Override
+  public void addElement(BoardElement boardElement) {
+    Objects.requireNonNull(boardElement);
+    elements.add(boardElement);
   }
+
+  /**
+   * The list of elements at given coordinates (there can be several elements on the same tile)
+   *
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @return the list of elements at (x,y)
+   */
+  List<BoardElement> elementsAt(int x, int y) {
+    return elementsFiltered(e -> e.x() == x && e.y() == y);
+  }
+
 
 }

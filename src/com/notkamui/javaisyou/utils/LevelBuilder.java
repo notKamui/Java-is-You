@@ -1,102 +1,100 @@
 package com.notkamui.javaisyou.utils;
 
-import com.notkamui.javaisyou.engine.babaoperator.BabaOperator;
-import com.notkamui.javaisyou.engine.boardelement.Direction;
-import com.notkamui.javaisyou.engine.boardelement.element.*;
+import com.notkamui.javaisyou.engine.boardelement.BoardElement;
 import com.notkamui.javaisyou.engine.manager.LevelManager;
-import com.notkamui.javaisyou.engine.property.MovementProperty;
-import com.notkamui.javaisyou.engine.property.PassiveProperty;
-import com.notkamui.javaisyou.engine.type.EntityWrapper;
-import com.notkamui.javaisyou.engine.type.WordWrapper;
+import com.notkamui.javaisyou.engine.rule.Rule;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.nio.file.FileSystems;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
+/**
+ * This class only serves to create a LevelManager from a given file.
+ * There is currently no integrity of validity check for said file.
+ */
+public final class LevelBuilder {
+  private final static String TEXT = "TEXT";
 
-public class LevelBuilder {
-
-    public static LevelManager buildLevelFromFile(String fname) {
-        Objects.requireNonNull(fname);
-        try {
-            var lines = Files.readAllLines(
-                    FileSystems.getDefault().getPath("resources/levels", fname)
-            );
-            var size = lines.get(0).split(" ");
-            var width = Integer.parseInt(size[0]);
-            var height = Integer.parseInt(size[1]);
-            var wordWrapper = new WordWrapper(new ImageIcon(""));
-            var entityWrappers = parseBoardElements(lines, wordWrapper);
-            return new LevelManager(width, height, entityWrappers, wordWrapper);
-        } catch (IOException e) {
-            System.out.println("Error while opening or reading file");
-            return null;
-        }
+  /**
+   * Builds a LevelManager from a given file
+   *
+   * @param filename        the level file's name
+   * @param additionalRules the additional default rules of the level (given by --execute)
+   * @return the built LevelManager
+   * @throws IOException when there's an error while reading the file
+   */
+  public static LevelManager buildLevelFromFile(String filename, List<String[]> additionalRules) throws IOException {
+    Objects.requireNonNull(filename);
+    var factory = new GameObjectFactory();
+    var path = Path.of("resources/levels", filename);
+    try (var buffer = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+      final var lines = buffer.lines().collect(Collectors.toList());
+      var size = lines.get(0).split(" ");
+      var width = Integer.parseInt(size[0]);
+      var height = Integer.parseInt(size[1]);
+      var boardElements = parseBoardElements(lines, factory);
+      var defaultRules = new ArrayList<Rule>();
+      defaultRules.add(factory.provideRule(TEXT, "IS", "PUSH"));
+      additionalRules.forEach(rule -> defaultRules.add(factory.provideRule(rule[0], rule[1], rule[2])));
+      return new LevelManager(width, height, boardElements, defaultRules);
     }
+  }
 
-    private static List<EntityWrapper> parseBoardElements(List<String> lines, WordWrapper wordWrapper) {
-        Objects.requireNonNull(lines);
-        Objects.requireNonNull(wordWrapper);
-        var entityWrappers = new ArrayList<EntityWrapper>();
-        for (var i = 0; i < lines.size(); i++) {
-            var line = lines.get(i);
-            if (!line.isEmpty()) {
-                switch (line.charAt(0)) {
-                    case 'n' -> entityWrappers.add(parseNounsEntities(lines, i, wordWrapper));
-                    case 'o', 'p' -> parseOpProps(lines, i, wordWrapper);
-                }
-            }
+  private static List<BoardElement> parseBoardElements(List<String> lines, GameObjectFactory factory) {
+    Objects.requireNonNull(lines);
+    Objects.requireNonNull(factory);
+    var boardElements = new ArrayList<BoardElement>();
+    for (var i = 0; i < lines.size(); i++) {
+      var line = lines.get(i);
+      if (!line.isEmpty()) {
+        switch (line.charAt(0)) {
+          case 'n' -> boardElements.addAll(parseNounsEntities(lines, i, factory));
+          case 'o', 'p' -> boardElements.addAll(parseOpProps(lines, i, factory));
         }
-        return entityWrappers;
+      }
     }
+    return boardElements;
+  }
 
-    private static EntityWrapper parseNounsEntities(List<String> lines, int index, WordWrapper wrapper) {
-        Objects.requireNonNull(lines);
-        Objects.requireNonNull(wrapper);
-        var assets = lines.get(index).split(" ");
-        var dir = "resources/assets/nouns/" + assets[1] + "/";
-        var elemPic = dir + assets[1] + "_0.gif";
-        var nounPic = dir + "Text_" + assets[1] + "_0.gif";
-        var entityWrapper = new EntityWrapper(new ImageIcon(elemPic), new ImageIcon(nounPic));
-        for (var i = index+1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
-            var split = lines.get(i).split(" ");
-            var direct = Direction.values()[Integer.parseInt(split[4])];
-            var x = Integer.parseInt(split[2]);
-            var y = Integer.parseInt(split[3]);
-            if (split[1].equals("e")) {
-                entityWrapper.addEntity(new Entity(direct, x, y));
-            } else if (split[1].equals("t")) {
-                wrapper.addWord(new Noun(direct, x, y, entityWrapper));
-            }
-        }
-        return entityWrapper;
+  private static List<BoardElement> parseNounsEntities(List<String> lines, int index, GameObjectFactory factory) {
+    Objects.requireNonNull(lines);
+    Objects.requireNonNull(factory);
+    var type = lines.get(index).split(" ")[1];
+    factory.addType(type);
+    return parseTypeElement(lines, index, factory, type);
+  }
+
+  private static List<BoardElement> parseTypeElement(List<String> lines, int index, GameObjectFactory factory,
+                                                     String type) {
+    var boardElements = new ArrayList<BoardElement>();
+    for (var i = index + 1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
+      var split = lines.get(i).split(" ");
+      var x = Integer.parseInt(split[2]);
+      var y = Integer.parseInt(split[3]);
+      if (split[1].equals("e")) {
+        boardElements.add(factory.provideElement(x, y, "NULL_RULE_PART", type));
+      } else if (split[1].equals("t")) {
+        boardElements.add(factory.provideElement(x, y, type, "TEXT"));
+      }
     }
+    return boardElements;
+  }
 
-    private static void parseOpProps(List<String> lines, int index, WordWrapper wrapper) {
-        Objects.requireNonNull(lines);
-        Objects.requireNonNull(wrapper);
-        for (var i = index+1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
-            var split = lines.get(i).split(" ");
-            var dir = Direction.values()[Integer.parseInt(split[3])];
-            var x = Integer.parseInt(split[1]);
-            var y = Integer.parseInt(split[2]);
-            switch (lines.get(index).split(" ")[1]) {
-                case "IS" -> wrapper.addWord((new TextualOperator(dir, x, y, new BabaOperator.Is())));
-
-                case "YOU" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.You()));
-                case "DEFEAT" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Defeat()));
-                case "SINK" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Sink()));
-                case "HOT" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Hot()));
-                case "MELT" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Melt()));
-                case "WIN" -> wrapper.addWord(new TextualProperty(dir, x, y, new PassiveProperty.Win()));
-                case "PUSH" -> wrapper.addWord(new TextualProperty(dir, x, y, new MovementProperty.Push()));
-                case "STOP" -> wrapper.addWord(new TextualProperty(dir, x, y, new MovementProperty.Stop()));
-            }
-        }
+  private static List<BoardElement> parseOpProps(List<String> lines, int index, GameObjectFactory factory) {
+    Objects.requireNonNull(lines);
+    var boardElements = new ArrayList<BoardElement>();
+    var rulePart = lines.get(index).split(" ")[1];
+    for (var i = index + 1; i < lines.size() && !lines.get(i).isEmpty(); i++) {
+      var split = lines.get(i).split(" ");
+      var x = Integer.parseInt(split[1]);
+      var y = Integer.parseInt(split[2]);
+      boardElements.add(factory.provideElement(x, y, rulePart, "TEXT"));
     }
-
+    return boardElements;
+  }
 }

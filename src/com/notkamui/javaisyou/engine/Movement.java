@@ -1,3 +1,6 @@
 package com.notkamui.javaisyou.engine;
 
-public record Movement(int vectX, int vectY) {}
+/**
+ * This record represents a movement with 2D vector
+ */
+public record Movement(int vectorX, int vectorY) {}
