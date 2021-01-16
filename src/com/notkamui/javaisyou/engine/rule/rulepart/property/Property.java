@@ -205,7 +205,7 @@ public sealed interface Property extends RightOperand {
       Objects.requireNonNull(checker);
       if (checker.hasProperty(RightOperandType.YOU, first.type())) {
         first.setState(false);
-      } else {
+      } else if (checker.hasProperty(RightOperandType.YOU, second.type())) {
         second.setState(false);
       }
     }
@@ -357,7 +357,7 @@ public sealed interface Property extends RightOperand {
     public void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor provider) {
       Objects.requireNonNull(leftOperand);
       Objects.requireNonNull(provider);
-
+      System.out.println("boomed");
       var bombs = provider.elementsFiltered(e -> leftOperand.getAsType().equals(e.type()));
       bombs.forEach(bomb -> {
         var x = bomb.x();
