@@ -330,7 +330,7 @@ public sealed interface Property extends RightOperand {
    */
   record Boom() implements Property {
     private final static RightOperandType type = RightOperandType.BOOM;
-    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/BOOM/Prop_BOOM.gif");
+    private final static ImageIcon icon = new ImageIcon("resources/assets/properties/BOOM/Prop_BOOM_0.gif");
 
     @Override
     public RightOperandType operandType() {
