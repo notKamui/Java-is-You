@@ -74,8 +74,6 @@ public final class App {
           levels.addAll(listOfLevelsFromDir(args[i + 1], defaultRules));
           i += 2;
         }
-        default -> {
-        }
       }
     }
     return levels;

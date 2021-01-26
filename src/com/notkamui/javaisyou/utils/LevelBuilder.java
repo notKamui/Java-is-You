@@ -55,8 +55,6 @@ public final class LevelBuilder {
         switch (line.charAt(0)) {
           case 'n' -> boardElements.addAll(parseNounsEntities(lines, i, factory));
           case 'o', 'p' -> boardElements.addAll(parseOpProps(lines, i, factory));
-          default -> {
-          }
         }
       }
     }

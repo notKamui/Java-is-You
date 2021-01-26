@@ -54,8 +54,6 @@ final class GameController {
               System.out.println("Force quitting game...");
               Runtime.getRuntime().exit(0);
             }
-            default -> {
-            }
           }
           level.update();
         }
