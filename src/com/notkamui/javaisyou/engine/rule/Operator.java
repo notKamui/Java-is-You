@@ -74,16 +74,19 @@ public interface Operator extends RulePart {
      * @param checker      the property checker
      */
     default void onSuperposition(RightOperand rightOperand, BoardElement first, BoardElement second, PropertyChecker checker) {
+        // DO NOTHING
     }
 
     /**
      * Is applied when the rule is created
      *
-     * @param leftOperand  the left operand of the rule
-     * @param rightOperand the right operand of the rule
+     * @param leftOperand   the left operand of the rule
+     * @param rightOperand  the right operand of the rule
      * @param elementEditor the element editor
      */
-    default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {}
+    default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {
+        // DO NOTHING
+    }
 
     /**
      * Is applied when the dyingElement dies
@@ -92,7 +95,9 @@ public interface Operator extends RulePart {
      * @param rightOperand the right operand of the rule
      * @param elementEditor the element editor
      */
-    default void onDeath(BoardElement dyingElement, RightOperand rightOperand, ElementEditor elementEditor) {}
+    default void onDeath(BoardElement dyingElement, RightOperand rightOperand, ElementEditor elementEditor) {
+        // DO NOTHING
+    }
 
     /**
      * Checks if a Type is accepted as a right operand

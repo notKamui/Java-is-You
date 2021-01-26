@@ -78,24 +78,29 @@ public interface RightOperand extends RulePart {
    * @param checker the property checker
    */
   default void onSuperposition(BoardElement first, BoardElement second, PropertyChecker checker) {
+    // DO NOTHING
   }
 
   /**
    * Is applied when the dyingElement dies
    *
-   * @param dyingElement the element that is dying
+   * @param dyingElement  the element that is dying
    * @param elementEditor the element editor
    */
-  default void onDeath(BoardElement dyingElement, ElementEditor elementEditor) {}
+  default void onDeath(BoardElement dyingElement, ElementEditor elementEditor) {
+    // DO NOTHING
+  }
 
   /**
    * Is applied when the rule is created
    *
-   * @param leftOperand  the left operand of the rule
-   * @param rightOperand the right operand of the rule
+   * @param leftOperand   the left operand of the rule
+   * @param rightOperand  the right operand of the rule
    * @param elementEditor the element editor
    */
-  default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {}
+  default void onRuleCreation(LeftOperand leftOperand, RightOperand rightOperand, ElementEditor elementEditor) {
+    // DO NOTHING
+  }
 
   /**
    * Checks if an Operator is accepted as a right operand
