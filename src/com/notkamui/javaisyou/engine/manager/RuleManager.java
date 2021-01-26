@@ -54,9 +54,7 @@ public final class RuleManager implements PropertyChecker {
 
     rightOperands.forEach(rightOperand -> {
       if (rightOperand.acceptedAsRight(operator)) {
-        leftOperands.forEach(leftOperand -> {
-          rules.add(new Rule(leftOperand, operator, rightOperand));
-        });
+        leftOperands.forEach(leftOperand -> rules.add(new Rule(leftOperand, operator, rightOperand)));
       }
     });
   }
@@ -78,9 +76,7 @@ public final class RuleManager implements PropertyChecker {
 
   private void buildRules() {
     var operators = model.elementsFiltered(e -> e.rulePart().getAsOperator() != Operator.NULL_OPERATOR);
-    operators.forEach(operator -> {
-      buildOperatorRules(operator.rulePart().getAsOperator(), operator.x(), operator.y());
-    });
+    operators.forEach(operator -> buildOperatorRules(operator.rulePart().getAsOperator(), operator.x(), operator.y()));
     rules.addAll(defaultRules);
   }
 
@@ -90,10 +86,8 @@ public final class RuleManager implements PropertyChecker {
       for (var j = i; j < rules.size(); j++) {
         var first = rules.get(i);
         var second = rules.get(j);
-        if (first != second) {
-          if (first.isIncompatible(second)) {
-            toRemove.add(first.isProhibition() ? second : first);
-          }
+        if (first != second && first.isIncompatible(second)) {
+          toRemove.add(first.isProhibition() ? second : first);
         }
       }
     }

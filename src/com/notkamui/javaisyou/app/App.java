@@ -90,7 +90,7 @@ public final class App {
         > --levels [folder name]
         > --execute [left_operand] [operator] [right_operand]
         --level and --levels are incompatible""".trim());
-    System.exit(1);
+    Runtime.getRuntime().exit(1);
   }
 
   private static List<LevelManager> listOfLevelsFromDir(String dirName, List<String[]> defaultRules) throws IOException {

@@ -127,7 +127,7 @@ public sealed interface Property extends RightOperand {
       Objects.requireNonNull(first);
       Objects.requireNonNull(second);
       Objects.requireNonNull(checker);
-      Properties.melting(first, second, checker);
+      PropertyUtils.melting(first, second, checker);
     }
 
     @Override
@@ -165,7 +165,7 @@ public sealed interface Property extends RightOperand {
       Objects.requireNonNull(first);
       Objects.requireNonNull(second);
       Objects.requireNonNull(checker);
-      Properties.melting(first, second, checker);
+      PropertyUtils.melting(first, second, checker);
     }
 
     @Override

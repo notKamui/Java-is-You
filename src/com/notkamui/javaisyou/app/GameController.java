@@ -52,7 +52,7 @@ final class GameController {
             case RIGHT -> level.moveYou(Direction.EAST);
             case P -> {
               System.out.println("Force quitting game...");
-              System.exit(0);
+              Runtime.getRuntime().exit(0);
             }
           }
           level.update();
@@ -63,11 +63,11 @@ final class GameController {
         System.out.println("Level cleared !");
       } else {
         System.out.println("Level failed...\nExiting game.");
-        System.exit(0);
+        Runtime.getRuntime().exit(0);
       }
     }));
     System.out.println("All levels cleared !");
-    System.exit(0);
+    Runtime.getRuntime().exit(0);
   }
 
   private void render(ApplicationContext context, LevelManager level, int width, int height) {

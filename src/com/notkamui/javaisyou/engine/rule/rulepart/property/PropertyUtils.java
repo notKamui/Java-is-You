@@ -7,7 +7,7 @@ import com.notkamui.javaisyou.engine.rule.RightOperandType;
 /**
  * Utility class for methods on properties
  */
-final class Properties {
+final class PropertyUtils {
 
   /**
    * Check and applies the HOT/MELT properties for two elements
