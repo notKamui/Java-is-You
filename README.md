@@ -1,5 +1,6 @@
 # Java is You
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a347cb7081b743c7810505bfdf38dd00)](https://app.codacy.com/gh/notKamui/Java-is-You?utm_source=github.com&utm_medium=referral&utm_content=notKamui/Java-is-You&utm_campaign=Badge_Grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/notkamui/java-is-you/badge/main)](https://www.codefactor.io/repository/github/notkamui/java-is-you/overview/main)
 
 by Jimmy "notKamui" Teillard & Lorris "ZwenDo" Creantor\
