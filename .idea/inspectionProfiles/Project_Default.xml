@@ -4,5 +4,10 @@
     <inspection_tool class="AntDuplicateTargetsInspection" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="AntMissingPropertiesFileInspection" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="AntResolveInspection" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="MisspelledHeader" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="CUSTOM_HEADERS">
+        <header value="Ant-Version" />
+      </option>
+    </inspection_tool>
   </profile>
 </component>
