@@ -12,8 +12,8 @@ Support the real game by actually buying it !
 ## Launching the game
 
 Make sure that :
--   You have the Java JRE 15+ installed
--   `baba.jar` and the `resources` folder are in the same directory
+- You have the Java JRE 16 installed
+- `baba.jar` and the `resources` folder are in the same directory
 -   All levels are in `resources/levels`
 
 Run the game with
