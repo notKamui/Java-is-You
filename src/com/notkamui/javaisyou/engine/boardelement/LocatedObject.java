@@ -5,17 +5,17 @@ package com.notkamui.javaisyou.engine.boardelement;
  */
 public interface LocatedObject {
 
-  /**
-   * Getter for the x coordinate
-   *
-   * @return the x coordinate
-   */
-  int x();
+    /**
+     * Getter for the x coordinate
+     *
+     * @return the x coordinate
+     */
+    int x();
 
-  /**
-   * Getter for the y coordinate
-   *
-   * @return the y coordinate
-   */
-  int y();
+    /**
+     * Getter for the y coordinate
+     *
+     * @return the y coordinate
+     */
+    int y();
 }

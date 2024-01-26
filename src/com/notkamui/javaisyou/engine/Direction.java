@@ -7,20 +7,42 @@ public enum Direction {
     /**
      * North
      */
-    NORTH,
+    NORTH {
+        @Override
+        public Movement vector() {
+            return new Movement(0, -1);
+        }
+    },
 
     /**
      * West
      */
-    WEST,
+    WEST {
+        @Override
+        public Movement vector() {
+            return new Movement(-1, 0);
+        }
+    },
 
     /**
      * East
      */
-    EAST,
+    EAST {
+        @Override
+        public Movement vector() {
+            return new Movement(1, 0);
+        }
+    },
 
     /**
      * South
      */
-    SOUTH
+    SOUTH {
+        @Override
+        public Movement vector() {
+            return new Movement(0, 1);
+        }
+    };
+
+    public abstract Movement vector();
 }

@@ -91,8 +91,8 @@ public interface Operator extends RulePart {
     /**
      * Is applied when the dyingElement dies
      *
-     * @param dyingElement the element that is dying
-     * @param rightOperand the right operand of the rule
+     * @param dyingElement  the element that is dying
+     * @param rightOperand  the right operand of the rule
      * @param elementEditor the element editor
      */
     default void onDeath(BoardElement dyingElement, RightOperand rightOperand, ElementEditor elementEditor) {
@@ -118,7 +118,7 @@ public interface Operator extends RulePart {
     /**
      * Checks if a the rule is a prohibition
      *
-     * @param leftOperand the left operand of the rule
+     * @param leftOperand  the left operand of the rule
      * @param rightOperand the right operand of the rule
      * @return true if is a prohibitions, false otherwise
      */

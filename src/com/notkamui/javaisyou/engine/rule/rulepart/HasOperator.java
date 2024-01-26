@@ -17,45 +17,45 @@ import java.util.Objects;
  * When an element of the left type disappear, it is replaced by an element of the right type
  */
 public record HasOperator() implements Operator {
-  private final static ImageIcon icon = new ImageIcon("resources/assets/operators/HAS/Op_HAS.gif");
+    private final static ImageIcon icon = new ImageIcon("resources/assets/operators/HAS/Op_HAS.gif");
 
-  @Override
-  public boolean onMove(RightOperand rightOperand, BoardElement trigger, BoardElement receiver,
-                        PropertyChecker checker, Movement movement, MovementObserver observer) {
-    Objects.requireNonNull(rightOperand);
-    Objects.requireNonNull(trigger);
-    Objects.requireNonNull(receiver);
-    Objects.requireNonNull(movement);
-    Objects.requireNonNull(observer);
-    return true;
-  }
+    @Override
+    public boolean onMove(RightOperand rightOperand, BoardElement trigger, BoardElement receiver,
+                          PropertyChecker checker, Movement movement, MovementObserver observer) {
+        Objects.requireNonNull(rightOperand);
+        Objects.requireNonNull(trigger);
+        Objects.requireNonNull(receiver);
+        Objects.requireNonNull(movement);
+        Objects.requireNonNull(observer);
+        return true;
+    }
 
-  @Override
-  public boolean acceptAsRight(Type rightOperand) {
-    Objects.requireNonNull(rightOperand);
-    return true;
-  }
+    @Override
+    public boolean acceptAsRight(Type rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        return true;
+    }
 
-  @Override
-  public boolean acceptAsRight(Property rightOperand) {
-    Objects.requireNonNull(rightOperand);
-    return false;
-  }
+    @Override
+    public boolean acceptAsRight(Property rightOperand) {
+        Objects.requireNonNull(rightOperand);
+        return false;
+    }
 
-  @Override
-  public Operator getAsOperator() {
-    return this;
-  }
+    @Override
+    public Operator getAsOperator() {
+        return this;
+    }
 
-  @Override
-  public void onDeath(BoardElement dyingElement, RightOperand rightOperand, ElementEditor elementEditor) {
-    Objects.requireNonNull(dyingElement);
-    Objects.requireNonNull(rightOperand);
-    rightOperand.onDeath(dyingElement, elementEditor);
-  }
+    @Override
+    public void onDeath(BoardElement dyingElement, RightOperand rightOperand, ElementEditor elementEditor) {
+        Objects.requireNonNull(dyingElement);
+        Objects.requireNonNull(rightOperand);
+        rightOperand.onDeath(dyingElement, elementEditor);
+    }
 
-  @Override
-  public ImageIcon image() {
-    return icon;
-  }
+    @Override
+    public ImageIcon image() {
+        return icon;
+    }
 }

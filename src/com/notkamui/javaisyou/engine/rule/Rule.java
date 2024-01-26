@@ -80,7 +80,7 @@ public record Rule(LeftOperand leftOperand, Operator operator, RightOperand righ
     /**
      * Is applied when the dyingElement dies
      *
-     * @param dyingElement the element that is dying
+     * @param dyingElement  the element that is dying
      * @param elementEditor the element editor
      */
     public void onDeath(BoardElement dyingElement, ElementEditor elementEditor) {
@@ -115,6 +115,6 @@ public record Rule(LeftOperand leftOperand, Operator operator, RightOperand righ
      */
     public boolean isIncompatible(Rule other) {
         return (leftOperand.equals(other.leftOperand) && operator.equals(other.operator)) &&
-                (isProhibition() && other.canBeForbidden() || other.isProhibition() && canBeForbidden());
+            (isProhibition() && other.canBeForbidden() || other.isProhibition() && canBeForbidden());
     }
 }

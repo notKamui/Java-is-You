@@ -4,7 +4,7 @@
     </description>
 
     <property name="app.name" value="baba"/>
-    <property name="java.compile.version" value="16"/>
+    <property name="java.compile.version" value="21"/>
     <property name="src.dir" location="src"/>
     <property name="build.dir" location="classes"/>
     <property name="lib.dir" location="lib"/>
@@ -30,7 +30,6 @@
                 destdir="${build.dir}"
                 includeantruntime="false"
         >
-            <compilerarg line="--enable-preview --release=${java.compile.version}"/>
         </javac>
     </target>
 
@@ -61,7 +60,6 @@
 
     <target name="run" depends="build, input-run-args">
         <java jar="${app.name}.jar" fork="true">
-            <jvmarg line="--enable-preview"/>
             <arg line="${args}"/>
         </java>
     </target>
@@ -69,7 +67,6 @@
     <target name="javadoc" depends="init">
         <javadoc sourcepath="${src.dir}" destdir="${javadoc.dir}">
             <classpath refid="classpath"/>
-            <arg line="--enable-preview --release=${java.compile.version}"/>
         </javadoc>
     </target>
 </project>
